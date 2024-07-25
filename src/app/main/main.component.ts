@@ -10,4 +10,11 @@ import { RouterModule } from '@angular/router';
 })
 export class MainComponent {
 
+  toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar) {
+      sidebar.classList.toggle('show');
+    }
+  }
+
 }

@@ -1,4 +1,49 @@
 <div class="wrapper">
-    <h1>Classes of the Day</h1>
-    <p>home works!</p>
+    <div class="header">
+        <h1>Classes of the Day</h1>
+        <div class="notification-icon" (click)="openModal()">
+            <i class="fa fa-bell-o fa-2x" aria-hidden="true"></i>
+        </div>
+    </div>
+    <div class="cards-container">
+        <div class="card">
+            <img src="./assets/SCTS.jfif" alt="Class 1">
+            <div class="card-title">Scientific and Critical Thinking Skills</div>
+            <div class="card-footer">
+                <p class="subjecttime">8:00AM - 9:00AM</p></div>
+        </div>
+        <div class="card">
+            <img src="./assets/math.jfif" alt="Class 2">
+            <div class="card-title">Mathematical and Problem-solving Skills</div>
+            <div class="card-footer">
+                <p class="subjecttime">9:00AM - 10:00AM</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="./assets/understanding.jpg" alt="Class 3">
+            <div class="card-title">Understanding the Self and Society</div>
+            <div class="card-footer">
+                <p class="subjecttime">10:00AM - 11:00AM</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="./assets/life.jpg" alt="Class 4">
+            <div class="card-title">Life and Career Skills</div>
+            <div class="card-footer">
+                <p class="subjecttime">1:00PM - 2:00PM</p>
+            </div>
+        </div>
+        <!-- <div class="card">
+            <img src="image4.jpg" alt="Class 4">
+            <div class="card-title">Class 4</div>
+        </div> -->
+    </div>
+</div>
+
+<div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <h2>Notifications</h2>
+        <p>No new notifications</p>
+    </div>
 </div>
