@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="sidebar">
+        <div class="course-details">
+            <img src="./assets/SCTS.jfif" alt="Profile Picture" class="profile-pic">
+            <h2>Scientific and critical thinking</h2>
+            <h6>8:00AM - 9:00AM</h6>
+        </div>
+        <ul>
+            <!-- <li><a href="#" class="active">My Virtual Classroom</a></li> -->
+            <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">Modules</a></li>
+            <li><a href="#">Students</a></li>
+            <!-- <li><a href="#">Messages</a></li> -->
+        </ul>
+    </div>
+    <div class="main-content">
+        <!-- <h1>My Modules</h1> -->
+        <div class="header">
+            <h1>My Modules</h1>
+            <div class="notification-icon" (click)="openModal()">
+                <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="modules">
+            <div class="module">
+                <a href="#">First Aid: A Necessity</a>
+                <p>Aug 17, 2023</p>
+            </div>
+            <div class="module">
+                <a href="#">How do we breathe</a>
+                <p>Aug 22, 2023</p>
+            </div>
+            <div class="module">
+                <a href="#">My Health My Responsibility</a>
+                <p>Aug 29, 2023</p>
+            </div>
+            <div class="module">
+                <a href="#">Wealth of the Earth</a>
+                <p>Sep 5, 2023</p>
+            </div>
+            <div class="module">
+                <a href="#">What Would Life Be Without Plants?</a>
+                <p>Sep 7, 2023</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <h2>Add Module</h2>
+        <div class="input-group">
+            <label class="label">Title</label>
+            <input autocomplete="off" name="Email" id="Email" class="input" type="text">
+        <div>
+        <div class="input-group2">
+            <label class="label2">Description</label>
+            <input autocomplete="off" name="Email" id="Email" class="input2" type="text">
+        <div>
+        <div class="button-group">
+            <button class="submit-btn">Submit</button>
+        </div>
+    </div>
+</div>
