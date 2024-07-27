@@ -1,0 +1,45 @@
+<div class="header">
+    <h1 style="text-align: center;">First Aid: A Necessity</h1>
+    <div class="button-group">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat']">
+            <button class="nav-btn">Learning Material</button>
+        </a>
+        <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/assess']">
+            <button class="nav-btn">Assessment</button>
+        </a>
+        <a [routerLink]="[ '/path']">
+            <button class="nav-btn">Discussion</button>
+        </a>
+    </div>
+    <div class="notification-icon" (click)="openModal()">
+        <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+    </div>
+</div>
+<div class="modules">
+    <!-- <div class="module">
+        <a href="#">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</a>
+        <p>Lesson 1</p>
+    </div>
+    <div class="module">
+        <a href="#">Sprains, Dislocations and Fractures</a>
+        <p>Lesson 2</p>
+    </div> -->
+</div>
+
+<div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <h2>Add Module</h2>
+        <div class="input-group">
+            <label class="label">Title</label>
+            <input autocomplete="off" name="Email" id="Email" class="input" type="text">
+        <div>
+        <div class="input-group2">
+            <label class="label2">Description</label>
+            <input autocomplete="off" name="Email" id="Email" class="input2" type="text">
+        <div>
+        <div class="button-group">
+            <button class="submit-btn">ADD</button>
+        </div>
+    </div>
+</div>

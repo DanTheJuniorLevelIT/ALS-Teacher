@@ -1,2 +1,38 @@
-<router-outlet></router-outlet>
+<div class="container">
+    <div class="sidebar">
+        <div class="course-details">
+            <img src="./assets/SCTS.jfif" alt="Profile Picture" class="profile-pic">
+            <h2>Scientific and critical thinking</h2>
+            <h6>8:00AM - 9:00AM</h6>
+        </div>
+        <ul>
+            <!-- <li><a href="#" class="active">My Virtual Classroom</a></li> -->
+            <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">Modules</a></li>
+            <li><a href="#">Students</a></li>
+            <!-- <li><a href="#">Messages</a></li> -->
+        </ul>
+    </div>
+    <div class="main-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+<div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <h2>Add Module</h2>
+        <div class="input-group">
+            <label class="label">Title</label>
+            <input autocomplete="off" name="Email" id="Email" class="input" type="text">
+        <div>
+        <div class="input-group2">
+            <label class="label2">Description</label>
+            <input autocomplete="off" name="Email" id="Email" class="input2" type="text">
+        <div>
+        <div class="button-group">
+            <button class="submit-btn">ADD</button>
+        </div>
+    </div>
+</div>
+
 

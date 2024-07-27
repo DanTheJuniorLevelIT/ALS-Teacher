@@ -3,13 +3,13 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-modulesmain',
+  selector: 'app-mat',
   standalone: true,
-  imports: [RouterModule, CommonModule],
-  templateUrl: './modulesmain.component.html',
-  styleUrl: './modulesmain.component.css'
+  imports: [CommonModule,RouterModule],
+  templateUrl: './mat.component.html',
+  styleUrl: './mat.component.css'
 })
-export class ModulesmainComponent {
+export class MatComponent {
 
   isModalOpen = false;
 

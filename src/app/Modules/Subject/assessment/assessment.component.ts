@@ -3,13 +3,13 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-modulesmain',
+  selector: 'app-assessment',
   standalone: true,
-  imports: [RouterModule, CommonModule],
-  templateUrl: './modulesmain.component.html',
-  styleUrl: './modulesmain.component.css'
+  imports: [CommonModule, RouterModule],
+  templateUrl: './assessment.component.html',
+  styleUrl: './assessment.component.css'
 })
-export class ModulesmainComponent {
+export class AssessmentComponent {
 
   isModalOpen = false;
 
