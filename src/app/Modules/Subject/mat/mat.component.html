@@ -17,28 +17,47 @@
 </div>
 <div class="modules">
     <div class="module">
-        <a href="#">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</a>
-        <p>Lesson 1</p>
+        <div class="module-header">
+            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat/lesson']">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</a>
+            <p>Lesson 1</p>
+        </div>
+        <div class="file-link">
+            <a href="#">Download Lesson 1 Materials</a>
+        </div>
     </div>
     <div class="module">
-        <a href="#">Sprains, Dislocations and Fractures</a>
-        <p>Lesson 2</p>
+        <div class="module-header">
+            <a href="#">Sprains, Dislocations and Fractures</a>
+            <p>Lesson 2</p>
+        </div>
+        <div class="file-link">
+            <a href="#">Download Lesson 2 Materials</a>
+        </div>
     </div>
 </div>
 
 <div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
         <span class="close" (click)="closeModal()">&times;</span>
-        <h2>Add Module</h2>
+        <h2>Add Lesson</h2>
         <div class="input-group">
-            <label class="label">Title</label>
-            <input autocomplete="off" name="Email" id="Email" class="input" type="text">
-        <div>
+            <label class="label">Topic Title</label>
+            <input autocomplete="off" name="topicTitle" id="topicTitle" class="input" type="text">
+        </div>
         <div class="input-group2">
-            <label class="label2">Description</label>
-            <input autocomplete="off" name="Email" id="Email" class="input2" type="text">
-        <div>
-        <div class="button-group">
+            <label class="label2">Lesson</label>
+            <input autocomplete="off" name="lesson" id="lesson" class="input2" type="text">
+        </div>
+        <div class="input-group">
+            <label class="label">Handout</label>
+            <!-- <input type="text" name="file" id="text" class="input"> -->
+            <textarea name="file" id="text" class="input"></textarea>
+        </div>
+        <div class="input-group">
+            <label class="label">File</label>
+            <input type="file" name="file" id="file" class="input">
+        </div>
+        <div class="button-group2">
             <button class="submit-btn">ADD</button>
         </div>
     </div>

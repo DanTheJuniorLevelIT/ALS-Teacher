@@ -77,6 +77,29 @@ body {
     margin-bottom: 20px;
 }
 
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.student-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.student-count {
+    font-size: 1rem;
+    color: #333;
+}
+
+.eye-icon {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+
 .button-group {
     display: flex;
     justify-content: center;
@@ -131,6 +154,9 @@ body {
 .file-link {
     margin-top: 5px; /* Add some space above the file link */
     padding-left: 20px; /* Indent the file link */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .file-link a {
@@ -165,9 +191,10 @@ body {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    max-width: 100%;
+    width: 90%; /* Adjust width to be responsive */
+    max-width: 600px; /* Max width for larger screens */
     position: relative;
+    box-sizing: border-box; /* Ensure padding is included in width */
 }
 
 .modal-content .close {
@@ -182,42 +209,51 @@ body {
     margin-top: 0;
 }
 
-.input-group, .input-group2 {
+.input-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 1rem; /* Add margin-bottom to space out from other elements if needed */
+    margin-bottom: 1rem;
 }
 
-.label, .label2 {
+.label {
     margin-bottom: .3rem;
     font-size: .9rem;
     font-weight: bold;
     color: #05060f99;
-    transition: color .3s cubic-bezier(.25,.01,.25,1) 0s;
 }
 
-.input, .input2 {
+.input, .textarea {
     max-width: 100%;
-    height: 44px;
-    background-color: #05060f0a;
+    background-color: #f5f5f5;
     padding: 0 1rem;
     border: 2px solid transparent;
     font-size: 1rem;
-    transition: border-color .3s cubic-bezier(.25,.01,.25,1) 0s, color .3s cubic-bezier(.25,.01,.25,1) 0s, background .2s cubic-bezier(.25,.01,.25,1) 0s;
+    transition: border-color .3s, color .3s, background .2s;
 }
 
-.input:hover, .input:focus, .input-group:hover .input, .input2:hover, .input2:focus, .input-group2:hover .input2 {
+.input:hover, .input:focus, .textarea:hover, .textarea:focus {
     outline: none;
     border-color: #05060f;
 }
 
-.input-group:hover .label, .input:focus ~ .label, .input-group2:hover .label2, .input2:focus ~ .label2 {
-    color: #05060fc2;
+.textarea {
+    height: 100px;
+    resize: vertical; /* Allows vertical resizing */
 }
 
-.button-group2 {
+.choice-container {
     display: flex;
-    justify-content: flex-end;
+    flex-wrap: wrap; /* Allows wrapping to the next row */
+    gap: 1rem; /* Space between options */
+}
+
+.choice-container .input-group {
+    flex: 1 1 45%; /* Makes each option take up about half the width */
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
     margin-top: 20px;
 }
 
@@ -236,35 +272,44 @@ body {
     background-color: #055a8c;
 }
 
+.input-wrapper {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.input-wrapper label {
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input[type="radio"] {
+    margin-right: 0.5rem;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        align-items: center;
+    .modal-content {
+        width: 95%; /* Increase width for smaller screens */
+        padding: 15px; /* Adjust padding */
     }
 
-    .sidebar {
-        width: 100%;
-        margin-bottom: 20px;
-        height: auto;
+    .choice-container .input-group {
+        flex: 1 1 100%; /* Stack options vertically on small screens */
     }
 
-    .main-content {
-        padding-left: 0;
-        max-width: 100%;
-    }
-
-    .modules {
-        width: 100%;
+    .textarea {
+        height: 120px; /* Increase height for better visibility */
     }
 }
 
 @media (max-width: 480px) {
-    .nav-btn {
-        flex: 1 1 100%; /* Buttons take full width on very small screens */
-        max-width: 100%;
+    .modal-content {
+        width: 100%; /* Full width for very small screens */
+        padding: 10px; /* Adjust padding */
     }
 
-    .button-group {
-        flex-direction: row; /* Stack buttons vertically */
+    .textarea {
+        height: 150px; /* Increase height for better visibility */
     }
 }

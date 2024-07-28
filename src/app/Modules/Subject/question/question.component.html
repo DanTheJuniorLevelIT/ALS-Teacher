@@ -1,0 +1,246 @@
+<div class="header">
+    <h1 style="text-align: center;">Assessment</h1>
+    <div class="button-group">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat']">
+            <button class="nav-btn">Learning Material</button>
+        </a>
+        <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/assess']">
+            <button class="nav-btn">Assessment</button>
+        </a>
+        <a [routerLink]="[ '/path']">
+            <button class="nav-btn">Discussion</button>
+        </a>
+    </div>
+    <div class="notification-icon" (click)="openModal()">
+        <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+    </div>
+</div>
+<div class="modules">
+    <div class="module">
+        <!-- <div class="module-header">
+            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat/lesson']">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</a>
+            <p>Lesson 1</p>
+        </div>
+        <div class="file-link">
+            <a href="#">Let's See What You Already Know</a>
+            <p>10pts</p>
+        </div>
+        <div class="file-link">
+            <a href="#">Let's Think About This</a>
+            <p>10pts</p>
+        </div>
+        <div class="file-link">
+            <a href="#">Let's Try This</a>
+            <p>8pts</p>
+        </div>
+        <div class="file-link">
+            <a href="#">Let's Talk About This</a>
+            <p>8pts</p>
+        </div>
+        <div class="file-link">
+            <a href="#">Let's See What You Have Learned</a>
+            <p>12pts</p>
+        </div>
+    </div>
+    <div class="module">
+        <div class="module-header">
+            <a href="#">Sprains, Dislocations and Fractures</a>
+            <p>Lesson 2</p>
+        </div>
+        <div class="file-link">
+            <a href="#">Download Lesson 2 Materials</a>
+        </div> -->
+            <div class="p-6 bg-background text-foreground">
+                <div class="header-container">
+                    <h2 class="text-xl font-bold mb-4">Let's See What You Already Know</h2>
+                    <div class="student-info">
+                        <span class="student-count">Students Completed: 13/25</span>
+                        <span class="eye-icon"><i class="fa fa-eye"></i></span>
+                    </div>
+                </div>
+                <p class="mb-4">
+                    Before you start studying this module, take this simple test first to find out what you already know about the topic. For each statement, select <strong>True</strong> if the statement is true,
+                    and <strong>False</strong> if it is false.
+                </p>
+                <ol class="list-decimal list-inside space-y-4">
+                    <li>
+                        A sudden twist or pulling of the bone causes a dislocated joint. <strong>True</strong>
+                        <div class="input-wrapper">
+                            <label><input type="radio" name="q1" value="true"> True</label>
+                            <label><input type="radio" name="q1" value="false"> False</label>
+                        </div>
+                    </li>
+                    <li>
+                        An X-ray can show how serious a fracture is. <strong>True</strong>
+                        <div class="input-wrapper">
+                            <label><input type="radio" name="q2" value="true"> True</label>
+                            <label><input type="radio" name="q2" value="false"> False</label>
+                        </div>
+                    </li>
+                    <li>
+                        A rolled newspaper or a piece of cardboard can be used in making a splint. <strong>True</strong>
+                        <div class="input-wrapper">
+                            <label><input type="radio" name="q3" value="true"> True</label>
+                            <label><input type="radio" name="q3" value="false"> False</label>
+                        </div>
+                    </li>
+                    <li>
+                        Objects that are lodged in the throat should be pulled out using the fingers. <strong>False</strong>
+                        <div class="input-wrapper">
+                            <label><input type="radio" name="q4" value="true"> True</label>
+                            <label><input type="radio" name="q4" value="false"> False</label>
+                        </div>
+                    </li>
+                    <li>
+                        A dog that has bitten a person should be killed immediately. <strong>False</strong>
+                        <div class="input-wrapper">
+                            <label><input type="radio" name="q5" value="true"> True</label>
+                            <label><input type="radio" name="q5" value="false"> False</label>
+                        </div>
+                    </li>
+                    <li>
+                        A person who has swallowed gas or petroleum should be made to vomit. <strong>False</strong>
+                        <div class="input-wrapper">
+                            <label><input type="radio" name="q6" value="true"> True</label>
+                            <label><input type="radio" name="q6" value="false"> False</label>
+                        </div>
+                    </li>
+                    <li>
+                        Keeping the sprained part elevated above the level of your heart will help reduce the swelling. <strong>True</strong>
+                        <div class="input-wrapper">
+                            <label><input type="radio" name="q7" value="true"> True</label>
+                            <label><input type="radio" name="q7" value="false"> False</label>
+                        </div>
+                    </li>
+                    <li>
+                        The splint used in any kind of fracture should be tight. <strong>False</strong>
+                        <div class="input-wrapper">
+                            <label><input type="radio" name="q8" value="true"> True</label>
+                            <label><input type="radio" name="q8" value="false"> False</label>
+                        </div>
+                    </li>
+                    <li>
+                        A person with a broken bone should not be made to move. <strong>True</strong>
+                        <div class="input-wrapper">
+                            <label><input type="radio" name="q9" value="true"> True</label>
+                            <label><input type="radio" name="q9" value="false"> False</label>
+                        </div>
+                    </li>
+                    <li>
+                        One way of stopping a nosebleed is to put ice or a cold towel on the forehead. <strong>True</strong>
+                        <div class="input-wrapper">
+                            <label><input type="radio" name="q10" value="true"> True</label>
+                            <label><input type="radio" name="q10" value="false"> False</label>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+    </div>
+</div>
+
+<!-- <div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <h2>Add Question</h2>
+
+         Type of Question
+         <div class="input-group">
+            <label class="label">Type of Question</label>
+            <select name="typeOfQuestion" id="typeOfQuestion" class="input">
+                <option value="multiple-choice">Multiple Choice</option>
+                <option value="true-false">True or False</option>
+                <option value="identification">Identification</option>
+            </select>
+        </div>
+        
+        Question Input
+        <div class="input-group">
+            <label class="label">Question</label>
+            <textarea autocomplete="off" name="question" id="question" class="textarea" placeholder="Enter the question here"></textarea>
+        </div>
+        
+        Key Answer Input
+        <div class="input-group">
+            <label class="label">Key Answer</label>
+            <input autocomplete="off" name="keyAnswer" id="keyAnswer" class="input" type="text" placeholder="Enter the key answer here">
+        </div>
+        
+        Points Input
+        <div class="input-group">
+            <label class="label">Points</label>
+            <input autocomplete="off" name="points" id="points" class="input" type="number" min="0" placeholder="Enter points">
+        </div>
+        
+        Button Group
+        <div class="button-group">
+            <button class="submit-btn" (click)="addQuestion()">ADD</button>
+        </div>
+    </div>
+</div> -->
+
+<div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <h2>Add Question</h2>
+
+        <!-- Question Input -->
+        <div class="input-group">
+            <label class="label">Question</label>
+            <textarea [(ngModel)]="questionText" name="question" id="question" class="textarea" placeholder="Enter the question here"></textarea>
+        </div>
+
+        <!-- Type of Question -->
+        <div class="input-group">
+            <label class="label">Type of Question</label>
+            <select [(ngModel)]="questionType" name="typeOfQuestion" id="typeOfQuestion" class="input" (change)="onQuestionTypeChange()">
+                <option value="multiple-choice">Multiple Choice</option>
+                <option value="true-false">True or False</option>
+                <option value="identification">Identification</option>
+            </select>
+        </div>
+
+        <!-- Conditional Inputs Based on Question Type -->
+        <div *ngIf="questionType === 'multiple-choice'" class="choice-container">
+            <div class="input-group">
+                <label class="label">Option A</label>
+                <input [(ngModel)]="optionA" name="optionA" id="optionA" class="input" type="text" placeholder="Enter Option A">
+            </div>
+            <div class="input-group">
+                <label class="label">Option B</label>
+                <input [(ngModel)]="optionB" name="optionB" id="optionB" class="input" type="text" placeholder="Enter Option B">
+            </div>
+            <div class="input-group">
+                <label class="label">Option C</label>
+                <input [(ngModel)]="optionC" name="optionC" id="optionC" class="input" type="text" placeholder="Enter Option C">
+            </div>
+            <div class="input-group">
+                <label class="label">Option D</label>
+                <input [(ngModel)]="optionD" name="optionD" id="optionD" class="input" type="text" placeholder="Enter Option D">
+            </div>
+        </div>
+
+        <div *ngIf="questionType === 'true-false'">
+            <div class="input-wrapper">
+                <label><input [(ngModel)]="keyAnswer" type="radio" name="trueFalse" value="true"> True</label>
+                <label><input [(ngModel)]="keyAnswer" type="radio" name="trueFalse" value="false"> False</label>
+            </div>
+        </div>
+
+        <!-- Key Answer Input for Other Types -->
+            <div class="input-group">
+                <label class="label">Key Answer</label>
+                <input [(ngModel)]="keyAnswer" name="keyAnswer" id="keyAnswer" class="input" type="text" placeholder="Enter the key answer here">
+            </div>
+
+        <!-- Points Input -->
+        <div class="input-group">
+            <label class="label">Points</label>
+            <input [(ngModel)]="points" name="points" id="points" class="input" type="number" min="0" placeholder="Enter points">
+        </div>
+
+        <!-- Button Group -->
+        <div class="button-group">
+            <button class="submit-btn" (click)="addQuestion()">ADD</button>
+        </div>
+    </div>
+</div>

@@ -100,48 +100,46 @@ body {
     background-color: #0056b3;
 }
 
-.modules {
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.module {
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-}
-
-.module-header {
+/* .modules {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    flex-direction: column;
+} */
+
+/* .module {
+    text-align: center;
+} */
+
+/* .module-header {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+} */
+
+.lesson-topic {
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+    white-space: pre-line;
 }
 
-.module a {
-    text-decoration: none;
-    color: #0c7db1;
-    font-weight: bold;
-}
-
-.module p {
-    color: #888;
-    margin: 0;
+.lesson-description {
+    font-size: 1em;
+    color: #666;
 }
 
 .file-link {
-    margin-top: 5px; /* Add some space above the file link */
-    padding-left: 20px; /* Indent the file link */
+    margin-top: 1em;
 }
 
 .file-link a {
     text-decoration: none;
-    color: #0056b3;
-    font-weight: normal;
+    color: #007bff;
 }
 
 .file-link a:hover {
     text-decoration: underline;
-} 
+}
 
 /* Modal Style */
 .modal {

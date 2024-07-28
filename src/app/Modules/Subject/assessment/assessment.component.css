@@ -107,10 +107,14 @@ body {
 }
 
 .module {
-    display: flex;
-    justify-content: space-between;
     padding: 10px 0;
     border-bottom: 1px solid #ddd;
+}
+
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .module a {
@@ -122,6 +126,116 @@ body {
 .module p {
     color: #888;
     margin: 0;
+}
+
+.file-link {
+    margin-top: 5px; /* Add some space above the file link */
+    padding-left: 20px; /* Indent the file link */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.file-link a {
+    text-decoration: none;
+    color: #0056b3;
+    font-weight: normal;
+}
+
+.file-link a:hover {
+    text-decoration: underline;
+} 
+
+/* Modal Style */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 100%;
+    position: relative;
+}
+
+.modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.label {
+    margin-bottom: .3rem;
+    font-size: .9rem;
+    font-weight: bold;
+    color: #05060f99;
+}
+
+.input, .textarea {
+    max-width: 100%;
+    background-color: #f5f5f5;
+    padding: 0 1rem;
+    border: 2px solid transparent;
+    font-size: 1rem;
+    transition: border-color .3s, color .3s, background .2s;
+}
+
+.input:hover, .input:focus, .textarea:hover, .textarea:focus {
+    outline: none;
+    border-color: #05060f;
+}
+
+.textarea {
+    height: 100px;
+    resize: vertical; /* Allows vertical resizing */
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.submit-btn {
+    padding: 10px 20px;
+    background-color: #0c7db1;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color .3s;
+}
+
+.submit-btn:hover {
+    background-color: #055a8c;
 }
 
 @media (max-width: 768px) {

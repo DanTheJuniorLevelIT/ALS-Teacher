@@ -20,5 +20,5 @@ export class MatComponent {
   closeModal() {
     this.isModalOpen = false;
   }
-
+  
 }

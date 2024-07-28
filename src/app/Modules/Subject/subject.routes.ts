@@ -5,6 +5,8 @@ import { ModulesComponent } from './modules/modules.component';
 import { ModulesmainComponent } from './modulesmain/modulesmain.component';
 import { MatComponent } from './mat/mat.component';
 import { AssessmentComponent } from './assessment/assessment.component';
+import { LessonComponent } from './lesson/lesson.component';
+import { QuestionComponent } from './question/question.component';
 
 export const subjectRoute: Routes = [
     {path: 'main', component: SubjectmainComponent,
@@ -15,6 +17,8 @@ export const subjectRoute: Routes = [
                     { path: 'modules', component: ModulesComponent },
                     { path: 'modules/mat', component: MatComponent },
                     { path: 'modules/assess', component: AssessmentComponent},
+                    { path: 'modules/mat/lesson', component: LessonComponent },
+                    { path: 'modules/assess/question', component: QuestionComponent },
                     { path: '', redirectTo: 'modules', pathMatch: 'full' }
                 ]
             },
