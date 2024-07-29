@@ -1,0 +1,56 @@
+<div class="header">
+    <h1 style="text-align: center;">Students Assessment Progress</h1>
+    <div class="button-group">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat']">
+            <button class="nav-btn">Learning Material</button>
+        </a>
+        <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/assess']">
+            <button class="nav-btn">Assessment</button>
+        </a>
+        <a [routerLink]="[ '/path']">
+            <button class="nav-btn">Discussion</button>
+        </a>
+    </div>
+    <!-- <div class="notification-icon" (click)="openModal()">
+        <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+    </div> -->
+</div>
+<div class="modules">
+    <div class="module">
+        <div class="students-table">
+            <h3 class="text-lg font-bold mb-4">Let's See What You Already Know <strong>10pts</strong></h3>
+            <!-- <button (click)="autoCheck()" class="nav-btn">Auto Check</button> -->
+            <table class="students-table">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Completed</th>
+                        <!-- <th>Score</th> -->
+                        <th>
+                            <div class="score-header">
+                                Score
+                                <button (click)="autoCheck()" class="nav-btn auto-check-btn"><i class="fa fa-check" aria-hidden="true"></i>Auto Check</button>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let student of students; let i = index">
+                        <td>{{ student.name }}</td>
+                        <td>
+                            <input type="checkbox" [(ngModel)]="student.completed">
+                        </td>
+                        <td class="check-header">
+                            {{ student.score }}
+                            <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/assess/question/checking' ]">
+                                <button class="nav-btn auto-check-btn">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

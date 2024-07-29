@@ -1,0 +1,192 @@
+<div class="header">
+    <h1 style="text-align: center;">Checking</h1>
+    <div class="button-group">
+      <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat']">
+        <button class="nav-btn">Learning Material</button>
+      </a>
+      <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/assess']">
+        <button class="nav-btn">Assessment</button>
+      </a>
+      <a [routerLink]="[ '/path']">
+        <button class="nav-btn">Discussion</button>
+      </a>
+    </div>
+  </div>
+  <div class="modules">
+    <div class="module">
+      <div class="p-6 bg-background text-foreground">
+        <div class="header-container">
+          <h2 class="text-xl font-bold mb-4">
+            Emman Johnson - Score: {{ score }}/10
+          </h2>
+        </div>
+        <form [formGroup]="checkForm">
+          <ol class="list-decimal list-inside space-y-4">
+            <li>
+              A sudden twist or pulling of the bone causes a dislocated joint.
+              <strong>True</strong>
+              <div class="input-wrapper">
+                <label>
+                  <input type="radio" formControlName="q1" value="true"> True
+                </label>
+                <label>
+                  <input type="radio" formControlName="q1" value="false"> False
+                </label>
+              </div>
+            </li>
+            <li>
+              An X-ray can show how serious a fracture is. <strong>True</strong>
+              <div class="input-wrapper">
+                <label>
+                  <input type="radio" formControlName="q2" value="true"> True
+                </label>
+                <label>
+                  <input type="radio" formControlName="q2" value="false"> False
+                </label>
+              </div>
+            </li>
+            <li>
+              A rolled newspaper or a piece of cardboard can be used in making a splint.
+              <strong>True</strong>
+              <div class="input-wrapper">
+                <label>
+                  <input type="radio" formControlName="q3" value="true"> True
+                </label>
+                <label>
+                  <input type="radio" formControlName="q3" value="false"> False
+                </label>
+              </div>
+            </li>
+            <li>
+              Objects that are lodged in the throat should be pulled out using the fingers.
+              <strong>False</strong>
+              <div class="input-wrapper">
+                <label>
+                  <input type="radio" formControlName="q4" value="true"> True
+                </label>
+                <label>
+                  <input type="radio" formControlName="q4" value="false"> False
+                </label>
+              </div>
+            </li>
+            <li>
+              A dog that has bitten a person should be killed immediately.
+              <strong>False</strong>
+              <div class="input-wrapper">
+                <label>
+                  <input type="radio" formControlName="q5" value="true"> True
+                </label>
+                <label>
+                  <input type="radio" formControlName="q5" value="false"> False
+                </label>
+              </div>
+            </li>
+            <li>
+              A person who has swallowed gas or petroleum should be made to vomit.
+              <strong>False</strong>
+              <div class="input-wrapper">
+                <label>
+                  <input type="radio" formControlName="q6" value="true"> True
+                </label>
+                <label>
+                  <input type="radio" formControlName="q6" value="false"> False
+                </label>
+              </div>
+            </li>
+            <li>
+              Keeping the sprained part elevated above the level of your heart will help reduce the swelling.
+              <strong>True</strong>
+              <div class="input-wrapper">
+                <label>
+                  <input type="radio" formControlName="q7" value="true"> True
+                </label>
+                <label>
+                  <input type="radio" formControlName="q7" value="false"> False
+                </label>
+              </div>
+            </li>
+            <li>
+              The splint used in any kind of fracture should be tight.
+              <strong>False</strong>
+              <div class="input-wrapper">
+                <label>
+                  <input type="radio" formControlName="q8" value="true"> True
+                </label>
+                <label>
+                  <input type="radio" formControlName="q8" value="false"> False
+                </label>
+              </div>
+            </li>
+            <li>
+              A person with a broken bone should not be made to move.
+              <strong>True</strong>
+              <div class="input-wrapper">
+                <label>
+                  <input type="radio" formControlName="q9" value="true"> True
+                </label>
+                <label>
+                  <input type="radio" formControlName="q9" value="false"> False
+                </label>
+              </div>
+            </li>
+            <li>
+              One way of stopping a nosebleed is to put ice or a cold towel on the forehead.
+              <strong>True</strong>
+              <div class="input-wrapper">
+                <label>
+                  <input type="radio" formControlName="q10" value="true"> True
+                </label>
+                <label>
+                  <input type="radio" formControlName="q10" value="false"> False
+                </label>
+              </div>
+            </li>
+          </ol>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+   <!-- <div class="header">
+    <h1 style="text-align: center;">Checking</h1>
+    <div class="button-group">
+      <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat']">
+        <button class="nav-btn">Learning Material</button>
+      </a>
+      <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/assess']">
+        <button class="nav-btn">Assessment</button>
+      </a>
+      <a [routerLink]="[ '/path']">
+        <button class="nav-btn">Discussion</button>
+      </a>
+    </div>
+  </div>
+  <div class="modules">
+    <div class="module">
+      <div class="p-6 bg-background text-foreground">
+        <div class="header-container">
+          <h2 class="text-xl font-bold mb-4">Emman Johnson - Score: {{ score }}/10</h2>
+        </div>
+        <form [formGroup]="checkForm">
+          <ol class="list-decimal list-inside space-y-4">
+            <li *ngFor="let question of questionList; let i = index">
+              {{ question.text }} <strong>{{ correctAnswers['q' + (i + 1)] }}</strong>
+              <div class="input-wrapper">
+                <label>
+                  <input type="radio" [formControlName]="'q' + (i + 1)" value="true"> True
+                </label>
+                <label>
+                  <input type="radio" [formControlName]="'q' + (i + 1)" value="false"> False
+                </label>
+              </div>
+              <div class="manual-check-buttons">
+                <button type="button" (click)="manualCheck('q' + (i + 1), true)">Correct</button>
+                <button type="button" (click)="manualCheck('q' + (i + 1), false)">Wrong</button>
+              </div>
+            </li>
+          </ol>
+        </form>
+      </div>
+    </div>
+  </div> -->
+  

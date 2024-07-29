@@ -30,23 +30,6 @@ export class QuestionComponent {
     this.isModalOpen = false;
   }
 
-//   addQuestion(): void {
-//     // Handle adding the question logic here
-//     const question = (document.getElementById('question') as HTMLTextAreaElement).value;
-//     const typeOfQuestion = (document.getElementById('typeOfQuestion') as HTMLSelectElement).value;
-//     const keyAnswer = (document.getElementById('keyAnswer') as HTMLInputElement).value;
-//     const points = (document.getElementById('points') as HTMLInputElement).value;
-
-//     console.log('Question:', question);
-//     console.log('Type of Question:', typeOfQuestion);
-//     console.log('Key Answer:', keyAnswer);
-//     console.log('Points:', points);
-
-//     // Implement the logic to add the question to the system
-
-//     this.closeModal();
-// }
-
 onQuestionTypeChange(): void {
   // Reset keyAnswer when changing the type of question
   this.keyAnswer = '';
