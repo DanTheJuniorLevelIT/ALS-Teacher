@@ -1,5 +1,5 @@
 <div class="header">
-    <h1 style="text-align: center;">Assessment</h1>
+    <h1 style="text-align: center;">Discussion</h1>
     <div class="button-group">
         <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat']">
             <button class="nav-btn">Learning Material</button>
@@ -22,24 +22,10 @@
             <p>Lesson 1</p>
         </div>
         <div class="file-link">
-            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/assess/question']">Let's See What You Already Know</a>
-            <p>10pts</p>
+            <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/discuss/discussion']">What are your tought about Nosebleeds, Swallowing Objects, Poisoning and Dog Bites?</a>
         </div>
         <div class="file-link">
-            <a href="#">Let's Think About This</a>
-            <p>10pts</p>
-        </div>
-        <div class="file-link">
-            <a href="#">Let's Try This</a>
-            <p>8pts</p>
-        </div>
-        <div class="file-link">
-            <a href="#">Let's Talk About This</a>
-            <p>8pts</p>
-        </div>
-        <div class="file-link">
-            <a href="#">Let's See What You Have Learned</a>
-            <p>12pts</p>
+            <a href="#">Share your personal experience in any of this scenario.</a>
         </div>
     </div>
     <div class="module">
@@ -48,7 +34,7 @@
             <p>Lesson 2</p>
         </div>
         <div class="file-link">
-            <a href="#">Download Lesson 2 Materials</a>
+            <a href="#">What do you feel when experience this injury?</a>
         </div>
     </div>
 </div>
@@ -56,24 +42,19 @@
 <div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
         <span class="close" (click)="closeModal()">&times;</span>
-        <h2>Add Assessment</h2>
+        <h2>Add Discussion</h2>
         <div class="input-group">
-            <label class="label">Title</label>
-            <input autocomplete="off" name="title" id="title" class="input" type="text">
+            <label class="label">Lesson</label>
+            <select name="typeOfQuestion" id="typeOfQuestion" class="input">
+                <option>Lesson 1</option>
+                <option>Lesson 2</option>
+            </select>
         </div>
         <div class="input-group">
-            <label class="label">Instruction</label>
-            <input autocomplete="off" name="instruction" id="instruction" class="input" type="text">
+            <label class="label">Discussion Title</label>
+            <input autocomplete="off" name="topicTitle" id="topicTitle" class="input" type="text">
         </div>
-        <div class="input-group">
-            <label class="label">Description</label>
-            <textarea autocomplete="off" name="description" id="description" class="textarea"></textarea>
-        </div>
-        <div class="input-group">
-            <label class="label">Due Date</label>
-            <input autocomplete="off" name="dueDate" id="dueDate" class="input" type="date">
-        </div>
-        <div class="button-group">
+        <div class="button-group2">
             <button class="submit-btn">ADD</button>
         </div>
     </div>
