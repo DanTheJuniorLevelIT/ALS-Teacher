@@ -1,1 +1,46 @@
-<p>login works!</p>
+<!-- <body>
+    <div class="header">
+        <a href="https://nlac.online/">https://nlac.online/</a>
+        <a href="#">nlac.online</a>
+        <a href="#">Contact Us</a>
+    </div>
+    <div class="banner">Alternative Learning System</div>
+    <div class="login">
+        <div class="login-container">
+            <h2>Alternative Learning System of Sison</h2>
+            <input type="text" placeholder="username" required>
+            <input type="password" placeholder="password" required>
+            <button>LOGIN</button>
+            <div class="forgot-password">Forgot Password?</div>
+        </div>
+    </div>
+</body> -->
+
+<body>
+    <div class="container">
+        <div class="image-container">
+            <img src="/assets/als.jpg" alt="Teacher Login Image">
+        </div>
+        <div class="title">Learning Management for Alternative Learning System in Sison</div>
+        <!-- <div class="title">Teacher Login</div> -->
+        <form action="">
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">Email Address</span>
+                    <input type="text" placeholder="Enter your email" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Password</span>
+                    <input type="password" placeholder="Enter your password" required>
+                </div>
+                <div class="signup-link">
+                    Don't have an account? <a routerLink="/signup">Click Here</a>
+                </div>
+            </div>
+            <div class="button">
+                <button type="submit"><a [routerLink]="['/main/Home/']">Log In</a></button>
+            </div>
+        </form>
+    </div>
+</body>
+
