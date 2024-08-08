@@ -10,6 +10,17 @@
   align-items: center;
 }
 
+.title-and-date {
+  display: flex;
+  flex-direction: column; /* Stack the title and date vertically */
+}
+
+.current-date {
+  margin-top: 5px;
+  font-size: 24px;
+  color: #666; /* Adjust color as needed */
+}
+
 .cards-container {
   display: flex;
   flex-wrap: wrap;

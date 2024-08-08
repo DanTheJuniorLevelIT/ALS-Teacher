@@ -1,6 +1,9 @@
 <div class="wrapper">
     <div class="header">
-        <h1>Classes of the Day</h1>
+        <div class="title-and-date">
+            <h1>Classes of the Day</h1>
+            <p class="current-date">{{ currentDate | date: 'MMMM d, y | h:mm a' }}</p>
+        </div>
         <div class="notification-icon" (click)="openModal()">
             <i class="fa fa-bell-o fa-2x" aria-hidden="true"></i>
         </div>

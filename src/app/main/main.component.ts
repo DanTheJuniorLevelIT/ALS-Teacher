@@ -17,4 +17,10 @@ export class MainComponent {
     }
   }
 
+  closeNavbar() {
+    const navbar = document.querySelector('.sidebar');
+    if (navbar && navbar.classList.contains('show')) {
+      navbar.classList.remove('show');
+    }
+  }
 }
