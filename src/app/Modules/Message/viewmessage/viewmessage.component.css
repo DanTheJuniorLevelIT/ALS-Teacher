@@ -1,0 +1,48 @@
+.wrapper {
+    margin: 0 auto;
+    padding-left: 40px;
+    max-width: 1300px;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .title-and-date {
+    display: flex;
+    flex-direction: column; /* Stack the title and date vertically */
+  }
+  
+  .current-date {
+    margin-top: 5px;
+    font-size: 24px;
+    color: #666; /* Adjust color as needed */
+  }
+
+    /* Media query for responsiveness */
+  @media (max-width: 768px) {
+    .wrapper {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .card {
+      width: calc(50% - 20px); /* Two cards in a row */
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .wrapper {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .card {
+      width: 100%; /* One card in a row */
+    }
+  }
+  @media (max-width: 480px) {
+    .card {
+        width: 100%; /* One card in a row */
+    }
+  }
