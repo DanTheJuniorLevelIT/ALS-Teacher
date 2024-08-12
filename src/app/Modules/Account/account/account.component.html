@@ -1,0 +1,75 @@
+<!-- <div class="wrapper">
+    <p>account works!</p>
+</div> -->
+<!-- <div class="account-card">
+    <div class="profile-picture-container">
+        <img src="./assets/profile-placeholder.png" alt="Profile Picture" class="profile-picture">
+        <input type="file" id="upload-photo" class="upload-photo" (change)="uploadProfilePicture($event)">
+        <label for="upload-photo" class="upload-photo-label">Upload Photo</label>
+    </div>
+    <div class="account-info">
+        <h2>Account Information</h2>
+        <form (submit)="updateAccountInfo()">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="middleName">Middle Name:</label>
+                <input type="text" id="middleName" name="middleName" [(ngModel)]="middleName">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName" required>
+            </div>
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <input type="text" id="role" name="role" [(ngModel)]="role" readonly>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" [(ngModel)]="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" [(ngModel)]="password" required>
+            </div>
+            <button type="submit" class="update-btn">Update Info</button>
+        </form>
+    </div>
+</div> -->
+
+<div class="account-card">
+    <div class="profile-picture-container">
+        <img src="./assets/als.jpg" alt="Profile Picture" class="profile-picture">
+        <input type="file" id="upload-photo" class="upload-photo">
+        <label for="upload-photo" class="upload-photo-label">Upload Photo</label>
+    </div>
+    <div class="account-info">
+        <h2>Account Information</h2>
+        <div class="form-group">
+            <label for="firstName">First Name: John</label>
+        </div>
+        <div class="form-group">
+            <label for="middleName">Middle Name: M</label>
+            <!-- <p id="middleName">{{ middleName }}</p> -->
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last Name: Doe</label>
+            <!-- <p id="lastName">{{ lastName }}</p> -->
+        </div>
+        <div class="form-group">
+            <label for="role">Role: ALS Implementers</label>
+            <!-- <p id="role">{{ role }}</p> -->
+        </div>
+        <div class="form-group">
+            <label for="email">Email: JohnDoe&#64;gmail.com</label>
+            <!-- <p id="email">{{ email }}</p> -->
+        </div>
+        <div class="form-group">
+            <label for="password">Update Password: *****************</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="update-btn">Update Password</button>
+    </div>
+</div>
