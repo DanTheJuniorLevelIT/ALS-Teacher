@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
     <div class="sidebar">
         <div class="course-details">
             <img src="./assets/SCTS.jfif" alt="Profile Picture" class="profile-pic">
@@ -6,10 +6,8 @@
             <h6>8:00AM - 9:00AM</h6>
         </div>
         <ul>
-            <!-- <li><a href="#" class="active">My Virtual Classroom</a></li> -->
             <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">Modules</a></li>
-            <li><a href="#">Students</a></li>
-            <!-- <li><a href="#">Messages</a></li> -->
+            <li><a [routerLink]="['/main/Subject/main/students']">Students</a></li>
         </ul>
     </div>
     <div class="main-content">
@@ -20,17 +18,69 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Student ID</th>
                         <th>Name</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let student of students; let i = index">
-                        <td>{{ i + 1 }}</td>
                         <td>{{ student.name }}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-</div>
+</div> -->
+
+<div class="container">
+    <div class="sidebar">
+      <div class="course-details">
+        <img src="./assets/SCTS.jfif" alt="Profile Picture" class="profile-pic">
+        <h2>Scientific and critical thinking</h2>
+        <h6>8:00AM - 9:00AM</h6>
+      </div>
+      <ul>
+        <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">Modules</a></li>
+        <li><a href="#">Students</a></li>
+      </ul>
+    </div>
+    <div class="main-content">
+      <div class="header">
+        <h1>Students</h1>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th *ngFor="let activity of activities">{{ activity.name }} <br>({{ activity.totalScore }} pts)</th>
+            </tr>
+            <tr>
+              <th></th>
+              <th *ngFor="let activity of activities"><i style="cursor: pointer;" class="fa fa-check"></i></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr *ngFor="let student of students">
+              <td>{{ student.name }}</td>
+              <td *ngFor="let activity of activities">
+                <i class="fa" [ngClass]="student.completedActivities.includes(activity.id) ? 'fa-check text-success' : 'fa-times text-danger'"></i>
+              </td>
+            </tr> -->
+            <tr *ngFor="let student of students">
+                <td>{{ student.name }}</td>
+                <td *ngFor="let activity of activities">
+                  <i class="fa" 
+                     [ngClass]="student.completedActivities.includes(activity.id) ? 'fa-check text-success' : 'fa-times text-danger'">
+                  </i>
+                  <span *ngIf="student.completedActivities.includes(activity.id)">
+                    <br>{{ getScore(student, activity.id) }} pts
+                  </span>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

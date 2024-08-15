@@ -1,4 +1,4 @@
-<div class="header">
+<!-- <div class="header">
     <h1 style="text-align: center;">Assessment</h1>
     <div class="button-group">
         <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat']">
@@ -22,24 +22,8 @@
             <p>Lesson 1</p>
         </div>
         <div class="file-link">
-            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/assess/question']">Let's See What You Already Know</a>
+            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/assess/question']">Activity 1: Let's See What You Already Know</a>
             <p>10pts</p>
-        </div>
-        <div class="file-link">
-            <a href="#">Let's Think About This</a>
-            <p>10pts</p>
-        </div>
-        <div class="file-link">
-            <a href="#">Let's Try This</a>
-            <p>8pts</p>
-        </div>
-        <div class="file-link">
-            <a href="#">Let's Talk About This</a>
-            <p>8pts</p>
-        </div>
-        <div class="file-link">
-            <a href="#">Let's See What You Have Learned</a>
-            <p>12pts</p>
         </div>
     </div>
     <div class="module">
@@ -48,7 +32,8 @@
             <p>Lesson 2</p>
         </div>
         <div class="file-link">
-            <a href="#">Download Lesson 2 Materials</a>
+            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/assess/question']">Activity 1: Let's See What You Already Know</a>
+            <p>10pts</p>
         </div>
     </div>
 </div>
@@ -70,6 +55,95 @@
             <textarea autocomplete="off" name="description" id="description" class="textarea"></textarea>
         </div>
         <div class="input-group">
+            <label class="label">Lesson</label>
+            <select name="typeOfQuestion" id="typeOfQuestion" class="input">
+                <option value="multiple-choice">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</option>
+                <option value="true-false">Sprains, Dislocations and Fractures</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label class="label">Due Date</label>
+            <input autocomplete="off" name="dueDate" id="dueDate" class="input" type="date">
+        </div>
+        <div class="button-group">
+            <button class="submit-btn">ADD</button>
+        </div>
+    </div>
+</div> -->
+
+<div class="header">
+    <h1 style="text-align: center;">Assessment</h1>
+    <div class="button-group">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat']">
+            <button class="nav-btn">Learning Material</button>
+        </a>
+        <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/assess']">
+            <button class="nav-btn">Assessment</button>
+        </a>
+        <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/discuss']">
+            <button class="nav-btn">Discussion</button>
+        </a>
+    </div>
+    <div class="notification-icon" (click)="openModal()">
+        <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+    </div>
+</div>
+
+<div class="modules">
+    <div class="module">
+        <div class="module-header">
+            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat/lesson']">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</a>
+            <p>Lesson 1</p>
+        </div>
+        <div class="file-link">
+            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/assess/question']">Activity 1: Let's See What You Already Know</a>
+            <p>10pts</p>
+        </div>
+        <!-- Instruction added here -->
+        <div class="instruction">
+            <p>Before you start studying this module, take this simple test first to find out what you already know about the topic. For each statement, select True if the statement is true, and False if it is false.</p>
+        </div>
+    </div>
+    <div class="module">
+        <div class="module-header">
+            <a href="#">Sprains, Dislocations and Fractures</a>
+            <p>Lesson 2</p>
+        </div>
+        <div class="file-link">
+            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/assess/question']">Activity 1: Let's See What You Already Know</a>
+            <p>10pts</p>
+        </div>
+        <!-- Instruction added here -->
+        <div class="instruction">
+            <p>Before you start studying this module, take this simple test first to find out what you already know about the topic. For each statement, select True if the statement is true, and False if it is false.</p>
+        </div>
+    </div>
+</div>
+
+<div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <h2>Add Assessment</h2>
+        <div class="input-group">
+            <label class="label">Title</label>
+            <input autocomplete="off" name="title" id="title" class="input" type="text">
+        </div>
+        <div class="input-group">
+            <label class="label">Instruction</label>
+            <input autocomplete="off" name="instruction" id="instruction" class="input" type="text">
+        </div>
+        <div class="input-group">
+            <label class="label">Description</label>
+            <textarea autocomplete="off" name="description" id="description" class="textarea"></textarea>
+        </div>
+        <div class="input-group">
+            <label class="label">Lesson</label>
+            <select name="typeOfQuestion" id="typeOfQuestion" class="input">
+                <option value="multiple-choice">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</option>
+                <option value="true-false">Sprains, Dislocations and Fractures</option>
+            </select>
+        </div>
+        <div class="input-group">
             <label class="label">Due Date</label>
             <input autocomplete="off" name="dueDate" id="dueDate" class="input" type="date">
         </div>
@@ -78,3 +152,4 @@
         </div>
     </div>
 </div>
+

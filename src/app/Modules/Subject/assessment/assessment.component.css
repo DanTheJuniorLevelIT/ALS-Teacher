@@ -129,11 +129,19 @@ body {
 }
 
 .file-link {
-    margin-top: 5px; /* Add some space above the file link */
+    margin-top: 5px;
     padding-left: 20px; /* Indent the file link */
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.instruction {
+    padding-left: 40px; /* Additional indentation for the instruction text */
+    color: #666; /* Optional: Change text color to differentiate the instruction */
+    font-style: italic; /* Optional: Italicize the instruction text */
+    margin-top: 4px; /* Adjust the top margin to reduce space between instruction and points */
+    margin-bottom: 10px; /* Optional: Add some space after the instruction */
 }
 
 .file-link a {

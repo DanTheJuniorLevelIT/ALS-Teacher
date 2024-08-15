@@ -97,6 +97,18 @@ tbody tr:hover {
     background-color: #f1f1f1;
 }
 
+.text-success {
+    color: green;
+}
+
+.text-danger {
+    color: red;
+}
+
+.fa-check, .fa-times {
+    font-size: 1.5rem;
+}
+
 
 @media (max-width: 768px) {
     .container {
