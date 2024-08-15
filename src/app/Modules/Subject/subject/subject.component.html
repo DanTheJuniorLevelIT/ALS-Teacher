@@ -1,4 +1,4 @@
-<div class="wrapper">
+<!-- <div class="wrapper">
     <div class="header">
         <h1>Subjects</h1>
         <div class="notification-icon" (click)="openModal()">
@@ -125,4 +125,43 @@
         <h2>Notifications</h2>
         <p>No new notifications</p>
     </div>
-</div>
+</div> -->
+
+<div class="wrapper">
+    <div class="header">
+      <h1>Subjects</h1>
+      <div class="level-filter">
+        <label for="levelSelect">Level of Education:</label>
+        <select id="levelSelect" (change)="onLevelChange($event)">
+          <option value="all">All Levels</option>
+          <option value="blp">BLP</option>
+          <option value="alsElem">ALS Elem</option>
+          <option value="alsJhs">ALS JHS</option>
+        </select>
+      </div>
+      <div class="notification-icon" (click)="openModal()">
+        <i class="fa fa-bell-o fa-2x" aria-hidden="true"></i>
+      </div>
+    </div>
+  
+    <div class="cards-container">
+      <div class="card" *ngFor="let subject of filteredSubjects">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">
+          <img [src]="subject.image" alt="Class 1">
+          <div class="card-title">{{ subject.title }}</div>
+          <div class="card-footer">
+            <p class="subjecttime">{{ subject.time }}</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>Notifications</h2>
+      <p>No new notifications</p>
+    </div>
+  </div>
+  
