@@ -4,9 +4,9 @@
             <h1>Message</h1>
             <p class="current-date">{{ currentDate | date: 'MMMM d, y | h:mm a' }}</p>
         </div>
-        <div class="notification-icon" (click)="openModal()">
+        <!-- <div class="notification-icon" (click)="openModal()">
             <i class="fa fa-bell-o fa-2x" aria-hidden="true"></i>
-        </div>
+        </div> -->
     </div>
     <div class="cards-container">
         <div class="add-icon" (click)="onAddMessage()">
@@ -58,8 +58,8 @@
     <div class="modal" [ngClass]="{'show': isModalOpen3}" (click)="closeModal3()">
         <div class="modal-content3" (click)="$event.stopPropagation()">
             <span class="close" (click)="closeModal3()">&times;</span>
-            <h3>Message from {{ selectedMessage?.sender }}</h3>
-            <p>{{ selectedMessage?.text }}</p>
+            <h4>Message from <b>{{ selectedMessage?.sender }}</b></h4>
+            <h3>{{ selectedMessage?.text }}</h3>
     
             <div class="reply-box">
                 <textarea [(ngModel)]="replyText" placeholder="Type your reply..."></textarea>

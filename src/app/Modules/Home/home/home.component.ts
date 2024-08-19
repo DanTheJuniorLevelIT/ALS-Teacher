@@ -14,6 +14,13 @@ export class HomeComponent implements OnInit{
   isModalOpen = false;
   currentDate: Date;
 
+  notificationsOpen = false;
+  notifications = [
+    { message: 'Emma Johnson have message you' },
+    { message: 'Liam Smith submitted his activity' },
+    { message: 'Ava Garcia sent a message' }
+  ];
+
   constructor() {
     this.currentDate = new Date(); // Initialize with the current date and time
   }
@@ -24,6 +31,10 @@ export class HomeComponent implements OnInit{
 
   closeModal() {
     this.isModalOpen = false;
+  }
+
+  toggleNotifications(): void {
+    this.notificationsOpen = !this.notificationsOpen;
   }
 
   ngOnInit(): void {

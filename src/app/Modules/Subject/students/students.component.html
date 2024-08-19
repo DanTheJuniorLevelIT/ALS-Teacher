@@ -73,7 +73,7 @@
                   <i class="fa" 
                      [ngClass]="student.completedActivities.includes(activity.id) ? 'fa-check text-success' : 'fa-times text-danger'">
                   </i>
-                  <span *ngIf="student.completedActivities.includes(activity.id)">
+                  <span *ngIf="student.completedActivities.includes(activity.id)" [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/assess/question/checking' ]">
                     <br>{{ getScore(student, activity.id) }} pts
                   </span>
                 </td>
