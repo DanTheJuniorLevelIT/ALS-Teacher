@@ -18,7 +18,7 @@
     margin-top: 20px;
   }
   .card {
-    background-color: #c8242f;
+    /* background-color: #c8242f; */
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -37,12 +37,12 @@
   }
   .card-title{
     padding-top: 15px;
-    color: #f2f2f2;
+    color: black;
     text-align: center;
     font-weight: bold;
   }
   .subjecttime{
-    color: #f2f2f2;
+    color: black;
     text-align: center;
     font-weight: bold;
   }

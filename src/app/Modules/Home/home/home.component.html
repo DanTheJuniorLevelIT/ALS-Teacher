@@ -119,35 +119,42 @@
                 </div>
             </div>
             <div class="cards-container">
-                <div class="card">
+                <!-- <div class="card" *ngFor="let sub of sub">
                     <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">
                         <img src="./assets/SCTS.jfif" alt="Class 1">
-                        <div class="card-title">Scientific and Critical Thinking Skills</div>
+                        <div class="card-title">{{sub.subject_name}}</div>
                         <div class="card-footer">
-                            <p class="subjecttime">8:00AM - 9:00AM</p>
+                            <p class="subjecttime">{{sub.Schedule}}</p>
                         </div>
                     </a>
-                </div>
-                <div class="card">
-                    <img src="./assets/math.jfif" alt="Class 2">
-                    <div class="card-title">Mathematical and Problem-solving Skills</div>
-                    <div class="card-footer">
-                        <p class="subjecttime">9:00AM - 10:00AM</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="./assets/understanding.jpg" alt="Class 3">
-                    <div class="card-title">Understanding the Self and Society</div>
-                    <div class="card-footer">
-                        <p class="subjecttime">10:00AM - 11:00AM</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="./assets/life.jpg" alt="Class 4">
-                    <div class="card-title">Life and Career Skills</div>
-                    <div class="card-footer">
-                        <p class="subjecttime">1:00PM - 2:00PM</p>
-                    </div>
+                </div> -->
+                <!-- <div class="card" style="width: 12rem;">
+                    <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">
+                        <div class="image">
+                            <img src="/assets/communication.jpg" class="card-img-top border border-bottom" alt="...">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">BLP LS1: COMMUNICATION SKILLS</h5>
+                            <div class="card-details">            
+                                <p class="card-text">Mon-Fri | 7:00 - 8:00 AM</p>
+                                <p class="card-text">Elzaina Nabor</p>
+                            </div>
+                        </div>
+                    </a>
+                </div> -->
+                <div class="card" style="width: 12rem;" *ngFor="let sub of sub">
+                    <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">
+                        <div class="image">
+                            <img src='/assets/{{sub.image}}' class="card-img-top border border-bottom" alt="...">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{sub.subject_name}}</h5>
+                            <div class="card-details">            
+                                <p class="card-text">{{sub.Schedule}}</p>
+                                <!-- <p class="card-text">Elzaina Nabor</p> -->
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -177,34 +184,27 @@
         </div>
     </div>
     <div class="cards-container">
-        <div class="card">
+        <!-- <div class="card">
             <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">
                 <img src="./assets/SCTS.jfif" alt="Class 1">
                 <div class="card-title">Scientific and Critical Thinking Skills</div>
                 <div class="card-footer">
                     <p class="subjecttime">8:00AM - 9:00AM</p></div>
             </a>
-        </div>
-        <div class="card">
-            <img src="./assets/math.jfif" alt="Class 2">
-            <div class="card-title">Mathematical and Problem-solving Skills</div>
-            <div class="card-footer">
-                <p class="subjecttime">9:00AM - 10:00AM</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="./assets/understanding.jpg" alt="Class 3">
-            <div class="card-title">Understanding the Self and Society</div>
-            <div class="card-footer">
-                <p class="subjecttime">10:00AM - 11:00AM</p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="./assets/life.jpg" alt="Class 4">
-            <div class="card-title">Life and Career Skills</div>
-            <div class="card-footer">
-                <p class="subjecttime">1:00PM - 2:00PM</p>
-            </div>
+        </div> -->
+        <div class="card" style="width: 22rem;" *ngFor="let sub of sub">
+            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">
+                <div class="image">
+                    <img src='/assets/{{sub.image}}' class="card-img-top border border-bottom" alt="...">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{sub.subject_name}}</h5>
+                    <div class="card-details">            
+                        <p class="card-text">{{sub.Schedule}}</p>
+                        <!-- <p class="card-text">Elzaina Nabor</p> -->
+                    </div>
+                </div>
+            </a>
         </div>
     </div>
 </div>

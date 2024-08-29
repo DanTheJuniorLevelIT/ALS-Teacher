@@ -368,31 +368,56 @@
   margin-top: 20px;
 }
 
-.card {
+/* .card {
   background-color: #c8242f;
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: calc(50% - 10px); /* Two cards per row */
+  width: calc(50% - 10px); Two cards per row
   transition: transform 0.2s;
-}
+} */
 
 .card:hover {
   transform: scale(1.05);
 }
 
-.card img {
+/* .card img {
   width: 100%;
   height: 150px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-}
+} */
 
-.card-title, .subjecttime {
+.subjecttime {
   padding-top: 15px;
   color: #f2f2f2;
   text-align: center;
   font-weight: bold;
+}
+
+.card {
+  width: 300px;
+  height: 350px;  
+  margin-bottom: 25px;
+   /* width: calc(50% - 10px); Two cards per row */
+}
+
+.card .card-title {
+  font-size: 14px;
+  font-weight: 500;
+  height:50px;
+}
+
+.card .card-body .card-details {
+  font-size: 10px;
+}
+
+img .card-image-top {
+  border-bottom: 1px black;
+}
+
+img {
+  height: 180px;
 }
 
 /* Styles for First Design (Smaller Screens) */
