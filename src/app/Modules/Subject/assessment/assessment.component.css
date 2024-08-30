@@ -96,6 +96,11 @@ body {
     max-width: 200px; /* Ensure buttons don't get too large */
 }
 
+a.active .nav-btn {
+    background-color: #0056b3; 
+    /* box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);  */
+}
+
 .nav-btn:hover {
     background-color: #0056b3;
 }

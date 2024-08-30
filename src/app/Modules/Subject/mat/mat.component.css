@@ -92,8 +92,13 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    flex: 1 1 auto; /* Allow buttons to grow and shrink */
-    max-width: 200px; /* Ensure buttons don't get too large */
+    flex: 1 1 auto;
+    max-width: 200px;
+}
+
+a.active .nav-btn {
+    background-color: #0056b3; 
+    /* box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);  */
 }
 
 .nav-btn:hover {

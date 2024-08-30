@@ -1,21 +1,35 @@
-<div class="container">
-    <div class="sidebar">
+<!-- <div class="container"> -->
+    <!-- <div class="sidebar">
         <div class="course-details">
             <img src="./assets/SCTS.jfif" alt="Profile Picture" class="profile-pic">
             <h2>Scientific and critical thinking</h2>
             <h6>8:00AM - 9:00AM</h6>
         </div>
         <ul>
-            <!-- <li><a href="#" class="active">My Virtual Classroom</a></li> -->
             <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">Modules</a></li>
             <li><a [routerLink]="['/main/Subject/main/students']">Students</a></li>
-            <!-- <li><a href="#">Messages</a></li> -->
         </ul>
+    </div> -->
+    <div class="topnav">
+        <div class="left-section">
+            <img src="./assets/SCTS.jfif" alt="Profile Picture" class="profile-pic">
+            <div class="course-info">
+                <h2>Scientific and critical thinking</h2>
+                <h6>8:00AM - 9:00AM</h6>
+            </div>
+        </div>
+        <div class="right-section">
+            <ul>
+                <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">Modules</a></li>
+                <!-- <li><a [routerLink]="['/main/Subject/main/students']">Students</a></li> -->
+                <!-- <li><a [routerLink]="['/main/Subject/main/students']">Progress</a></li> -->
+            </ul>
+        </div>
     </div>
     <div class="main-content">
         <router-outlet></router-outlet>
     </div>
-</div>
+<!-- </div> -->
 
 <div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
