@@ -17,7 +17,7 @@ export const subjectRoute: Routes = [
     { path: 'main', component: SubjectmainComponent,
         children: [
             { path: 'subject', component: SubjectComponent },
-            { path: 'subject/modulesmain', component: ModulesmainComponent,
+            { path: 'subject/modulesmain/:id', component: ModulesmainComponent,
                 children: [
                     { path: 'modules', component: ModulesComponent },
                     { path: 'modules/mat', component: MatComponent },

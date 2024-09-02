@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit{
     { message: 'Ava Garcia sent a message' }
   ];
 
+  
   constructor(private apiserv: ApiserviceService) {
     this.currentDate = new Date(); // Initialize with the current date and time
   }
@@ -58,5 +59,6 @@ export class HomeComponent implements OnInit{
       }
     );
   }
+
 
 }

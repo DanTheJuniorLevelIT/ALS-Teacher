@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class ApiserviceService {
 
-  url = "http://localhost:8000/";
+  private url = "http://localhost:8000/";
 
   constructor(private http: HttpClient) { }
 
@@ -16,6 +16,11 @@ export class ApiserviceService {
 
   getSubjects() {
     return this.http.get(this.url + 'api/subjects');
+  }
+
+  
+  getSpecSubjects(id: number) {
+    return this.http.get(`${this.url}api/subjects/${id}`);
   }
 
   getAllSubjects() {

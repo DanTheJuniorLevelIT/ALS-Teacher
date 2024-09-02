@@ -11,11 +11,13 @@
         </ul>
     </div> -->
     <div class="topnav">
-        <div class="left-section">
-            <img src="./assets/SCTS.jfif" alt="Profile Picture" class="profile-pic">
+        <div class="left-section" *ngFor="let subspec of subjectDetail">
+            <img [src]="'/assets/' + subspec.image" alt="Profile Picture" class="profile-pic">
             <div class="course-info">
-                <h2>Scientific and critical thinking</h2>
-                <h6>8:00AM - 9:00AM</h6>
+                <!-- <h2>Scientific and critical thinking</h2> -->
+                <h2>{{ subspec.subject_name }}</h2>
+                <h6>{{ subspec.Schedule }}</h6>
+                <!-- <h6>8:00AM - 9:00AM</h6> -->
             </div>
         </div>
         <div class="right-section">

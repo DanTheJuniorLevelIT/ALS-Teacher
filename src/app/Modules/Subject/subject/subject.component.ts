@@ -34,9 +34,10 @@ interface Subject {
 export class SubjectComponent implements OnInit{
   isModalOpen = false;
   allSubjects: any;
-  subblp: any;
-  subalselem: any;
-  subalsjhs: any;
+  subBlp: any;
+  subAlsElem: any;
+  subAlsJhs: any;
+  
 
 
   constructor(private apiserv: ApiserviceService) {}
@@ -55,7 +56,8 @@ export class SubjectComponent implements OnInit{
     this.apiserv.getAllSubjects().subscribe(
       (response) => {
         this.allSubjects = response;
-        this.filterSubjects();
+        this.filteredSubjects();
+        // console.log(this.filteredSubjects());
       },
       (error) => {
         console.error('Error fetching subjects:', error);
@@ -63,10 +65,10 @@ export class SubjectComponent implements OnInit{
     );
   }
 
-  filterSubjects(): void {
-    this.subblp = this.allSubjects.filter((sub: { Program: string; }) => sub.Program == 'blp');
-    this.subalselem = this.allSubjects.filter((sub: { Program: string; }) => sub.Program == 'alsElem');
-    this.subalsjhs = this.allSubjects.filter((sub: { Program: string; }) => sub.Program == 'alsJhs');
+  filteredSubjects(){
+    this.subBlp = this.allSubjects.filter((sub: { Program: string; }) => sub.Program == 'blp');
+    this.subAlsElem = this.allSubjects.filter((sub: { Program: string; })=> sub.Program == 'alsElem');
+    this.subAlsJhs = this.allSubjects.filter((sub: { Program: string; }) => sub.Program == 'alsJhs');
   }
 
   openModal() {
