@@ -18,6 +18,10 @@ export class ApiserviceService {
     return this.http.get(this.url + 'api/subjects');
   }
 
+  getAllSubjects() {
+    return this.http.get(this.url + 'api/subjects/showAll');
+  }
+
   createUser(data: any) {
     return this.http.post('/api/users', data);
   }

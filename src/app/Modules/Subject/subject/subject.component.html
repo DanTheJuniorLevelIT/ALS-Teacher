@@ -129,7 +129,7 @@
 
 <div class="wrapper">
     <div class="header">
-      <h1>Subjects</h1>
+      <!-- <h1>Subjects</h1>
       <div class="level-filter">
         <label for="levelSelect">Level of Education:</label>
         <select id="levelSelect" (change)="onLevelChange($event)">
@@ -138,23 +138,44 @@
           <option value="alsElem">ALS Elem</option>
           <option value="alsJhs">ALS JHS</option>
         </select>
-      </div>
+      </div> -->
       <!-- <div class="notification-icon" (click)="openModal()">
         <i class="fa fa-bell-o fa-2x" aria-hidden="true"></i>
       </div> -->
     </div>
-  
+    <h1>Basic Literacy Program</h1>
     <div class="cards-container">
-      <div class="card" *ngFor="let subject of filteredSubjects">
+      <div class="card" *ngFor="let sub of subblp">
         <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">
-          <img [src]="subject.image" alt="Class 1">
-          <div class="card-title">{{ subject.title }}</div>
+          <img src='/assets/{{sub.image}}' alt="Class 1">
+          <div class="card-title">{{sub.subject_name}}</div>
           <div class="card-body">
-            <p class="subjecttime">{{ subject.time }}</p>
+            <p class="subjecttime">{{sub.Schedule}}</p>
           </div>
-          <!-- <div class="card-footer">
-            <p class="subjecttime">{{ subject.time }}</p>
-          </div> -->
+        </a>
+      </div>
+    </div>
+    <h1 class="mt-5">ALS Elementary</h1>
+    <div class="cards-container">
+      <div class="card" *ngFor="let sub of subalselem">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">
+          <img src='/assets/{{sub.image}}' alt="Class 1">
+          <div class="card-title">{{sub.subject_name}}</div>
+          <div class="card-body">
+            <p class="subjecttime">{{sub.Schedule}}</p>
+          </div>
+        </a>
+      </div>
+    </div>
+    <h1 class="mt-5">ALS Junior Highschool</h1>
+    <div class="cards-container">
+      <div class="card" *ngFor="let sub of subalsjhs">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">
+          <img src='/assets/{{sub.image}}' alt="Class 1">
+          <div class="card-title">{{sub.subject_name}}</div>
+          <div class="card-body">
+            <p class="subjecttime">{{sub.Schedule}}</p>
+          </div>
         </a>
       </div>
     </div>
