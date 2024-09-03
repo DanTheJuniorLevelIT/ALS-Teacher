@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -10,7 +10,9 @@ import { RouterModule } from '@angular/router';
   templateUrl: './question.component.html',
   styleUrl: './question.component.css'
 })
-export class QuestionComponent {
+export class QuestionComponent implements OnInit{
+
+  subjectID: number | null = null;
 
   isModalOpen = false;
   questionText = '';
@@ -21,6 +23,18 @@ export class QuestionComponent {
   optionD = '';
   keyAnswer = '';
   points = 0;
+
+  ngOnInit(): void {
+    // Retrieve the subjectID from localStorage
+    const storedSubjectID = localStorage.getItem('subjectID');
+    if (storedSubjectID) {
+      this.subjectID = +storedSubjectID;  // Convert the string to a number
+      console.log('Retrieved Subject ID from localStorage:', this.subjectID);
+    } else {
+      console.error('No subjectID found in localStorage.');
+    }
+  }
+
 
   openModal() {
     this.isModalOpen = true;

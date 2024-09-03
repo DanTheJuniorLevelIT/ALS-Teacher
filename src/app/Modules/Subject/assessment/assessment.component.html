@@ -96,27 +96,16 @@
             <h5>Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</h5>
             <p>Lesson 1</p>
         </div>
-        <div class="file-link">
-            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/assess/question']">Activity 1: Let's See What You Already Know</a>
-            <p>July 13, 2024 - 10pts</p>
-        </div>
-        <!-- Instruction added here -->
-        <div class="instruction">
-            <p>Before you start studying this module, take this simple test first to find out what you already know about the topic. For each statement, select True if the statement is true, and False if it is false.</p>
-        </div>
-    </div>
-    <div class="module">
-        <div class="module-header">
-            <h5>Sprains, Dislocations and Fractures</h5>
-            <p>Lesson 2</p>
-        </div>
-        <div class="file-link">
-            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/assess/question']">Activity 1: Let's See What You Already Know</a>
-            <p>July 6, 2024 - 10pts</p>
-        </div>
-        <!-- Instruction added here -->
-        <div class="instruction">
-            <p>Before you start studying this module, take this simple test first to find out what you already know about the topic. For each statement, select True if the statement is true, and False if it is false.</p>
+        <div *ngFor="let ass of assess">
+            <div class="file-link">
+                <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/assess/question']">Activity 1: Let's See What You Already Know</a> -->
+                <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'assess', 'question']"  routerLinkActive="active">{{ass.Title}}</a>
+                <p>{{ass.formatted_due_date}}</p>
+            </div>
+            <!-- Instruction added here -->
+            <div class="instruction">
+                <p>{{ass.Instruction}}</p>
+            </div>
         </div>
     </div>
 </div>
@@ -125,32 +114,34 @@
     <div class="modal-content" (click)="$event.stopPropagation()">
         <span class="close" (click)="closeModal()">&times;</span>
         <h2>Add Assessment</h2>
-        <div class="input-group">
-            <label class="label">Title</label>
-            <input autocomplete="off" name="title" id="title" class="input" type="text">
-        </div>
-        <div class="input-group">
-            <label class="label">Instruction</label>
-            <input autocomplete="off" name="instruction" id="instruction" class="input" type="text">
-        </div>
-        <div class="input-group">
-            <label class="label">Description</label>
-            <textarea autocomplete="off" name="description" id="description" class="textarea"></textarea>
-        </div>
-        <div class="input-group">
-            <label class="label">Lesson</label>
-            <select name="typeOfQuestion" id="typeOfQuestion" class="input">
-                <option value="multiple-choice">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</option>
-                <option value="true-false">Sprains, Dislocations and Fractures</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label class="label">Due Date</label>
-            <input autocomplete="off" name="dueDate" id="dueDate" class="input" type="date">
-        </div>
-        <div class="button-group">
-            <button class="submit-btn">ADD</button>
-        </div>
+        <form [formGroup]="createAssessment" (ngSubmit)="save()">
+            <div class="input-group">
+                <label class="label">Title</label>
+                <input formControlName="Title" autocomplete="off" name="title" id="title" class="input" type="text">
+            </div>
+            <div class="input-group">
+                <label class="label">Instruction</label>
+                <input formControlName="Instruction" autocomplete="off" name="instruction" id="instruction" class="input" type="text">
+            </div>
+            <div class="input-group">
+                <label class="label">Description</label>
+                <textarea formControlName="Description" autocomplete="off" name="description" id="description" class="textarea"></textarea>
+            </div>
+            <div class="input-group">
+                <label class="label">Lesson</label>
+                <select formControlName="Lesson_ID" name="typeOfQuestion" id="typeOfQuestion" class="input">
+                    <option value="1">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</option>
+                    <option value="2">Sprains, Dislocations and Fractures</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label class="label">Due Date</label>
+                <input formControlName="Due_date" autocomplete="off" name="dueDate" id="dueDate" class="input" type="date">
+            </div>
+            <div class="button-group">
+                <button class="submit-btn">ADD</button>
+            </div>
+        </form>
     </div>
 </div>
 
