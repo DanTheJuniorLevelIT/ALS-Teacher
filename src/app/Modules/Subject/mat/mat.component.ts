@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ApiserviceService } from '../../../apiservice.service';
 
 @Component({
   selector: 'app-mat',
@@ -24,7 +26,16 @@ import { RouterModule } from '@angular/router';
   
 // }
 
-export class MatComponent {
+export class MatComponent implements OnInit{
+
+  subjectID: number | null = null;
+
+  constructor(
+    private apiserv: ApiserviceService, 
+    private route: ActivatedRoute, 
+    private http: HttpClient,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   isModalOpen = false;
   newLessonTitle = '';
@@ -45,6 +56,18 @@ export class MatComponent {
       isDropdownOpen: false
     }
   ];
+
+
+  ngOnInit(): void {
+    // Retrieve the subjectID from localStorage
+    const storedSubjectID = localStorage.getItem('subjectID');
+    if (storedSubjectID) {
+      this.subjectID = +storedSubjectID;  // Convert the string to a number
+      console.log('Retrieved Subject ID from localStorage:', this.subjectID);
+    } else {
+      console.error('No subjectID found in localStorage.');
+    }
+  }
 
   openModal() {
     this.isModalOpen = true;

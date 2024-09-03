@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ApiserviceService } from '../../../apiservice.service';
 
 interface Subject {
@@ -40,7 +40,7 @@ export class SubjectComponent implements OnInit{
   
 
 
-  constructor(private apiserv: ApiserviceService) {}
+  constructor(private apiserv: ApiserviceService, private route: Router) {}
 
   // ngOnInit(): void {
   //   this.apiserv.getAllSubjects().subscribe(
@@ -77,5 +77,14 @@ export class SubjectComponent implements OnInit{
 
   closeModal() {
     this.isModalOpen = false;
+  }
+
+  navigateToModules(subjectID: number) {
+    // Store the subjectID in localStorage
+    localStorage.setItem('subjectID', subjectID.toString());
+
+    // Navigate to the modules page
+    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
+    this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID]);
   }
 }

@@ -10,8 +10,8 @@
             <li><a [routerLink]="['/main/Subject/main/students']">Students</a></li>
         </ul>
     </div> -->
-    <div class="topnav">
-        <div class="left-section" *ngFor="let subspec of subjectDetail">
+    <div class="topnav" *ngFor="let subspec of subjectDetail">
+        <div class="left-section">
             <img [src]="'/assets/' + subspec.image" alt="Profile Picture" class="profile-pic">
             <div class="course-info">
                 <!-- <h2>Scientific and critical thinking</h2> -->
@@ -22,7 +22,7 @@
         </div>
         <div class="right-section">
             <ul>
-                <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">Modules</a></li>
+                <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/', subspec.subjectID]">Modules</a></li>
                 <!-- <li><a [routerLink]="['/main/Subject/main/students']">Students</a></li> -->
                 <!-- <li><a [routerLink]="['/main/Subject/main/students']">Progress</a></li> -->
             </ul>

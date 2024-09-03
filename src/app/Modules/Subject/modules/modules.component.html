@@ -6,24 +6,10 @@
         </div>
         <div class="modules">
             <div class="module">
-                <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat']">First Aid: A Necessity</a>
-                <p>Aug 17, 2023</p>
-            </div>
-            <div class="module">
-                <a href="#">How do we breathe</a>
-                <p>Aug 22, 2023</p>
-            </div>
-            <div class="module">
-                <a href="#">My Health My Responsibility</a>
-                <p>Aug 29, 2023</p>
-            </div>
-            <div class="module">
-                <a href="#">Wealth of the Earth</a>
-                <p>Sep 5, 2023</p>
-            </div>
-            <div class="module">
-                <a href="#">What Would Life Be Without Plants?</a>
-                <p>Sep 7, 2023</p>
+                <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/:id/modules/mat']">First Aid: A Necessity</a> -->
+                <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'mat']">First Aid: A Necessity</a>
+                <!-- <p>Aug 17, 2023</p> -->
+                <p>{{subjectID}}</p>
             </div>
         </div>
 

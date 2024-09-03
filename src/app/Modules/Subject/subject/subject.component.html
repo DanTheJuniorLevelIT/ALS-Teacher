@@ -146,7 +146,8 @@
     <h1>Basic Literacy Program</h1>
     <div class="cards-container">
       <div class="card" *ngFor="let sub of subBlp">
-        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', sub.subjectID]">
+        <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', sub.subjectID]"> -->
+        <a (click)="navigateToModules(sub.subjectID)">
           <img src='/assets/{{sub.image}}' alt="Class 1">
           <div class="card-title">{{sub.subject_name}}</div>
           <div class="card-body">
@@ -158,7 +159,8 @@
     <h1 class="mt-5">ALS Elementary</h1>
     <div class="cards-container">
       <div class="card" *ngFor="let sub of subAlsElem">
-        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', sub.subjectID]">
+        <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', sub.subjectID]"> -->
+        <a (click)="navigateToModules(sub.subjectID)">
           <img src='/assets/{{sub.image}}' alt="Class 1">
           <div class="card-title">{{sub.subject_name}}</div>
           <div class="card-body">
@@ -170,7 +172,8 @@
     <h1 class="mt-5">ALS Junior Highschool</h1>
     <div class="cards-container">
       <div class="card" *ngFor="let sub of subAlsJhs">
-        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', sub.subjectID]">
+        <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', sub.subjectID]"> -->
+        <a (click)="navigateToModules(sub.subjectID)">
           <img src='/assets/{{sub.image}}' alt="Class 1">
           <div class="card-title">{{sub.subject_name}}</div>
           <div class="card-body">

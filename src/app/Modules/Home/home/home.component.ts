@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ApiserviceService } from '../../../apiservice.service';
 
 @Component({
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit{
   ];
 
   
-  constructor(private apiserv: ApiserviceService) {
+  constructor(private apiserv: ApiserviceService, private route: Router) {
     this.currentDate = new Date(); // Initialize with the current date and time
   }
 
@@ -53,11 +53,21 @@ export class HomeComponent implements OnInit{
     this.apiserv.getSubjects().subscribe(
       (response) => {
         this.sub = response;
+        console.log(this.sub);
       },
       (error) => {
         console.error('Error fetching users:', error);
       }
     );
+  }
+
+  navigateToModules(subjectID: number) {
+    // Store the subjectID in localStorage
+    localStorage.setItem('subjectID', subjectID.toString());
+
+    // Navigate to the modules page
+    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
+    this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID]);
   }
 
 
