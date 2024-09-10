@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { ApiserviceService } from '../../../apiservice.service';
 
 @Component({
   selector: 'app-question',
@@ -13,6 +14,7 @@ import { RouterModule } from '@angular/router';
 export class QuestionComponent implements OnInit{
 
   subjectID: number | null = null;
+  assessmentID: any;
 
   isModalOpen = false;
   questionText = '';
@@ -24,12 +26,16 @@ export class QuestionComponent implements OnInit{
   keyAnswer = '';
   points = 0;
 
+  constructor(private apiService: ApiserviceService, private router: Router) {}
+
   ngOnInit(): void {
     // Retrieve the subjectID from localStorage
     const storedSubjectID = localStorage.getItem('subjectID');
+    const storedAssessmentID = localStorage.getItem('assid');
     if (storedSubjectID) {
       this.subjectID = +storedSubjectID;  // Convert the string to a number
-      console.log('Retrieved Subject ID from localStorage:', this.subjectID);
+      this.assessmentID = storedAssessmentID;  // Convert the string to a number
+      console.log('Retrieved Subject ID from localStorage:', this.assessmentID);
     } else {
       console.error('No subjectID found in localStorage.');
     }
@@ -66,5 +72,16 @@ addQuestion(): void {
 
   this.closeModal();
 }
+
+navigateToProgress() {
+  const storedSubjectID = localStorage.getItem('subjectID');
+  const storedAssessmentID = localStorage.getItem('assid');
+  // Store the subjectID in localStorage
+
+  // Navigate to the modules page
+  // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
+  this.router.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', 'assess', 'question', storedAssessmentID, 'progress']);
+}
+
 
 }

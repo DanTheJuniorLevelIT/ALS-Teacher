@@ -21,6 +21,8 @@ export class ProgressComponent {
   optionD = '';
   keyAnswer = '';
   points = 0;
+  subjectID: number | null = null;
+  assessmentID: any;
 
   students = [
     { name: 'Emma Johnson', completed: true, score: 'No grade yet' },
@@ -49,6 +51,19 @@ export class ProgressComponent {
     { name: 'Matthew Robinson', completed: false, score: 'No grade yet' },
     { name: 'Ella Wright', completed: false, score: 0 }
 ];
+
+ngOnInit(): void {
+  // Retrieve the subjectID from localStorage
+  const storedSubjectID = localStorage.getItem('subjectID');
+  const storedAssessmentID = localStorage.getItem('assid');
+  if (storedSubjectID) {
+    this.subjectID = +storedSubjectID;  // Convert the string to a number
+    this.assessmentID = storedAssessmentID;  // Convert the string to a number
+    console.log('Retrieved Subject ID from localStorage:', this.assessmentID);
+  } else {
+    console.error('No subjectID found in localStorage.');
+  }
+}
 
 
 autoCheck() {

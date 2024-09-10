@@ -329,6 +329,11 @@ body {
     transition: background-color .3s;
 }
 
+a.active .nav-btn {
+    background-color: #0056b3; 
+    /* box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);  */
+}
+
 .submit-btn:hover {
     background-color: #055a8c;
 }

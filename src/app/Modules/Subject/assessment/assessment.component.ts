@@ -85,4 +85,14 @@ export class AssessmentComponent implements OnInit{
     this.isModalOpen = false;
   }
 
+  navigateToQuestions(assID: number) {
+    const storedSubjectID = localStorage.getItem('subjectID');
+    // Store the subjectID in localStorage
+    localStorage.setItem('assid', assID.toString());
+
+    // Navigate to the modules page
+    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
+    this.router.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', 'assess', 'question', assID]);
+  }
+
 }

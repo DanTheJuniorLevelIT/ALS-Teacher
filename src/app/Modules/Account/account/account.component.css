@@ -1,89 +1,4 @@
-/* .wrapper {
-    margin: 0 auto;
-    padding-left: 40px;
-    max-width: 1300px;
-  } */
-
-  /* .account-card {
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    text-align: center;
-}
-
-.profile-picture-container {
-    position: relative;
-    margin-bottom: 20px;
-}
-
-.profile-picture {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #0F3041;
-}
-
-.upload-photo {
-    display: none;
-}
-
-.upload-photo-label {
-    margin-top: 10px;
-    display: inline-block;
-    cursor: pointer;
-    background-color: #0F3041;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 5px;
-}
-
-.upload-photo-label:hover {
-    background-color: #0c7db1;
-}
-
-.account-info h2 {
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-    text-align: left;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.update-btn {
-    width: 100%;
-    padding: 10px;
-    background-color: #0F3041;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
-}
-
-.update-btn:hover {
-    background-color: #0c7db1;
-} */
-
-.account-card {
+/* .account-card {
     max-width: 500px;
     margin: 0 auto;
     padding: 20px;
@@ -95,7 +10,7 @@
 
 .profile-picture-container {
     margin-bottom: 20px;
-    text-align: center; /* Center-align the content */
+    text-align: center; Center-align the content
 }
 
 .profile-picture {
@@ -171,7 +86,7 @@
     background-color: #0c7db1;
 }
 
-/* Media query for responsiveness */
+Media query for responsiveness
 @media (max-width: 768px) {
     .upload-photo-label {
         display: block;
@@ -214,4 +129,4 @@
         border-radius: 5px;
         text-align: center;
     }
-  }
+  } */

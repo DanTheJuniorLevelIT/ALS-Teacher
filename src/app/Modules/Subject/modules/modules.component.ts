@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
@@ -20,15 +20,17 @@ export class ModulesComponent implements OnInit{
 
   subjectID: number | null = null;
 
+  constructor(private apiService: ApiserviceService, private router: Router) {}
+
   ngOnInit(): void {
     // Retrieve the subjectID from localStorage
     const storedSubjectID = localStorage.getItem('subjectID');
-    if (storedSubjectID) {
-      this.subjectID = +storedSubjectID;  // Convert the string to a number
-      console.log('Retrieved Subject ID from localStorage:', this.subjectID);
-    } else {
-      console.error('No subjectID found in localStorage.');
-    }
+    // if (storedSubjectID) {
+    //   this.subjectID = +storedSubjectID;  // Convert the string to a number
+    //   console.log('Retrieved Subject ID from localStorage:', this.subjectID);
+    // } else {
+    //   console.error('No subjectID found in localStorage.');
+    // }
   }
 
   // ngOnInit(): void {
@@ -64,6 +66,16 @@ export class ModulesComponent implements OnInit{
 
   closeModal() {
     this.isModalOpen = false;
+  }
+
+  navigateToMaterials() {
+    const storedSubjectID = localStorage.getItem('subjectID');
+    // Store the subjectID in localStorage
+    // localStorage.setItem('assid', assID.toString());
+
+    // Navigate to the modules page
+    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
+    this.router.navigate(['/main/Subject/main/subject/modulesmain/', storedSubjectID, 'modules', 'mat']);
   }
 
 }

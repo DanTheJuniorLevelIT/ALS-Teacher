@@ -24,10 +24,11 @@ export const subjectRoute: Routes = [
                     { path: 'modules/assess', component: AssessmentComponent },
                     { path: 'modules/discuss', component: DiscussComponent},
                     { path: 'modules/mat/lesson', component: LessonComponent },
-                    { path: 'modules/assess/question', component: QuestionComponent },
+                    { path: 'modules/assess/question/:id', component: QuestionComponent },
                     { path: 'modules/discuss', component: DiscussComponent},
+                    // { path: 'modules/discuss/:id/discussion', component: DiscussionComponent},
                     { path: 'modules/discuss/discussion', component: DiscussionComponent},
-                    { path: 'modules/assess/question/progress', component: ProgressComponent }, 
+                    { path: 'modules/assess/question/:id/progress', component: ProgressComponent }, 
                     { path: 'modules/assess/question/checking', component: CheckComponent},
                     { path: '', redirectTo: 'modules', pathMatch: 'full' }
                 ]

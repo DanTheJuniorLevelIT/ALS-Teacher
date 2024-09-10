@@ -92,6 +92,9 @@ import { RouterModule } from '@angular/router';
 // }
 
 export class DiscussionComponent implements OnInit {
+  
+  subjectID: number | null = null;
+
   discussionForm: FormGroup;
   discussions: { user: string, date: Date, answer: string, role: string }[] = [
     { user: 'Teacher', date: new Date(), answer: 'Hello ALS Learners this is our topic for discussion today. Share your thoughts about this topic. Lets begin.', role: 'teacher' },
@@ -104,7 +107,16 @@ export class DiscussionComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    // Retrieve the subjectID from localStorage
+    const storedSubjectID = localStorage.getItem('subjectID');
+    if (storedSubjectID) {
+      this.subjectID = +storedSubjectID;  // Convert the string to a number
+      console.log('Retrieved Subject ID from localStorage:', this.subjectID);
+    } else {
+      console.error('No subjectID found in localStorage.');
+    }
+  }
 
   submitAnswer() {
     const newAnswer = this.discussionForm.value.answer;

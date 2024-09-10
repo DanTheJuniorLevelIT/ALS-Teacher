@@ -7,9 +7,10 @@
         <div class="modules">
             <div class="module">
                 <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/:id/modules/mat']">First Aid: A Necessity</a> -->
-                <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'mat']">First Aid: A Necessity</a>
+                <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'mat']">First Aid: A Necessity</a> -->
+                <a (click)="navigateToMaterials()">First Aid: A Necessity</a>
                 <!-- <p>Aug 17, 2023</p> -->
-                <p>{{subjectID}}</p>
+                <!-- <p>{{subjectID}}</p> -->
             </div>
         </div>
 

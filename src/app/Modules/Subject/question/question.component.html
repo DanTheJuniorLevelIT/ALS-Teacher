@@ -1,5 +1,5 @@
 <div class="header">
-    <h1 style="text-align: center;">Assessment</h1>
+    <h1 style="text-align: center;">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</h1>
     <div class="button-group">
         <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'mat']"  routerLinkActive="active">
             <button class="nav-btn">Learning Material</button>
@@ -18,45 +18,13 @@
 </div>
 <div class="modules">
     <div class="module">
-        <!-- <div class="module-header">
-            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat/lesson']">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</a>
-            <p>Lesson 1</p>
-        </div>
-        <div class="file-link">
-            <a href="#">Let's See What You Already Know</a>
-            <p>10pts</p>
-        </div>
-        <div class="file-link">
-            <a href="#">Let's Think About This</a>
-            <p>10pts</p>
-        </div>
-        <div class="file-link">
-            <a href="#">Let's Try This</a>
-            <p>8pts</p>
-        </div>
-        <div class="file-link">
-            <a href="#">Let's Talk About This</a>
-            <p>8pts</p>
-        </div>
-        <div class="file-link">
-            <a href="#">Let's See What You Have Learned</a>
-            <p>12pts</p>
-        </div>
-    </div>
-    <div class="module">
-        <div class="module-header">
-            <a href="#">Sprains, Dislocations and Fractures</a>
-            <p>Lesson 2</p>
-        </div>
-        <div class="file-link">
-            <a href="#">Download Lesson 2 Materials</a>
-        </div> -->
             <div class="p-6 bg-background text-foreground">
                 <div class="header-container">
                     <h2 class="text-xl font-bold mb-4">Let's See What You Already Know</h2>
                     <div class="student-info">
                         <span class="student-count">Students Completed: 9/25</span>
-                        <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/assess/question/progress' ]">
+                        <!-- <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/', subjectID, 'assess', 'question', assessmentID, 'progress' ]"> -->
+                        <a (click)="navigateToProgress()">
                             <span class="eye-icon"><i class="fa fa-eye"></i></span>
                         </a>
                     </div>

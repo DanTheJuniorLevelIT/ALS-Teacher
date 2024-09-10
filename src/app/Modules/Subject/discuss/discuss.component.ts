@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { ApiserviceService } from '../../../apiservice.service';
 
 @Component({
   selector: 'app-discuss',
@@ -14,6 +15,8 @@ export class DiscussComponent implements OnInit{
   subjectID: number | null = null;
 
   isModalOpen = false;
+
+  constructor(private apiService: ApiserviceService, private router: Router) {}
 
   ngOnInit(): void {
     // Retrieve the subjectID from localStorage
@@ -32,6 +35,16 @@ export class DiscussComponent implements OnInit{
 
   closeModal() {
     this.isModalOpen = false;
+  }
+
+  navigateToDiscussions() {
+    const storedSubjectID = localStorage.getItem('subjectID');
+    // Store the subjectID in localStorage
+    // localStorage.setItem('assid', assID.toString());
+
+    // Navigate to the modules page
+    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
+    this.router.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', 'discuss', 'discussion']);
   }
 
 }

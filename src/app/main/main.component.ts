@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import { ApiserviceService } from '../apiservice.service';
 
 @Component({
   selector: 'app-main',
@@ -8,7 +9,16 @@ import { RouterModule } from '@angular/router';
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
 })
-export class MainComponent {
+export class MainComponent implements OnInit{
+
+  tok: any;
+
+  constructor(private api: ApiserviceService, private route: Router){}
+
+  ngOnInit(): void {
+    const authToken = localStorage.getItem('authToken');
+    this.tok = authToken;
+  }
 
   toggleSidebar() {
     const sidebar = document.querySelector('.sidebar');
@@ -21,6 +31,28 @@ export class MainComponent {
     const navbar = document.querySelector('.sidebar');
     if (navbar && navbar.classList.contains('show')) {
       navbar.classList.remove('show');
+    }
+  }
+
+  logout(token: any) {
+    if (token) {
+      this.api.outAdmin(token).subscribe(
+        (response: any) => {
+          console.log(response);
+          localStorage.removeItem('authToken'); // Remove the token from localStorage
+          this.route.navigate(['/login']);      // Navigate to the login page
+        },
+        error => {
+          if (error.status === 401) {
+            console.error('Unauthenticated. Please login again.');
+            this.route.navigate(['/login']);  // Redirect to login if unauthenticated
+          } else {
+            console.error('Logout error:', error);
+          }
+        }
+      );
+    } else {
+      console.error('No token found for logout');
     }
   }
 }

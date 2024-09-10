@@ -7,13 +7,24 @@ import { Observable } from 'rxjs';
 })
 export class ApiserviceService {
 
-  private url = "http://localhost:8000/";
+  private url = "http://localhost:8000/"; 
 
   constructor(private http: HttpClient) { }
 
   // getSubjects() {
   //   return this.http.get(this.url + 'api/execute');
   // }
+
+  verifyAdmin(login: any){
+    return this.http.post(this.url + 'api/loginAdmin', login);
+  }
+
+  outAdmin(token: string): Observable<any> {
+    const headers = {
+      'Authorization': `Bearer ${token}`
+    };
+    return this.http.post(this.url + 'api/logoutAdmin', {}, { headers });
+  }
 
   getSubjects() {
     return this.http.get(this.url + 'api/subjects');
