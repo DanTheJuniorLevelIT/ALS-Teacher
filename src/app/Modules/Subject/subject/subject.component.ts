@@ -37,6 +37,7 @@ export class SubjectComponent implements OnInit{
   subBlp: any;
   subAlsElem: any;
   subAlsJhs: any;
+  authtoken: any;
   
 
 

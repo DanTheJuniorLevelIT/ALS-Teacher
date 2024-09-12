@@ -144,14 +144,14 @@
                 </div> -->
                 <div class="card" style="width: 12rem;" *ngFor="let sub of sub">
                     <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', sub.subjectID]"> -->
-                    <a (click)="navigateToModules(sub.subjectID)">
+                    <a (click)="navigateToModules(sub.classid)">
                         <div class="image">
                             <img src='/assets/{{sub.image}}' class="card-img-top border border-bottom" alt="...">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{{sub.subject_name}}</h5>
                             <div class="card-details">            
-                                <p class="card-text">{{sub.Schedule}}</p>
+                                <p class="card-text">{{sub.schedule}}</p>
                                 <!-- <p class="card-text">Elzaina Nabor</p> -->
                             </div>
                         </div>

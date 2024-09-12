@@ -118,26 +118,26 @@
         <form [formGroup]="createAssessment" (ngSubmit)="save()">
             <div class="input-group">
                 <label class="label">Title</label>
-                <input formControlName="Title" autocomplete="off" name="title" id="title" class="input" type="text">
+                <input formControlName="title" autocomplete="off" name="title" id="title" class="input" type="text">
             </div>
             <div class="input-group">
                 <label class="label">Instruction</label>
-                <input formControlName="Instruction" autocomplete="off" name="instruction" id="instruction" class="input" type="text">
+                <input formControlName="instruction" autocomplete="off" name="instruction" id="instruction" class="input" type="text">
             </div>
             <div class="input-group">
                 <label class="label">Description</label>
-                <textarea formControlName="Description" autocomplete="off" name="description" id="description" class="textarea"></textarea>
+                <textarea formControlName="description" autocomplete="off" name="description" id="description" class="textarea"></textarea>
             </div>
             <div class="input-group">
                 <label class="label">Lesson</label>
-                <select formControlName="Lesson_ID" name="typeOfQuestion" id="typeOfQuestion" class="input">
+                <select formControlName="lesson_id" name="typeOfQuestion" id="typeOfQuestion" class="input">
                     <option value="1">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</option>
                     <option value="2">Sprains, Dislocations and Fractures</option>
                 </select>
             </div>
             <div class="input-group">
                 <label class="label">Due Date</label>
-                <input formControlName="Due_date" autocomplete="off" name="dueDate" id="dueDate" class="input" type="date">
+                <input formControlName="due_date" autocomplete="off" name="dueDate" id="dueDate" class="input" type="date">
             </div>
             <div class="button-group">
                 <button class="submit-btn">ADD</button>

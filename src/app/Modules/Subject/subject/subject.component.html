@@ -147,7 +147,7 @@
     <div class="cards-container">
       <div class="card" *ngFor="let sub of subBlp">
         <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', sub.subjectID]"> -->
-        <a (click)="navigateToModules(sub.subjectID)">
+        <a (click)="navigateToModules(sub.classid)">
           <img src='/assets/{{sub.image}}' alt="Class 1">
           <div class="card-title">{{sub.subject_name}}</div>
           <div class="card-body">

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -7,46 +7,51 @@ import { Observable } from 'rxjs';
 })
 export class ApiserviceService {
 
-  private url = "http://localhost:8000/"; 
+  private url = "http://localhost:8000/";
+  token = localStorage.getItem('authToken')
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  // getSubjects() {
-  //   return this.http.get(this.url + 'api/execute');
-  // }
-
+  // Example: loginAdmin does not need an authorization token
   verifyAdmin(login: any){
     return this.http.post(this.url + 'api/loginAdmin', login);
   }
 
-  outAdmin(token: string): Observable<any> {
-    const headers = {
-      'Authorization': `Bearer ${token}`
-    };
+  // Use the token for authorized requests
+  outAdmin(token: string){
+    const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.post(this.url + 'api/logoutAdmin', {}, { headers });
   }
 
-  getSubjects() {
-    return this.http.get(this.url + 'api/subjects');
+  // Example for getSubjects with authorization
+  getSubjects(){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(this.url + 'api/subjects', { headers });
   }
 
-  getAssessment() {
-    return this.http.get(this.url + 'api/subjects/assessment');
-  }
-  
-  getSpecSubjects(id: number) {
-    return this.http.get(`${this.url}api/subjects/${id}`);
+  getAssessment(){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(this.url + 'api/subjects/assessment', { headers });
   }
 
-  getAllSubjects() {
-    return this.http.get(this.url + 'api/subjects/showAll');
+  getSpecSubjects(id: number){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/subjects/${id}`, { headers });
+  }
+
+  getAllSubjects(){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(this.url + 'api/subjects/showAll', { headers });
   }
 
   createAssess(data: any){
-    return this.http.post(this.url + 'api/subjects/create', data);
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.post(this.url + 'api/subjects/create', data, { headers });
   }
 
-  createUser(data: any) {
-    return this.http.post('/api/users', data);
+  createUser(data: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.post(this.url + 'api/users', data, { headers });
   }
 }
+

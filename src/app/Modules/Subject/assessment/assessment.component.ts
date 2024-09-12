@@ -14,17 +14,18 @@ import { ApiserviceService } from '../../../apiservice.service';
 export class AssessmentComponent implements OnInit{
 
   subjectID: number | null = null;
+  authtoken: any;
 
   assess: any;
 
   isModalOpen = false;
 
   createAssessment = new FormGroup({
-    Title: new FormControl(null),
-    Lesson_ID: new FormControl(null),
-    Instruction: new FormControl(null),
-    Description: new FormControl(null),
-    Due_date: new FormControl(null)
+    title: new FormControl(null),
+    lesson_id: new FormControl(null),
+    instruction: new FormControl(null),
+    description: new FormControl(null),
+    due_date: new FormControl(null)
   })
 
   constructor(private apiService: ApiserviceService, private router: Router) {}
@@ -32,6 +33,8 @@ export class AssessmentComponent implements OnInit{
   ngOnInit(): void {
     // Retrieve the subjectID from localStorage
     const storedSubjectID = localStorage.getItem('subjectID');
+    const token = localStorage.getItem('authToken');
+    this.authtoken = token;
     if (storedSubjectID) {
       this.subjectID = +storedSubjectID;  // Convert the string to a number
       console.log('Retrieved Subject ID from localStorage:', this.subjectID);

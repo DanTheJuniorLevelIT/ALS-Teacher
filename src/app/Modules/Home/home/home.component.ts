@@ -13,6 +13,8 @@ import { ApiserviceService } from '../../../apiservice.service';
 export class HomeComponent implements OnInit{
 
   sub: any;
+  authtoken: any;
+
 
   // constructor(private apiserv: ApiserviceService){}
 

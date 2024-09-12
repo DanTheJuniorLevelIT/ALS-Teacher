@@ -15,6 +15,7 @@ export class ModulesmainComponent implements OnInit{
   
   subjectId: number | null = null;
   subjectDetail: any;
+  authtoken: any;
   isModalOpen = false;
 
   constructor(
@@ -45,6 +46,8 @@ export class ModulesmainComponent implements OnInit{
   }
 
   getSubjectDetails(id: number) {
+    // const token = localStorage.getItem('authToken');
+    //   this.authtoken = token;
     this.apiserv.getSpecSubjects(id).subscribe(
       (response) => {
         this.subjectDetail = response;

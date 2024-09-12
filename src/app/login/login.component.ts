@@ -39,18 +39,21 @@ export class LoginComponent implements OnInit{
           localStorage.setItem('authToken', token);
   
           // Navigate to the desired page
-          if(token != null){
+          if(token != null || token != undefined){
             this.route.navigate(['/main/Home/']);
           }else{
             console.error('Invalid Login');
+            alert('Incorrect Email or Password');
           }
         },
         error => {
           console.error('Error logging in:', error);
+          alert('Invalid Email or Password');
         }
       );
     } else {
       console.error('Form is not valid');
+      alert('Form is not valid');
     }
   }
 
