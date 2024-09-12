@@ -15,7 +15,7 @@ export class ModulesmainComponent implements OnInit{
   
   subjectId: number | null = null;
   subjectDetail: any;
-  authtoken: any;
+  classid: any;
   isModalOpen = false;
 
   constructor(
@@ -35,10 +35,12 @@ export class ModulesmainComponent implements OnInit{
   
   ngOnInit(): void {
     // Get the subjectId from route parameters
+    const classid = localStorage.getItem('subjectID');
+    this.classid = classid;
     this.route.params.subscribe(params => {
       this.subjectId = +params['id'];  // The '+' ensures it's treated as a number
       if (this.subjectId) {
-        this.getSubjectDetails(this.subjectId);
+        this.getSubjectDetails(this.classid);
       } else {
         console.error('Invalid ID:', this.subjectId);
       }
@@ -46,8 +48,7 @@ export class ModulesmainComponent implements OnInit{
   }
 
   getSubjectDetails(id: number) {
-    // const token = localStorage.getItem('authToken');
-    //   this.authtoken = token;
+    
     this.apiserv.getSpecSubjects(id).subscribe(
       (response) => {
         this.subjectDetail = response;
