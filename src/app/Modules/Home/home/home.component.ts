@@ -13,7 +13,9 @@ import { ApiserviceService } from '../../../apiservice.service';
 export class HomeComponent implements OnInit{
 
   sub: any;
+  shl: any;
   authtoken: any;
+  teacherid: any;
 
 
   // constructor(private apiserv: ApiserviceService){}
@@ -52,10 +54,16 @@ export class HomeComponent implements OnInit{
   // }
 
   ngOnInit() {
-    this.apiserv.getSubjects().subscribe(
-      (response) => {
-        this.sub = response;
+    const id = localStorage.getItem('id');
+    this.teacherid = id;
+    // this.apiserv.getSubjects().subscribe(
+    this.apiserv.getTeacherSubjects(this.teacherid).subscribe(
+      (response: any) => {
+        this.sub = response.subject;
+        this.shl = response.school;
         console.log(this.sub);
+        console.log(this.shl);
+        // console.log(this.sub.school);
       },
       (error) => {
         console.error('Error fetching users:', error);

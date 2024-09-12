@@ -39,9 +39,19 @@ export class ApiserviceService {
     return this.http.get(`${this.url}api/subjects/${id}`, { headers });
   }
 
+  getTeacherSubjects(id: number){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/teacherSub/${id}`, { headers });
+  }
+
   getAllSubjects(){
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.get(this.url + 'api/subjects/showAll', { headers });
+  }
+
+  getAllTeacherSubjects(id: number){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/subjects/allSubjects/${id}`, { headers });
   }
 
   createAssess(data: any){

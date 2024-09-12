@@ -44,7 +44,7 @@
   .subjecttime{
     color: black;
     text-align: center;
-    font-weight: bold;
+    /* font-weight: bold; */
   }
 
   .level-filter {

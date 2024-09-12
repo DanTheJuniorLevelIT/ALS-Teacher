@@ -31,12 +31,14 @@ export class LoginComponent implements OnInit{
         (response: any) => {
           console.log('Response:', response);
   
-          // Extract the token from the response
+          // Extract from the response
+          const adminid = response.adminid;
           const token = response.token;
           console.log('Token:', token);
   
           // Store the token in local storage (or a service if needed)
           localStorage.setItem('authToken', token);
+          localStorage.setItem('id', adminid);
   
           // Navigate to the desired page
           if(token != null || token != undefined){

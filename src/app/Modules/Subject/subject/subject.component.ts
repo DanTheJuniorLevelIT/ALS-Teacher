@@ -38,6 +38,7 @@ export class SubjectComponent implements OnInit{
   subAlsElem: any;
   subAlsJhs: any;
   authtoken: any;
+  teacherid: any;
   
 
 
@@ -54,7 +55,9 @@ export class SubjectComponent implements OnInit{
   //   );
   // }
   ngOnInit(): void {
-    this.apiserv.getAllSubjects().subscribe(
+    const id = localStorage.getItem('id');
+    this.teacherid = id;
+    this.apiserv.getAllTeacherSubjects(this.teacherid).subscribe(
       (response) => {
         this.allSubjects = response;
         this.filteredSubjects();
