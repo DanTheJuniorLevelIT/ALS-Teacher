@@ -65,14 +65,14 @@
 <div class="header">
     <h1 style="text-align: center;">First Aid: A Necessity</h1>
     <div class="button-group">
-        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'mat']"  routerLinkActive="active">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'mat']"  routerLinkActive="active">
             <button class="nav-btn">Learning Material</button>
         </a>
         <!-- <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/:id/modules/assess']"  routerLinkActive="active"> -->
-            <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'assess']"  routerLinkActive="active">
+            <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'assess']"  routerLinkActive="active">
             <button class="nav-btn">Assessment</button>
         </a>
-        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'discuss']"  routerLinkActive="active">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']"  routerLinkActive="active">
             <button class="nav-btn">Discussion</button>
         </a>
     </div>

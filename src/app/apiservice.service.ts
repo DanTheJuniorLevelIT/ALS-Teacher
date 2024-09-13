@@ -49,6 +49,11 @@ export class ApiserviceService {
     return this.http.get(this.url + 'api/subjects/showAll', { headers });
   }
 
+  getSubModules(id: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/modules/${id}`, { headers });
+  }
+
   getAllTeacherSubjects(id: number){
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.get(`${this.url}api/subjects/allSubjects/${id}`, { headers });

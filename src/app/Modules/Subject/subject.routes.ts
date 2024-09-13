@@ -20,17 +20,16 @@ export const subjectRoute: Routes = [
             { path: 'subject/modulesmain/:id', component: ModulesmainComponent,
                 children: [
                     { path: 'modules', component: ModulesComponent },
-                    { path: 'modules/mat', component: MatComponent },
-                    { path: 'modules/assess', component: AssessmentComponent },
-                    { path: 'modules/discuss', component: DiscussComponent},
-                    { path: 'modules/mat/lesson', component: LessonComponent },
-                    { path: 'modules/assess/question/:id', component: QuestionComponent },
-                    { path: 'modules/discuss', component: DiscussComponent},
-                    // { path: 'modules/discuss/:id/discussion', component: DiscussionComponent},
-                    { path: 'modules/discuss/discussion', component: DiscussionComponent},
-                    { path: 'modules/assess/question/:id/progress', component: ProgressComponent }, 
-                    { path: 'modules/assess/question/checking', component: CheckComponent},
+                    { path: 'modules/:moduleid/mat', component: MatComponent }, // Dynamic moduleid for mat
+                    { path: 'modules/:moduleid/assess', component: AssessmentComponent },
+                    { path: 'modules/:moduleid/discuss', component: DiscussComponent },
+                    { path: 'modules/:moduleid/mat/lesson', component: LessonComponent },
+                    { path: 'modules/:moduleid/assess/question/:questionid', component: QuestionComponent },
+                    { path: 'modules/:moduleid/discuss/discussion', component: DiscussionComponent },
+                    { path: 'modules/:moduleid/assess/question/:questionid/progress', component: ProgressComponent }, 
+                    { path: 'modules/:moduleid/assess/question/checking', component: CheckComponent },
                     { path: '', redirectTo: 'modules', pathMatch: 'full' }
+                    // { path: 'modules/discuss/:id/discussion', component: DiscussionComponent},
                 ]
             },
             { path: 'students', component: StudentsComponent},

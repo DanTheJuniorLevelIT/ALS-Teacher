@@ -15,6 +15,8 @@ export class AssessmentComponent implements OnInit{
 
   subjectID: number | null = null;
   authtoken: any;
+  moduleID: any;
+  
 
   assess: any;
 
@@ -35,8 +37,10 @@ export class AssessmentComponent implements OnInit{
     const storedSubjectID = localStorage.getItem('subjectID');
     const token = localStorage.getItem('authToken');
     this.authtoken = token;
+    const storedModuleID = localStorage.getItem('moduleid');
     if (storedSubjectID) {
       this.subjectID = +storedSubjectID;  // Convert the string to a number
+      this.moduleID = storedModuleID;  // Convert the string to a number  // Convert the string to a number
       console.log('Retrieved Subject ID from localStorage:', this.subjectID);
     } else {
       console.error('No subjectID found in localStorage.');

@@ -19,31 +19,20 @@ import { ApiserviceService } from '../../../apiservice.service';
 export class ModulesComponent implements OnInit{
 
   subjectID: number | null = null;
+  storedSubjectID: any;
+  modules: any;
 
   constructor(private apiService: ApiserviceService, private router: Router) {}
 
-  ngOnInit(): void {
-    // Retrieve the subjectID from localStorage
-    const storedSubjectID = localStorage.getItem('subjectID');
-    // if (storedSubjectID) {
-    //   this.subjectID = +storedSubjectID;  // Convert the string to a number
-    //   console.log('Retrieved Subject ID from localStorage:', this.subjectID);
-    // } else {
-    //   console.error('No subjectID found in localStorage.');
-    // }
-  }
 
-  // ngOnInit(): void {
-  //   // Get the subjectId from route parameters
-  //   this.route.params.subscribe(params => {
-  //     this.subjectID = +params['id'];  // The '+' ensures it's treated as a number
-  //     if (this.subjectID) {
-  //       this.getSubjectDetails(this.subjectID);
-  //     } else {
-  //       console.error('Invalid ID:', this.subjectID);
-  //     }
-  //   });
-  // }
+  ngOnInit(): void {
+    // const storedSubjectID = localStorage.getItem('subjectID');
+    this.storedSubjectID = localStorage.getItem('subjectID');
+    this.apiService.getSubModules(this.storedSubjectID).subscribe((response: any)=>{
+      this.modules = response.modules
+      console.log('Modules:', this.modules);
+    })
+  }
 
   // getSubjectDetails(id: number) {
   //   this.apiserv.getSpecSubjects(id).subscribe(
@@ -68,14 +57,20 @@ export class ModulesComponent implements OnInit{
     this.isModalOpen = false;
   }
 
-  navigateToMaterials() {
-    const storedSubjectID = localStorage.getItem('subjectID');
-    // Store the subjectID in localStorage
-    // localStorage.setItem('assid', assID.toString());
+  // navigateToMaterials(id: any) {
+  //   const storedSubjectID = localStorage.getItem('subjectID');
+  //   localStorage.setItem('module', id);
+  //   // Store the subjectID in localStorage
+  //   // localStorage.setItem('assid', assID.toString());
 
-    // Navigate to the modules page
-    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
-    this.router.navigate(['/main/Subject/main/subject/modulesmain/', storedSubjectID, 'modules', 'mat']);
+  //   // Navigate to the modules page
+  //   // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
+  //   // this.router.navigate(['/main/Subject/main/subject/modulesmain/', storedSubjectID, 'modules', 'mat']);
+  //   this.router.navigate(['/main/Subject/main/subject/modulesmain/', storedSubjectID, 'modules', id, 'mat']);
+  // }
+
+  setModuleID(id: any) {
+    localStorage.setItem('moduleid', id)
   }
 
 }
