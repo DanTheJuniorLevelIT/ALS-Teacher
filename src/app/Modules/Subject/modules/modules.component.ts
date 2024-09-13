@@ -69,8 +69,9 @@ export class ModulesComponent implements OnInit{
   //   this.router.navigate(['/main/Subject/main/subject/modulesmain/', storedSubjectID, 'modules', id, 'mat']);
   // }
 
-  setModuleID(id: any) {
+  setModuleID(id: any, title: any) {
     localStorage.setItem('moduleid', id)
+    localStorage.setItem('moduletitle', title)
   }
 
 }

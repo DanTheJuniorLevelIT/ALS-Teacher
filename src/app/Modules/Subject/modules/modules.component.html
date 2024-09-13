@@ -9,7 +9,7 @@
                 <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/:id/modules/mat']">First Aid: A Necessity</a> -->
                 <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'mat']">First Aid: A Necessity</a> -->
                 <!-- <a (click)="navigateToMaterials(mod.modules.id)">{{mod.title}}</a> -->
-                <a (click)="setModuleID(mod.modules_id)" [routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']">
+                <a (click)="setModuleID(mod.modules_id, mod.title)" [routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']">
                     {{ mod.title }}
                 </a>
                 <!-- <p>Aug 17, 2023</p> -->

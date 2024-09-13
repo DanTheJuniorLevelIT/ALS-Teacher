@@ -30,6 +30,7 @@ export class MatComponent implements OnInit{
 
   subjectID: number | null = null;
   moduleID: any;
+  moduleTitle: any;
 
   constructor(
     private apiserv: ApiserviceService, 
@@ -63,9 +64,11 @@ export class MatComponent implements OnInit{
     // Retrieve the subjectID from localStorage
     const storedSubjectID = localStorage.getItem('subjectID');
     const storedModuleID = localStorage.getItem('moduleid');
+    const storedModuleTitle = localStorage.getItem('moduletitle');
     if (storedSubjectID) {
       this.subjectID = +storedSubjectID;  // Convert the string to a number
       this.moduleID = storedModuleID;  // Convert the string to a number
+      this.moduleTitle = storedModuleTitle;  // Convert the string to a number
       console.log('Retrieved Subject ID from localStorage:', this.subjectID);
     } else {
       console.error('No subjectID found in localStorage.');
