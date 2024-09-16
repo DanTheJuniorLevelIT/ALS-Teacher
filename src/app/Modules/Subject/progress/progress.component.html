@@ -1,14 +1,14 @@
 <div class="header">
     <h1 style="text-align: center;">Students Assessment Progress</h1>
     <div class="button-group">
-        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'mat']"  routerLinkActive="active">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'mat']"  routerLinkActive="active">
             <button class="nav-btn">Learning Material</button>
         </a>
         <!-- <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/:id/modules/assess']"  routerLinkActive="active"> -->
-            <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'assess']"  routerLinkActive="active">
+            <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'assess']"  routerLinkActive="active">
             <button class="nav-btn">Assessment</button>
         </a>
-        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'discuss']"  routerLinkActive="active">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']"  routerLinkActive="active">
             <button class="nav-btn">Discussion</button>
         </a>
     </div>
@@ -31,11 +31,12 @@
                             <div class="score-header">
                                 Score
                                 <button (click)="autoCheck()" class="nav-btn auto-check-btn"><i class="fa fa-check" aria-hidden="true"></i>Auto Check</button>
+                                <!-- <button class="nav-btn auto-check-btn"><i class="fa fa-check" aria-hidden="true"></i>Auto Check</button> -->
                             </div>
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <!-- <tbody>
                     <tr *ngFor="let student of students; let i = index">
                         <td>{{ student.name }}</td>
                         <td>
@@ -49,6 +50,22 @@
                                 </button>
                             </a>
                         </td>
+                    </tr>
+                </tbody> -->
+                <tbody>
+                    <tr *ngFor="let student of students">
+                      <td>{{ student.firstname }} {{ student.lastname }}</td>
+                      <td>
+                        <!-- <input type="checkbox" [(ngModel)]="student.completed"> -->
+                        <input type="checkbox" [checked]="student.completed" disabled>
+                      </td>
+                      <td>{{ student.score || 'No grade yet' }}
+                        <a (click)="navigateToChecking(student.lrn)">
+                            <button class="nav-btn auto-check-btn">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </button>
+                        </a>
+                      </td>
                     </tr>
                 </tbody>
             </table>

@@ -27,7 +27,7 @@ export const subjectRoute: Routes = [
                     { path: 'modules/:moduleid/assess/question/:questionid', component: QuestionComponent },
                     { path: 'modules/:moduleid/discuss/discussion', component: DiscussionComponent },
                     { path: 'modules/:moduleid/assess/question/:questionid/progress', component: ProgressComponent }, 
-                    { path: 'modules/:moduleid/assess/question/checking', component: CheckComponent },
+                    { path: 'modules/:moduleid/assess/question/:questionid/checking', component: CheckComponent },
                     { path: '', redirectTo: 'modules', pathMatch: 'full' }
                     // { path: 'modules/discuss/:id/discussion', component: DiscussionComponent},
                 ]

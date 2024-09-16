@@ -94,6 +94,27 @@ export class ApiserviceService {
     return this.http.put(`${this.url}api/subjects/editQuestion/${data.question_id}`, data, { headers });
   }
 
+  getStudents(id: any, assid: any){
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.get(`${this.url}api/subjects/students/${id}/${assid}`, { headers });
+  }
+
+  //1st approach
+  // autoCheck(id: any, assid: any) {
+  //   const headers = { 'Authorization': 'Bearer ' + this.token };
+  //   return this.http.get(`${this.url}api/subjects/autocheck/${id}/${assid}`, { headers });
+  // }
+
+  autoCheck(id: any, assid: any) {
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.post(`${this.url}api/subjects/autocheck/${id}/${assid}`, null, { headers });
+  }
+
+  getStudentAnswers(id: any, lrnid: any){
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.get(`${this.url}api/subjects/checking/${id}/${lrnid}`, { headers });
+  }
+
   // END
 
 
