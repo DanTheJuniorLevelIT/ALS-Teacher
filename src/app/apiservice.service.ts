@@ -34,6 +34,12 @@ export class ApiserviceService {
     return this.http.get(this.url + 'api/subjects/assessment', { headers });
   }
 
+  getAssessmentDetails(id: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/subjects/showAssessment/${id}`, { headers });
+  }
+
+
   getSpecSubjects(id: number){
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.get(`${this.url}api/subjects/${id}`, { headers });
@@ -62,6 +68,21 @@ export class ApiserviceService {
   createAssess(data: any){
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.post(this.url + 'api/subjects/create', data, { headers });
+  }
+
+  createQuestion(data: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.post(this.url + 'api/subjects/createQuestion', data, { headers });
+  }
+
+  getQuestion(id: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/subjects/showQuestion/${id}`, { headers });
+  }
+
+  editQuestion(data: any) {
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.put(`${this.url}api/subjects/editQuestion/${data.question_id}`, data, { headers });
   }
 
   createUser(data: any){

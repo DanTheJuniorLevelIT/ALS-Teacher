@@ -98,9 +98,7 @@
         </div>
         <div *ngFor="let ass of assess">
             <div class="file-link">
-                <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/assess/question']">Activity 1: Let's See What You Already Know</a> -->
-                <a (click)="navigateToQuestions(ass.assessmentID)" [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'assess', 'question']"  routerLinkActive="active">{{ass.Title}}</a>
-                <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'assess', 'question', ass.assessmentID]"  routerLinkActive="active">{{ass.Title}}</a> -->
+                <a (click)="navigateToQuestions(ass.assessmentID)"  routerLinkActive="active">{{ass.Title}}</a>
                 <p>{{ass.formatted_due_date}}</p>
             </div>
             <!-- Instruction added here -->

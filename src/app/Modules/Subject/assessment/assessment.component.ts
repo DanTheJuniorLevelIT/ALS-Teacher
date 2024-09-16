@@ -44,13 +44,18 @@ export class AssessmentComponent implements OnInit{
       this.subjectID = +storedSubjectID;  // Convert the string to a number
       this.moduleID = storedModuleID;
       this.moduleTitle = storedModuleTitle;  // Convert the string to a number  // Convert the string to a number
+      this.loadAssessments();
       console.log('Retrieved Subject ID from localStorage:', this.subjectID);
     } else {
       console.error('No subjectID found in localStorage.');
     }
 
+    
+  }
+
+  loadAssessments(){
     this.apiService.getAssessment().subscribe(
-      (response) => {
+      (response: any) => {
         this.assess = response;
         console.log(this.assess);
       },
@@ -74,6 +79,7 @@ export class AssessmentComponent implements OnInit{
       this.apiService.createAssess(this.createAssessment.value).subscribe(
         response => {
           console.log('Assessment created:', response);
+          this.loadAssessments();
           this.closeModal(); // Close the modal
           // Optionally, navigate to another page
           // this.router.navigate(['/some-route']);
@@ -102,7 +108,7 @@ export class AssessmentComponent implements OnInit{
 
     // Navigate to the modules page
     // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
-    this.router.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', 'assess', 'question', assID]);
+    this.router.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', this.moduleID, 'assess', 'question', assID]);
   }
 
 }
