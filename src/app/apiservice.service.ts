@@ -12,6 +12,7 @@ export class ApiserviceService {
 
   constructor(private http: HttpClient) {}
 
+  // Dan Work Services
   // Example: loginAdmin does not need an authorization token
   verifyAdmin(login: any){
     return this.http.post(this.url + 'api/loginAdmin', login);
@@ -23,22 +24,12 @@ export class ApiserviceService {
     return this.http.post(this.url + 'api/logoutAdmin', {}, { headers });
   }
 
+  // Home and Subjects Services
   // Example for getSubjects with authorization
   getSubjects(){
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.get(this.url + 'api/subjects', { headers });
   }
-
-  getAssessment(){
-    const headers = {'Authorization': 'Bearer ' + this.token};
-    return this.http.get(this.url + 'api/subjects/assessment', { headers });
-  }
-
-  getAssessmentDetails(id: any){
-    const headers = {'Authorization': 'Bearer ' + this.token};
-    return this.http.get(`${this.url}api/subjects/showAssessment/${id}`, { headers });
-  }
-
 
   getSpecSubjects(id: number){
     const headers = {'Authorization': 'Bearer ' + this.token};
@@ -65,9 +56,22 @@ export class ApiserviceService {
     return this.http.get(`${this.url}api/subjects/allSubjects/${id}`, { headers });
   }
 
+  // END
+
+  // Assessment Services
   createAssess(data: any){
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.post(this.url + 'api/subjects/create', data, { headers });
+  }
+
+  getAssessment(){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(this.url + 'api/subjects/assessment', { headers });
+  }
+
+  getAssessmentDetails(id: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/subjects/showAssessment/${id}`, { headers });
   }
 
   createQuestion(data: any){
@@ -80,14 +84,39 @@ export class ApiserviceService {
     return this.http.get(`${this.url}api/subjects/showQuestion/${id}`, { headers });
   }
 
+  getCompletionStats(id: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/subjects/getCompleted/${id}`, { headers });
+  }
+
   editQuestion(data: any) {
     const headers = { 'Authorization': 'Bearer ' + this.token };
     return this.http.put(`${this.url}api/subjects/editQuestion/${data.question_id}`, data, { headers });
   }
 
+  // END
+
+
+  // User
   createUser(data: any){
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.post(this.url + 'api/users', data, { headers });
   }
+
+  // END
+
+  //Elzaina Work Services
+
+
+
+
+
+
+
+
+
+
+
+  //Mark Lemuel Work Services
 }
 

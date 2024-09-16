@@ -50,7 +50,7 @@
             <div class="header-container">
                 <h2 class="text-xl font-bold mb-4">{{ det.title }}</h2>
                 <div class="student-info">
-                    <span class="student-count">Students Completed: 9/25</span>
+                    <span class="student-count">Students Completed: {{ completedCount }}/{{ totalStudents }}</span>
                     <a (click)="navigateToProgress()">
                         <span class="eye-icon"><i class="fa fa-eye"></i></span>
                     </a>

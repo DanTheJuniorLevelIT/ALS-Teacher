@@ -19,6 +19,8 @@ export class QuestionComponent implements OnInit{
   moduleID: any;
   det: any;
   questions: any;
+  completedCount: number = 0;
+  totalStudents: number = 0;
 
   isModalOpen = false;
   isEditing = false; // To track if we are in edit mode
@@ -43,7 +45,8 @@ export class QuestionComponent implements OnInit{
       this.moduleID = storedModuleID;
       this.subjectID = +storedSubjectID;  // Convert the string to a number
       this.assessmentID = storedAssessmentID;
-      this.loadQuestions();  // Convert the string to a number
+      this.loadQuestions();
+      this.loadCompletion(); 
       console.log('Retrieved Subject ID from localStorage:', this.assessmentID);
     } else {
       console.error('No subjectID found in localStorage.');
@@ -68,6 +71,13 @@ export class QuestionComponent implements OnInit{
       } else {
         console.error('Unexpected response structure:', response);
       }
+    });
+  }
+
+  loadCompletion(){
+    this.apiService.getCompletionStats(this.assessmentID).subscribe((stats: any) => {
+      this.completedCount = stats.completed;
+      this.totalStudents = stats.total;
     });
   }
 
