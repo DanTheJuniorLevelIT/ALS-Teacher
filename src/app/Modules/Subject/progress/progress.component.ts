@@ -14,7 +14,7 @@ import { ApiserviceService } from '../../../apiservice.service';
 export class ProgressComponent {
 
   students: any;
-  studentPoints: any;
+  totalPoints: any;
   isModalOpen = false;
   questionText = '';
   questionType = 'multiple-choice'; // Default type
@@ -49,6 +49,7 @@ loadStudents(){
   this.apiserv.getStudents(this.subjectID, this.assessmentID).subscribe(
     (data: any) => {
       this.students = data.status;
+      this.totalPoints = data.total_points;
       // this.students = data.score;
       console.log("Students: ", data.status);
     },

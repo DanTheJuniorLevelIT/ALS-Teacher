@@ -3,17 +3,19 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ApiserviceService } from '../../../apiservice.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-check',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, FormsModule],
   templateUrl: './check.component.html',
   styleUrl: './check.component.css'
 })
 export class CheckComponent implements OnInit {
   // checkForm!: FormGroup;
   subjectID: number | null = null;
+  studScore: any;
   totalScore: number = 0;
   maxScore: number = 0;
   assessmentID: any;
@@ -55,18 +57,44 @@ export class CheckComponent implements OnInit {
       if (response.status === 'success') {
         this.studentAnswers = response.data;
         this.totalScore = response.total_score;
+        this.studScore = response.studentScore;
         this.maxScore = response.max_score;
         console.log('student answers: ', this.studentAnswers);
+        console.log('student Total Score: ', this.studScore);
       } else {
         console.error('Failed to load student answers');
       }
     });
   }
+  
 
   getLetter(index: number): string {
     return String.fromCharCode(65 + index);  // Converts 0 -> 'A', 1 -> 'B', etc.
   }
 
+  //working
+  manualCheck(questionId: number, score: number) {
+    const payload = {
+      assessment_id: this.assessmentID,
+      learner_id: this.learnerID,
+      question_id: questionId,
+      score: score  // Only add this to essay questions
+    };
   
-
+    // Call API to submit the score
+    this.apiserv.submitScore(payload).subscribe(
+      (response: any) => {
+        if (response.status === 'success') {
+          console.log('Essay score added successfully');
+          this.totalScore = response.total_score;  // Update total score
+          this.loadStudentAnswers(this.assessmentID, this.learnerID);  // Reload answers to refresh the scores
+        } else {
+          console.error('Failed to add score');
+        }
+      },
+      (error) => {
+        console.error('Error adding score', error);
+      }
+    );
+  }
 }

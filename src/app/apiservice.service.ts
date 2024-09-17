@@ -110,7 +110,12 @@ export class ApiserviceService {
     return this.http.post(`${this.url}api/subjects/autocheck/${id}/${assid}`, null, { headers });
   }
 
-  getStudentAnswers(id: any, lrnid: any){
+  submitScore(data: any) {
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.post(`${this.url}api/subjects/submitScore`, data, { headers });
+  }
+
+  getStudentAnswers (id: any, lrnid: any){
     const headers = { 'Authorization': 'Bearer ' + this.token };
     return this.http.get(`${this.url}api/subjects/checking/${id}/${lrnid}`, { headers });
   }

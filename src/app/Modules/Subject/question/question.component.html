@@ -132,62 +132,63 @@
 
 <div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
-      <span class="close" (click)="closeModal()">&times;</span>
-      <h2>{{ isEditing ? 'Edit Question' : 'Add Question' }}</h2>
-  
-      <div class="input-group">
-        <label class="label">Question</label>
-        <textarea [(ngModel)]="questionText" class="textarea" placeholder="Enter the question here"></textarea>
-      </div>
-  
-      <div class="input-group">
-        <label class="label">Type of Question</label>
-        <select [(ngModel)]="questionType" class="input" (change)="onQuestionTypeChange()">
-          <option value="multiple-choice">Multiple Choice</option>
-          <option value="true-false">True or False</option>
-          <option value="identification">Identification</option>
-          <option value="Essay">Essay</option>
-        </select>
-      </div>
+        <span class="close" (click)="closeModal()">&times;</span>
+        <h2>{{ isEditing ? 'Edit Question' : 'Add Question' }}</h2>
+    
+        <div class="input-group">
+            <label class="label">Question</label>
+            <textarea [(ngModel)]="questionText" class="textarea" placeholder="Enter the question here"></textarea>
+        </div>
+    
+        <div class="input-group">
+            <label class="label">Type of Question</label>
+            <select [(ngModel)]="questionType" class="input" (change)="onQuestionTypeChange()">
+            <option value="multiple-choice">Multiple Choice</option>
+            <option value="true-false">True or False</option>
+            <option value="identification">Identification</option>
+            <option value="Essay">Essay</option>
+            </select>
+        </div>
   
 
-      <div *ngIf="questionType === 'multiple-choice'" class="choice-container">
-        <div class="input-group">
-          <label class="label">Option A</label>
-          <input [(ngModel)]="optionA" class="input" type="text" placeholder="Enter Option A">
+        <div *ngIf="questionType === 'multiple-choice'" class="choice-container">
+            <div class="input-group">
+            <label class="label">Option A</label>
+            <input [(ngModel)]="optionA" class="input" type="text" placeholder="Enter Option A">
+            </div>
+            <div class="input-group">
+            <label class="label">Option B</label>
+            <input [(ngModel)]="optionB" class="input" type="text" placeholder="Enter Option B">
+            </div>
+            <div class="input-group">
+            <label class="label">Option C</label>
+            <input [(ngModel)]="optionC" class="input" type="text" placeholder="Enter Option C">
+            </div>
+            <div class="input-group">
+            <label class="label">Option D</label>
+            <input [(ngModel)]="optionD" class="input" type="text" placeholder="Enter Option D">
+            </div>
         </div>
-        <div class="input-group">
-          <label class="label">Option B</label>
-          <input [(ngModel)]="optionB" class="input" type="text" placeholder="Enter Option B">
+    
+
+        <div *ngIf="questionType === 'true-false'">
+            <div class="input-wrapper">
+            <label><input [(ngModel)]="keyAnswer" type="radio" name="trueFalse" value="true"> True</label>
+            <label><input [(ngModel)]="keyAnswer" type="radio" name="trueFalse" value="false"> False</label>
+            </div>
         </div>
-        <div class="input-group">
-          <label class="label">Option C</label>
-          <input [(ngModel)]="optionC" class="input" type="text" placeholder="Enter Option C">
-        </div>
-        <div class="input-group">
-          <label class="label">Option D</label>
-          <input [(ngModel)]="optionD" class="input" type="text" placeholder="Enter Option D">
-        </div>
-      </div>
   
 
-      <div *ngIf="questionType === 'true-false'">
-        <div class="input-wrapper">
-          <label><input [(ngModel)]="keyAnswer" type="radio" name="trueFalse" value="true"> True</label>
-          <label><input [(ngModel)]="keyAnswer" type="radio" name="trueFalse" value="false"> False</label>
+      <!-- Key Answer Input Field -->
+        <div *ngIf="questionType !== 'Essay' && questionType !== 'true-false'" class="input-group">
+            <label class="label">Key Answer</label>
+            <input [(ngModel)]="keyAnswer" class="input" type="text" placeholder="Enter the key answer here">
         </div>
-      </div>
   
-
-      <div *ngIf="questionType !== 'true-false'" class="input-group">
-        <label class="label">Key Answer</label>
-        <input [(ngModel)]="keyAnswer" class="input" type="text" placeholder="Enter the key answer here">
-      </div>
-  
-      <div class="input-group">
-        <label class="label">Points</label>
-        <input [(ngModel)]="points" class="input" type="number" min="0" placeholder="Enter points">
-      </div>
+        <div class="input-group">
+            <label class="label">Points</label>
+            <input [(ngModel)]="points" class="input" type="number" min="0" placeholder="Enter points">
+        </div>
   
       <div class="button-group">
         <button class="submit-btn" (click)="addQuestion()">{{ isEditing ? 'Update' : 'Add' }}</button>

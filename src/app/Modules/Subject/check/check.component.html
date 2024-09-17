@@ -67,7 +67,7 @@
       <div class="p-6 bg-background text-foreground">
           <div class="header-container">
               <h2 class="text-xl font-bold mb-4">{{ det.title }}</h2>
-              <h2 class="text-xl font-bold mb-4">Total Score: {{ totalScore }}/{{ maxScore }}</h2>
+              <h2 class="text-xl font-bold mb-4">Total Score: {{ studScore.score }}/{{ maxScore }}</h2>
               <!-- <div class="student-info">
                   <span class="student-count">Students Completed: {{ completedCount }}/{{ totalStudents }}</span>
                   <a (click)="navigateToProgress()">
@@ -83,35 +83,51 @@
           <ol class="list-decimal list-inside space-y-4">
             <li *ngFor="let answer of studentAnswers">
                 <div>
-                    <strong>{{ answer.question }}</strong>
-                    <!-- Check if the question is multiple choice and display the student's answer -->
-                    <div *ngIf="answer.type === 'multiple-choice'" class="input-wrapper">
-                        <div *ngFor="let option of answer.options; let i = index">
-                            <label>
-                                <input type="radio" name="q{{answer.question_id}}" [value]="i + 1" [checked]="answer.student_answer === option">
-                                {{ getLetter(i) }}. {{ option }}
-                            </label>
+                    <!-- <strong>{{ answer.question }} </strong> <p><strong>points:</strong> {{ answer.points }}</p> -->
+
+                    <h6><strong>{{ answer.question }} </strong> <u style="color: red;">points: {{ answer.points }}</u></h6>
+                    
+                    <!-- Display essay answer -->
+                    <div *ngIf="answer.type === 'Essay'" class="input-wrapper">
+                        <textarea style="width: 600px;" name="q{{answer.question_id}}" [value]="answer.student_answer" disabled></textarea>
+
+                        <!-- Teacher input to give a score -->
+                        <div *ngIf="isTeacher" class="score-input">
+                            <label for="score">Give Score:</label>
+                            <input type="number" [(ngModel)]="answer.score" name="score" min="0" max="{{ answer.max_score }}">
+                            <button class="nav-btn2" (click)="manualCheck(answer.question_id, answer.score)">Submit Score</button>
                         </div>
                     </div>
 
-                    <!-- True/False question type -->
-                    <div *ngIf="answer.type === 'true-false'" class="input-wrapper">
-                        <label>
-                            <input type="radio" name="q{{answer.question_id}}" value="true" [checked]="answer.student_answer === 'true'"> True
-                        </label>
-                        <label>
-                            <input type="radio" name="q{{answer.question_id}}" value="false" [checked]="answer.student_answer === 'false'"> False
-                        </label>
-                    </div>
+                    <!-- <div *ngIf="answer.type === 'Essay'" class="input-wrapper">
+                        <textarea style="width: 600px;" name="q{{answer.question_id}}" [value]="answer.student_answer" disabled></textarea>
+                    
+                        Teacher input to give a score
+                        <div *ngIf="isTeacher" class="score-input">
+                            <label for="score">Give Score:</label>
+                            <input type="number" [(ngModel)]="answer.score" name="score" min="0" max="{{ answer.max_score }}">
+                            
+                            Disable Submit button if there is no student answer
+                            <button class="nav-btn2" 
+                                    (click)="manualCheck(answer.question_id, answer.score)" 
+                                    [disabled]="!answer.student_answer || answer.student_answer.trim() === ''">
+                                Submit Score
+                            </button>
+                        </div>
+                    </div> -->
 
                     <!-- Identification and other types -->
-                    <div *ngIf="answer.type !== 'multiple-choice' && answer.type !== 'true-false'" class="input-wrapper">
-                        <input type="text" name="q{{answer.question_id}}" [value]="answer.student_answer" disabled>
+                    <div *ngIf="answer.type !== 'Essay'" class="input-wrapper">
+                        <!-- <input type="text" name="q{{answer.question_id}}" [value]="answer.student_answer" disabled> -->
+                        <textarea style="width: 600px;" name="q{{answer.question_id}}" [value]="answer.student_answer" disabled></textarea>
                     </div>
 
-                    <!-- Display the correct answer and score -->
-                    <p><strong>Correct Answer:</strong> {{ answer.key_answer }}</p>
-                    <p><strong>Score:</strong> {{ answer.score }}</p>
+                    <!-- Display correct answer and score only if the question type is NOT Essay -->
+                    <div *ngIf="answer.type !== 'Essay'">
+                        <p><strong>Correct Answer:</strong> {{ answer.key_answer }}</p>
+                        <p><strong>Score:</strong> {{ answer.score }}</p>
+                        <!-- <p><strong>points:</strong> {{ answer.points }}</p> -->
+                    </div>
                 </div>
             </li>
         </ol>

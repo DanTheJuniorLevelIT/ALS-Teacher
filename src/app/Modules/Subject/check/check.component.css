@@ -119,12 +119,29 @@ body {
     max-width: 200px; /* Ensure buttons don't get too large */
 }
 
+.nav-btn2 {
+    padding: 5px 10px;
+    margin-top: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    flex: 1 1 auto; /* Allow buttons to grow and shrink */
+    max-width: 200px; /* Ensure buttons don't get too large */
+}
+
+
 a.active .nav-btn {
     background-color: #0056b3; 
     /* box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);  */
 }
 
 .nav-btn:hover {
+    background-color: #0056b3;
+}
+
+.nav-btn2:hover {
     background-color: #0056b3;
 }
 
