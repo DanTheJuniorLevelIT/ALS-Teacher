@@ -58,6 +58,30 @@ export class ApiserviceService {
 
   // END
 
+  //Discussion Services
+
+  createDiscussion(data: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.post(this.url + 'api/subjects/createDiscuss', data, { headers });
+  }
+
+  getDiscussion(){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(this.url + 'api/subjects/discussion', { headers });
+  }
+
+  viewDiscussionReplies(discussionid: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/subjects/discussion/replies/${discussionid}`, { headers });
+  }
+
+  sendDiscussionReplies(data: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.post(`${this.url}api/subjects/discussion/reply`, data, { headers });
+  }
+
+  //END
+
   // Assessment Services
   createAssess(data: any){
     const headers = {'Authorization': 'Bearer ' + this.token};

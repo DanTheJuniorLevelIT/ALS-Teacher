@@ -1,76 +1,24 @@
-<div class="header">
+<!-- <div class="header">
     <h1 style="text-align: center;">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</h1>
     <div class="button-group">
-      <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'mat']"  routerLinkActive="active">
+      <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'mat']"  routerLinkActive="active">
           <button class="nav-btn">Learning Material</button>
       </a>
-      <!-- <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/:id/modules/assess']"  routerLinkActive="active"> -->
-          <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'assess']"  routerLinkActive="active">
+          <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'assess']"  routerLinkActive="active">
           <button class="nav-btn">Assessment</button>
       </a>
-      <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'discuss']"  routerLinkActive="active">
+      <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']"  routerLinkActive="active">
           <button class="nav-btn">Discussion</button>
       </a>
   </div>
-    <!-- <div class="notification-icon" (click)="openModal()">
-        <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
-    </div> -->
 </div>
 <div class="modules">
-    <!-- <div class="discussion-container">
-        <div class="question-section">
-          <div class="question-header">
-            <div class="question-date">Jun 12, 2024</div>
-            <div class="question-text">
-              What and how eventually makes it called the world literature into comparative literature as a term or even vice versa? And why a STUDY about World Literature? Give a thorough explanation. Answer comprehensively in essay form. (20 pts.)
-            </div>
-          </div>
-          <div class="answer-list">
-            <div *ngFor="let discussion of discussions" class="answer">
-              <div class="answer-user">{{ discussion.user }}</div>
-              <div class="answer-date">{{ discussion.date | date:'medium' }}</div>
-              <div class="answer-text">{{ discussion.answer }}</div>
-            </div>
-          </div>
-        </div>
-      
-        <div class="answer-form">
-          <form [formGroup]="discussionForm" (ngSubmit)="submitAnswer()">
-            <textarea formControlName="answer" placeholder="Insert text here..."></textarea>
-            <button type="submit">Reply</button>
-          </form>
-        </div>
-      </div> -->
-        <!-- <div class="discussion-container">
-            <div class="question-section">
-            <div class="question-header">
-                <div class="question-date">Jun 12, 2024</div>
-                <div class="question-text">
-                    What are your thought about Nosebleeds, Swallowing Objects, Poisoning and Dog Bites?
-                </div>
-            </div>
-            <div class="answer-list">
-                <div *ngFor="let discussion of discussions" class="answer">
-                <div class="answer-user">{{ discussion.user }}</div>
-                <div class="answer-date">{{ discussion.date | date:'medium' }}</div>
-                <div class="answer-text">{{ discussion.answer }}</div>
-                </div>
-            </div>
-            </div>
-        
-            <div class="answer-form">
-            <form [formGroup]="discussionForm" (ngSubmit)="submitAnswer()">
-                <textarea formControlName="answer" placeholder="Insert text here..."></textarea>
-                <button type="submit">Reply</button>
-            </form>
-            </div>
-        </div> -->
         <div class="discussion-container">
             <div class="question-section">
               <div class="question-header">
-                <div class="question-date">Jun 12, 2024</div>
+                <div class="question-date">{{date}}</div>
                 <div class="question-text">
-                  What are your thoughts about Nosebleeds, Swallowing Objects, Poisoning and Dog Bites?
+                  {{discTopic}}
                 </div>
               </div>
               <div class="answer-list">
@@ -89,4 +37,74 @@
               </form>
             </div>
           </div>
+</div> -->
+
+<!-- Working -->
+<!-- <div class="header">
+  <h1 style="text-align: center;">{{ discTopic }}</h1>
+  <div class="button-group">
+      <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'mat']">
+          <button class="nav-btn">Learning Material</button>
+      </a>
+      <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'assess']">
+          <button class="nav-btn">Assessment</button>
+      </a>
+      <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']">
+          <button class="nav-btn">Discussion</button>
+      </a>
+  </div>
 </div>
+
+<div class="modules">
+  <div class="discussion-container">
+      <div class="question-section">
+          <div class="question-header">
+              <div class="question-date">{{date}}</div>
+              <div class="question-text">{{ discTopic }}</div>
+          </div>
+          <div class="answer-list">
+              <div *ngFor="let discussion of discussions" [ngClass]="{'student-answer': discussion.role === 'student', 'teacher-answer': discussion.role === 'teacher'}" class="answer">
+                  <div class="answer-user">{{ discussion.user }}</div>
+                  <div class="answer-date">{{ discussion.date | date:'medium' }}</div>
+                  <div class="answer-text">{{ discussion.answer }}</div>
+              </div>
+          </div>
+      </div>
+      
+      <div class="answer-form">
+          <form [formGroup]="discussionForm" (ngSubmit)="submitAnswer()">
+              <textarea formControlName="answer" placeholder="Insert text here..."></textarea>
+              <button type="submit">Reply</button>
+          </form>
+      </div>
+  </div>
+</div> -->
+
+<div class="modules">
+  <div class="discussion-container">
+      <div class="question-section">
+          <div class="question-header">
+              <div class="question-date">{{date}}</div>
+              <div class="question-text">{{ discTopic }}</div>
+          </div>
+          <div class="answer-list">
+              <div *ngFor="let discussion of discussions" 
+                   [ngClass]="{'student-answer': discussion.role === 'student', 'teacher-answer': discussion.role === 'teacher'}" 
+                   class="answer">
+                  <div class="answer-user">{{ discussion.user }}</div>
+                  <div class="answer-date">{{ discussion.date | date:'medium' }}</div>
+                  <div class="answer-text">{{ discussion.answer }}</div>
+              </div>
+          </div>
+      </div>
+      
+      <div class="answer-form">
+          <form [formGroup]="discussionForm" (ngSubmit)="submitAnswer()">
+              <textarea formControlName="answer" placeholder="Insert text here..."></textarea>
+              <button type="submit">Reply</button>
+          </form>
+      </div>
+  </div>
+</div>
+
+
