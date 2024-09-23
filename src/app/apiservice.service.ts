@@ -107,15 +107,20 @@ export class ApiserviceService {
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.get(`${this.url}api/subjects/showQuestion/${id}`, { headers });
   }
+  
+  editQuestion(data: any) {
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.put(`${this.url}api/subjects/editQuestion/${data.question_id}`, data, { headers });
+  }
+
+  deleteQuestion(id: any){
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.delete(`${this.url}api/subjects/deleteQuestion/${id}`, { headers });
+  }
 
   getCompletionStats(id: any){
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.get(`${this.url}api/subjects/getCompleted/${id}`, { headers });
-  }
-
-  editQuestion(data: any) {
-    const headers = { 'Authorization': 'Bearer ' + this.token };
-    return this.http.put(`${this.url}api/subjects/editQuestion/${data.question_id}`, data, { headers });
   }
 
   getStudents(id: any, assid: any){

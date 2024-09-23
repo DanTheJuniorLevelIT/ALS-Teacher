@@ -122,6 +122,7 @@ body {
 .nav-btn2 {
     padding: 5px 10px;
     margin-top: 5px;
+    margin-left: 5px;
     background-color: #007bff;
     color: white;
     border: none;
@@ -190,6 +191,18 @@ a.active .nav-btn {
 .file-link a:hover {
     text-decoration: underline;
 } 
+
+.hoverable-question {
+    cursor: pointer;
+    /* transition: color 0.3s ease, background-color 0.3s ease; */
+}
+
+.hoverable-question:hover {
+    color: #007bff; /* Change text color on hover */
+    background-color: #f1f1f1; /* Optionally, change background on hover */
+    /* padding: 5px; Add a bit of padding on hover to make it stand out */
+    border-radius: 4px; /* Round the edges */
+}
 
 /* Modal Style */
 .modal {

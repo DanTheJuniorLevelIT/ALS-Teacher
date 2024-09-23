@@ -32,101 +32,61 @@
                 {{ det.instruction }}
             </p>
 
-            <!-- Loop through the questions array -->
-            <ol class="list-decimal list-inside space-y-4">
-                <li *ngFor="let question of questions">
-                    <div>
-                        <strong>{{ question.question }}</strong><i (click)="editQuestion(question.question_id)" class="fa fa-pencil ms-3"></i>
-                        <!-- Check if the question is multiple choice, if so display the options -->
-                        <div *ngIf="question.type === 'multiple-choice'" class="input-wrapper">
-                            <div *ngFor="let option of question.options; let i = index">
-                                <label>
-                                    <input type="radio" name="q{{question.question_id}}" [value]="i + 1">
-                                    {{ getLetter(i) }}. {{ option }}
-                                </label>
-                            </div>
-                        </div>
+            <!-- Identification Section -->
+            <div *ngIf="identify.length > 0">
+                <h6>Identification</h6>
+                <ol class="list-decimal list-inside space-y-4">
+                    <li *ngFor="let question of identify">
+                        <!-- <strong style="cursor: pointer;" (click)="editQuestion(question.question_id)">{{ question.question }}</strong> -->
+                        <strong class="hoverable-question" style="cursor: pointer;" (click)="editQuestion(question.question_id)">
+                            <span style="color: red;">{{ question.key_answer }}: </span> <!-- Add key answer before question -->
+                            {{ question.question }}
+                        </strong>
+                    </li>
+                </ol>
+            </div>
 
-                        <!-- True/False question type -->
-                        <div *ngIf="question.type === 'true-false'" class="input-wrapper">
-                            <label><input type="radio" name="q{{question.question_id}}" value="true"> True</label>
-                            <label><input type="radio" name="q{{question.question_id}}" value="false"> False</label>
-                        </div>
+            <!-- True-False Section -->
+            <div *ngIf="tf.length > 0">
+                <h6>True-False</h6>
+                <ol class="list-decimal list-inside space-y-4">
+                    <li *ngFor="let question of tf">
+                        <!-- <strong style="cursor: pointer;" (click)="editQuestion(question.question_id)">{{ question.question }}</strong> -->
+                        <strong class="hoverable-question" style="cursor: pointer;" (click)="editQuestion(question.question_id)">
+                            <span style="color: red;">{{ question.key_answer }}: </span> <!-- Add key answer before question -->
+                            {{ question.question }}
+                        </strong>
+                    </li>
+                </ol>
+            </div>
 
-                        <!-- Identification and other types -->
-                        <div *ngIf="question.type !== 'multiple-choice' && question.type !== 'true-false'" class="input-wrapper">
-                            <input type="text" placeholder="Your answer here" name="q{{question.question_id}}">
-                        </div>
-                    </div>
-                </li>
-            </ol>
+            <!-- Multiple Choice Section -->
+            <div *ngIf="mc.length > 0">
+                <h6>Multiple Choice</h6>
+                <ol class="list-decimal list-inside space-y-4">
+                    <li *ngFor="let question of mc">
+                        <!-- <strong style="cursor: pointer;" (click)="editQuestion(question.question_id)">{{ question.question }}</strong> -->
+                        <strong class="hoverable-question" style="cursor: pointer;" (click)="editQuestion(question.question_id)">
+                            <span style="color: red;">{{ question.key_answer }}: </span> <!-- Add key answer before question -->
+                            {{ question.question }}
+                        </strong>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Essay Section -->
+            <div *ngIf="essay.length > 0">
+                <h6>Essay</h6>
+                <ol class="list-decimal list-inside space-y-4">
+                    <li *ngFor="let question of essay">
+                        <strong class="hoverable-question" style="cursor: pointer;" (click)="editQuestion(question.question_id)">{{ question.question }}</strong>
+                    </li>
+                </ol>
+            </div>
+
         </div>
     </div>
 </div>
-
-
-<!-- <div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-        <span class="close" (click)="closeModal()">&times;</span>
-        <h2>{{ isEditing ? 'Edit Question' : 'Add Question' }}</h2>
-    
-        <div class="input-group">
-            <label class="label">Question</label>
-            <textarea [(ngModel)]="questionText" class="textarea" placeholder="Enter the question here"></textarea>
-        </div>
-    
-        <div class="input-group">
-            <label class="label">Type of Question</label>
-            <select [(ngModel)]="questionType" class="input" (change)="onQuestionTypeChange()">
-                <option value="multiple-choice">Multiple Choice</option>
-                <option value="true-false">True or False</option>
-                <option value="identification">Identification</option>
-                <option value="Essay">Essay</option>
-            </select>
-        </div>
-    
-        <div *ngIf="questionType === 'multiple-choice'" class="choice-container">
-            <div class="input-group">
-                <label class="label">Option A</label>
-                <input [(ngModel)]="optionA" class="input" type="text" placeholder="Enter Option A">
-            </div>
-            <div class="input-group">
-                <label class="label">Option B</label>
-                <input [(ngModel)]="optionB" class="input" type="text" placeholder="Enter Option B">
-            </div>
-            <div class="input-group">
-                <label class="label">Option C</label>
-                <input [(ngModel)]="optionC" class="input" type="text" placeholder="Enter Option C">
-            </div>
-            <div class="input-group">
-                <label class="label">Option D</label>
-                <input [(ngModel)]="optionD" class="input" type="text" placeholder="Enter Option D">
-            </div>
-        </div>
-    
-        <div *ngIf="questionType === 'true-false'">
-            <div class="input-wrapper">
-                <label><input [(ngModel)]="keyAnswer" type="radio" name="trueFalse" value="true"> True</label>
-                <label><input [(ngModel)]="keyAnswer" type="radio" name="trueFalse" value="false"> False</label>
-            </div>
-        </div>
-
-        <div *ngIf="questionType !== 'true-false'" class="input-group">
-            <label class="label">Key Answer</label>
-            <input [(ngModel)]="keyAnswer" class="input" type="text" placeholder="Enter the key answer here">
-        </div>
-    
-        <div class="input-group">
-            <label class="label">Points</label>
-            <input [(ngModel)]="points" class="input" type="number" min="0" placeholder="Enter points">
-        </div>
-    
-        <div class="button-group">
-            <button class="submit-btn" (click)="addQuestion()">{{ isEditing ? 'Update' : 'Add' }}</button>
-        </div>
-    </div>
-    
-</div> -->
 
 <!-- Other HTML content -->
 
@@ -134,12 +94,7 @@
     <div class="modal-content" (click)="$event.stopPropagation()">
         <span class="close" (click)="closeModal()">&times;</span>
         <h2>{{ isEditing ? 'Edit Question' : 'Add Question' }}</h2>
-    
-        <div class="input-group">
-            <label class="label">Question</label>
-            <textarea [(ngModel)]="questionText" class="textarea" placeholder="Enter the question here"></textarea>
-        </div>
-    
+
         <div class="input-group">
             <label class="label">Type of Question</label>
             <select [(ngModel)]="questionType" class="input" (change)="onQuestionTypeChange()">
@@ -149,32 +104,50 @@
             <option value="Essay">Essay</option>
             </select>
         </div>
-  
 
-        <div *ngIf="questionType === 'multiple-choice'" class="choice-container">
+        <div *ngIf="questionType === 'multiple-choice'">
             <div class="input-group">
-            <label class="label">Option A</label>
-            <input [(ngModel)]="optionA" class="input" type="text" placeholder="Enter Option A">
+                <label class="label">Question</label>
+                <textarea [(ngModel)]="questionText" class="textarea" placeholder="Enter the question here"></textarea>
             </div>
-            <div class="input-group">
-            <label class="label">Option B</label>
-            <input [(ngModel)]="optionB" class="input" type="text" placeholder="Enter Option B">
-            </div>
-            <div class="input-group">
-            <label class="label">Option C</label>
-            <input [(ngModel)]="optionC" class="input" type="text" placeholder="Enter Option C">
-            </div>
-            <div class="input-group">
-            <label class="label">Option D</label>
-            <input [(ngModel)]="optionD" class="input" type="text" placeholder="Enter Option D">
+        
+            <div class="choice-container">
+                <!-- Loop through the options array to render each option -->
+                <div class="input-group" *ngFor="let option of options; let i = index">
+                    <label class="label">Option {{ optionLabels[i] }}</label>
+                    <input [(ngModel)]="options[i].text" class="input" type="text" placeholder="Enter Option {{ optionLabels[i] }}">
+                </div>
+        
+                <!-- Button to add a new option -->
+                <button class="btn-add-option" (click)="addOption()">Add Option</button>
             </div>
         </div>
+        
     
 
         <div *ngIf="questionType === 'true-false'">
+            <div class="input-group">
+                <label class="label">Question</label>
+                <textarea [(ngModel)]="questionText" class="textarea" placeholder="Enter the question here"></textarea>
+            </div>
+
             <div class="input-wrapper">
-            <label><input [(ngModel)]="keyAnswer" type="radio" name="trueFalse" value="true"> True</label>
-            <label><input [(ngModel)]="keyAnswer" type="radio" name="trueFalse" value="false"> False</label>
+                <label><input [(ngModel)]="keyAnswer" type="radio" name="trueFalse" value="true"> True</label>
+                <label><input [(ngModel)]="keyAnswer" type="radio" name="trueFalse" value="false"> False</label>
+            </div>
+        </div>
+
+        <div *ngIf="questionType === 'identification'">
+            <div class="input-group">
+                <label class="label">Question</label>
+                <textarea [(ngModel)]="questionText" class="textarea" placeholder="Enter the question here"></textarea>
+            </div>
+        </div>
+
+        <div *ngIf="questionType === 'Essay'">
+            <div class="input-group">
+                <label class="label">Question</label>
+                <textarea [(ngModel)]="questionText" class="textarea" placeholder="Enter the question here"></textarea>
             </div>
         </div>
   
@@ -191,8 +164,60 @@
         </div>
   
       <div class="button-group">
-        <button class="submit-btn" (click)="addQuestion()">{{ isEditing ? 'Update' : 'Add' }}</button>
+        <button class="submit-btn me-2" (click)="addQuestion()">{{ isEditing ? 'Update' : 'Add' }}</button>
+        <div *ngIf="isEditing == true">
+            <button class="submit-btn me-2" (click)="deleteQuestion()">Delete</button>
+        </div>
       </div>
     </div>
   </div>
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                     <!-- <div>
+                        Check if the question is multiple choice, if so display the options
+                         <div *ngIf="question.type === 'multiple-choice'" class="input-wrapper">
+                            <div *ngFor="let option of question.options; let i = index">
+                                <label>
+                                    <input type="radio" name="q{{question.question_id}}" [value]="i + 1">
+                                    {{ getLetter(i) }}. {{ option }}
+                                </label>
+                            </div>
+                        </div>
+
+                        True/False question type
+                        <div *ngIf="question.type === 'true-false'" class="input-wrapper">
+                            <label><input type="radio" name="q{{question.question_id}}" value="true"> True</label>
+                            <label><input type="radio" name="q{{question.question_id}}" value="false"> False</label>
+                        </div>
+
+                        Identification and other types
+                        <div *ngIf="question.type !== 'multiple-choice' && question.type !== 'true-false'" class="input-wrapper">
+                            <input type="text" placeholder="Your answer here" name="q{{question.question_id}}">
+                        </div>
+                    </div> -->

@@ -14,11 +14,21 @@ import { response } from 'express';
 })
 export class QuestionComponent implements OnInit{
 
+  qid: any;
+  res: any;
+
   subjectID: number | null = null;
   assessmentID: any;
   moduleID: any;
   det: any;
   questions: any;
+
+
+  identify: any;
+  tf: any;
+  essay: any;
+  mc: any;
+
   completedCount: number = 0;
   totalStudents: number = 0;
 
@@ -27,16 +37,16 @@ export class QuestionComponent implements OnInit{
   selectedQuestion: any = null; 
   questionText = '';
   questionType = 'multiple-choice'; // Default type
-  optionA = '';
-  optionB = '';
-  optionC = '';
-  optionD = '';
+  options: { text: string }[] = [];
+  optionLabels: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G']  // Start with one option input
   keyAnswer = '';
   points = 1;
+  Object: any;
 
   constructor(private apiService: ApiserviceService, private router: Router) {}
 
   ngOnInit(): void {
+    this.options.push({ text: '' });
     // Retrieve the subjectID from localStorage
     const storedSubjectID = localStorage.getItem('subjectID');
     const storedAssessmentID = localStorage.getItem('assid');
@@ -64,14 +74,31 @@ export class QuestionComponent implements OnInit{
     });
   }
 
+  // Function to add an empty option field
+  addOption() {
+    // Ensure that we don't add more than the available labels (e.g., A to G)
+    if (this.options.length < this.optionLabels.length) {
+        this.options.push({ text: '' }); // Add a new empty option to the array
+    }
+  }
+
   loadQuestions(){
     this.apiService.getQuestion(this.assessmentID).subscribe((response: any) => {
       if (response.data && Array.isArray(response.data)) {
         this.questions = response.data;  // Access the data array in the response
+        this.filteredQuestionTypes();
+        console.log(this.questions);
       } else {
         console.error('Unexpected response structure:', response);
       }
     });
+  }
+
+  filteredQuestionTypes(){
+    this.identify = this.questions.filter((typ: { type: string; }) => typ.type == 'identification');
+    this.tf = this.questions.filter((typ: { type: string; })=> typ.type == 'true-false');
+    this.essay = this.questions.filter((typ: { type: string; }) => typ.type == 'Essay');
+    this.mc = this.questions.filter((typ: { type: string; }) => typ.type == 'multiple-choice');
   }
 
   loadCompletion(){
@@ -88,29 +115,22 @@ export class QuestionComponent implements OnInit{
   editQuestion(id: any) {
     this.isEditing = true;
     this.selectedQuestion = this.questions.find((q: any) => q.question_id === id);
-
+  
     // Pre-fill the form fields with selected question data
     this.questionText = this.selectedQuestion.question;
     this.questionType = this.selectedQuestion.type;
     this.keyAnswer = this.selectedQuestion.key_answer;
     this.points = this.selectedQuestion.points;
-
-    // Pre-fill options if it's a multiple-choice question
+  
     if (this.questionType === 'multiple-choice') {
-      const options = this.selectedQuestion.options || [];
-      this.optionA = options[0] || '';
-      this.optionB = options[1] || '';
-      this.optionC = options[2] || '';
-      this.optionD = options[3] || '';
+      this.options = this.selectedQuestion.options.map((opt: any) => ({ text: opt }));  // Populate options array
     } else {
-      this.optionA = '';
-      this.optionB = '';
-      this.optionC = '';
-      this.optionD = '';
+      this.options = [{ text: '' }];  // Reset options if not multiple-choice
     }
-
+  
     this.openModal();
   }
+  
 
   getLetter(index: number): string {
     return String.fromCharCode(65 + index); // 65 is the char code for 'A'
@@ -131,38 +151,7 @@ onQuestionTypeChange(): void {
   this.keyAnswer = '';
 }
 
-// addQuestion() {
-//   const questionPayload = {
-//     assessment_id: this.assessmentID,
-//     question: this.questionText,
-//     type: this.questionType,
-//     key_answer: this.keyAnswer,
-//     points: this.points,
-//     options: this.getOptions() // Get options if multiple-choice question
-//   };
-
-//   console.log(questionPayload);
-
-//   this.apiService.createQuestion(questionPayload).subscribe(
-//     (response: any) => {
-//       console.log('Question added successfully', response);
-//       this.closeModal();
-//     },
-//     (error) => {
-//       console.error('Error adding question', error);
-//     }
-//   );
-// }
-
 addQuestion() {
-  // const questionPayload = {
-  //   assessment_id: this.assessmentID,
-  //   question: this.questionText,
-  //   type: this.questionType,
-  //   key_answer: this.keyAnswer,
-  //   points: this.points,
-  //   options: this.getOptions() // Get options if multiple-choice question
-  // };
 
   const questionPayload = {
     question_id: this.isEditing ? this.selectedQuestion.question_id : null,
@@ -186,6 +175,10 @@ addQuestion() {
       }
     );
   } else {
+    if (this.questionType === 'multiple-choice' && this.getOptions().length < 2) {
+      alert('Please enter at least two valid options.');
+      return;
+    }    
     // Add new question
     this.apiService.createQuestion(questionPayload).subscribe(
       (response: any) => {
@@ -206,41 +199,24 @@ addQuestion() {
       }
     );
   }
+}
 
-  // console.log(questionPayload);
+deleteQuestion(){
+  this.qid = this.selectedQuestion.question_id;
+  console.log('Question ID: ',this.qid);
 
-  // this.apiService.createQuestion(questionPayload).subscribe(
-  //   (response: any) => {
-  //     console.log('Question added successfully', response);
-
-  //     // Add the newly created question to the local questions array
-  //     const newQuestion = {
-  //       question_id: response.question.question_id,
-  //       question: response.question.question,
-  //       type: response.question.type,
-  //       key_answer: response.question.key_answer,
-  //       points: response.question.points,
-  //       options: response.question.options || []
-  //     };
-  //     this.questions.push(newQuestion);  // Update the questions array
-
-  //     // Close the modal and reset form inputs
-  //     this.closeModal();
-  //     this.resetForm();
-  //   },
-  //   (error) => {
-  //     console.error('Error adding question', error);
-  //   }
-  // );
+  this.apiService.deleteQuestion(this.qid).subscribe((response: any)=>{
+    this.res = response.status;
+    console.log('Message: ', this.res);
+    this.loadQuestions();
+    this.closeModal();
+  })
 }
 
 resetForm() {
   this.questionText = '';
   this.questionType = 'multiple-choice';
-  this.optionA = '';
-  this.optionB = '';
-  this.optionC = '';
-  this.optionD = '';
+  this.options = [{ text: '' }];  // Reset to one empty option
   this.keyAnswer = '';
   this.points = 1;
   this.isEditing = false;
@@ -249,7 +225,7 @@ resetForm() {
 
 getOptions() {
   if (this.questionType === 'multiple-choice') {
-    return [this.optionA, this.optionB, this.optionC, this.optionD].filter(option => option);
+    return this.options.map(option => option.text).filter(text => text.trim() !== '');
   }
   return [];
 }

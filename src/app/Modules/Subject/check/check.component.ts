@@ -23,6 +23,7 @@ export class CheckComponent implements OnInit {
   learnerID: any;
   questions: any;
   studentAnswers: any;
+  studentScores: any;
   det: any
 
   constructor(private apiserv: ApiserviceService) {}
@@ -58,8 +59,10 @@ export class CheckComponent implements OnInit {
         this.studentAnswers = response.data;
         this.totalScore = response.total_score;
         this.studScore = response.studentScore;
+        this.studentScores = response.scores;
         this.maxScore = response.max_score;
         console.log('student answers: ', this.studentAnswers);
+        console.log('student scores: ', this.studentScores);
         console.log('student Total Score: ', this.studScore);
       } else {
         console.error('Failed to load student answers');

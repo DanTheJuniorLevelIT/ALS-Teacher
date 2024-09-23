@@ -80,57 +80,32 @@
           </p>
 
           <!-- Loop through the questions array -->
-          <ol class="list-decimal list-inside space-y-4">
-            <li *ngFor="let answer of studentAnswers">
-                <div>
-                    <!-- <strong>{{ answer.question }} </strong> <p><strong>points:</strong> {{ answer.points }}</p> -->
-
-                    <h6><strong>{{ answer.question }} </strong> <u style="color: red;">points: {{ answer.points }}</u></h6>
-                    
-                    <!-- Display essay answer -->
-                    <div *ngIf="answer.type === 'Essay'" class="input-wrapper">
-                        <textarea style="width: 600px;" name="q{{answer.question_id}}" [value]="answer.student_answer" disabled></textarea>
-
-                        <!-- Teacher input to give a score -->
-                        <div *ngIf="isTeacher" class="score-input">
-                            <label for="score">Give Score:</label>
-                            <input type="number" [(ngModel)]="answer.score" name="score" min="0" max="{{ answer.max_score }}">
-                            <button class="nav-btn2" (click)="manualCheck(answer.question_id, answer.score)">Submit Score</button>
-                        </div>
-                    </div>
-
-                    <!-- <div *ngIf="answer.type === 'Essay'" class="input-wrapper">
-                        <textarea style="width: 600px;" name="q{{answer.question_id}}" [value]="answer.student_answer" disabled></textarea>
-                    
-                        Teacher input to give a score
-                        <div *ngIf="isTeacher" class="score-input">
-                            <label for="score">Give Score:</label>
-                            <input type="number" [(ngModel)]="answer.score" name="score" min="0" max="{{ answer.max_score }}">
-                            
-                            Disable Submit button if there is no student answer
-                            <button class="nav-btn2" 
-                                    (click)="manualCheck(answer.question_id, answer.score)" 
-                                    [disabled]="!answer.student_answer || answer.student_answer.trim() === ''">
-                                Submit Score
-                            </button>
-                        </div>
-                    </div> -->
-
-                    <!-- Identification and other types -->
-                    <div *ngIf="answer.type !== 'Essay'" class="input-wrapper">
-                        <!-- <input type="text" name="q{{answer.question_id}}" [value]="answer.student_answer" disabled> -->
-                        <textarea style="width: 600px;" name="q{{answer.question_id}}" [value]="answer.student_answer" disabled></textarea>
-                    </div>
-
-                    <!-- Display correct answer and score only if the question type is NOT Essay -->
-                    <div *ngIf="answer.type !== 'Essay'">
-                        <p><strong>Correct Answer:</strong> {{ answer.key_answer }}</p>
-                        <p><strong>Score:</strong> {{ answer.score }}</p>
-                        <!-- <p><strong>points:</strong> {{ answer.points }}</p> -->
-                    </div>
+          <ol>
+            <div *ngFor="let answer of studentAnswers; let i = index">
+              <!-- <li> -->
+                <div class="hoverable-question">
+                    <span *ngIf="answer.type != 'Essay'" style="color: blue;"><u>{{ answer.student_answer }}</u></span>
+                    {{ i + 1 }}. <!-- Display the question number -->
+                    <strong>{{ answer.question }}</strong> <!-- Display the question text -->
                 </div>
-            </li>
-        </ol>
-      </div>
-  </div>
+          
+                <!-- Essay answer display -->
+                <div *ngIf="answer.type === 'Essay'" class="input-wrapper">
+                    <textarea style="width: 600px; height: 100px;" name="q{{answer.question_id}}" [value]="answer.student_answer" disabled></textarea>
+                </div>
+          
+                <!-- Non-essay answer display -->
+                <div *ngIf="answer.type !== 'Essay'" class="input-wrapper">
+                    <h6>Key Answer: <u>{{ answer.key_answer }}</u></h6>
+                </div>
+              <!-- </li> -->
+                <div *ngIf="answer.type != 'true-false'" class="score-input">
+                    <label for="scoreinput" style="color: red;">Score:</label>
+                    <input style="width: 50px;" id="scoreinput" type="text" [(ngModel)]="answer.score" [value]="answer.score"><!-- Display the score -->
+                    <button class="nav-btn2" (click)="manualCheck(answer.question_id, answer.score)">Update Score</button>
+                </div>
+            </div>
+          </ol>
+        </div>
+    </div>
 </div>
