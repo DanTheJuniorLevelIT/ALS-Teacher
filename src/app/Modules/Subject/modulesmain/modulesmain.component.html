@@ -10,19 +10,20 @@
             <li><a [routerLink]="['/main/Subject/main/students']">Students</a></li>
         </ul>
     </div> -->
-    <div class="topnav" *ngFor="let subspec of subjectDetail">
+    <!-- <div class="topnav" *ngFor="let subspec of subjectDetail"> -->
+    <div class="topnav">
         <div class="left-section">
-            <img [src]="'/assets/' + subspec.image" alt="Profile Picture" class="profile-pic">
+            <img [src]="'/assets/' + subjectDetail .image" alt="Profile Picture" class="profile-pic">
             <div class="course-info">
                 <!-- <h2>Scientific and critical thinking</h2> -->
-                <h2>{{ subspec.subject_name }}</h2>
-                <h6>{{ subspec.Schedule }}</h6>
+                <h2>{{ subjectDetail .subject_name }}</h2>
+                <h6>{{ subjectDetail .Schedule }}</h6>
                 <!-- <h6>8:00AM - 9:00AM</h6> -->
             </div>
         </div>
         <div class="right-section">
             <ul>
-                <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/', subspec.classid]">Modules</a></li>
+                <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectDetail .classid]">Modules</a></li>
                 <!-- <li><a [routerLink]="['/main/Subject/main/students']">Students</a></li> -->
                 <!-- <li><a [routerLink]="['/main/Subject/main/students']">Progress</a></li> -->
             </ul>
