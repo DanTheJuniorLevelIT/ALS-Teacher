@@ -1,5 +1,6 @@
 <div class="header">
-    <h1 style="text-align: center;">Checking</h1>
+    <!-- <h1 style="text-align: center;">Checking</h1> -->
+    <h1 style="text-align: center;">{{fname}} {{lname}}'s Assessment</h1>
     <div class="button-group">
       <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'mat']"  routerLinkActive="active">
           <button class="nav-btn">Learning Material</button>
@@ -13,67 +14,12 @@
       </a>
   </div>
   </div>
-  <!-- <div class="modules">
-    <div class="module" *ngFor="let answer of studentAnswers">
-        <div class="p-6 bg-background text-foreground">
-            <div class="header-container">
-                <h2 class="text-xl font-bold mb-4">{{ det.title }}</h2>
-                <div class="student-info">
-                    <span class="student-count">Student's Answer for Question: {{ answer.question }}</span>
-                </div>
-            </div>
-
-            <ol class="list-decimal list-inside space-y-4">
-                <li>
-                    <div>
-                        <strong>{{ answer.question }}</strong>
-                        Check if the question is multiple choice and display the student's answer
-                        <div *ngIf="answer.type === 'multiple-choice'" class="input-wrapper">
-                            <div *ngFor="let option of answer.options; let i = index">
-                                <label>
-                                    <input type="radio" name="q{{answer.question_id}}" [value]="i + 1" [checked]="answer.student_answer === option">
-                                    {{ getLetter(i) }}. {{ option }}
-                                </label>
-                            </div>
-                        </div>
-
-                        True/False question type
-                        <div *ngIf="answer.type === 'true-false'" class="input-wrapper">
-                            <label>
-                                <input type="radio" name="q{{answer.question_id}}" value="true" [checked]="answer.student_answer === 'true'"> True
-                            </label>
-                            <label>
-                                <input type="radio" name="q{{answer.question_id}}" value="false" [checked]="answer.student_answer === 'false'"> False
-                            </label>
-                        </div>
-
-                        Identification and other types
-                        <div *ngIf="answer.type !== 'multiple-choice' && answer.type !== 'true-false'" class="input-wrapper">
-                            <input type="text" name="q{{answer.question_id}}" [value]="answer.student_answer" disabled>
-                        </div>
-
-                        Display the correct answer and score
-                        <p><strong>Correct Answer:</strong> {{ answer.key_answer }}</p>
-                        <p><strong>Score:</strong> {{ answer.score }}</p>
-                    </div>
-                </li>
-            </ol>
-        </div>
-    </div>
-</div> -->
-
 <div class="modules">
   <div class="module">
       <div class="p-6 bg-background text-foreground">
           <div class="header-container">
               <h2 class="text-xl font-bold mb-4">{{ det.title }}</h2>
               <h2 class="text-xl font-bold mb-4">Total Score: {{ studScore.score }}/{{ maxScore }}</h2>
-              <!-- <div class="student-info">
-                  <span class="student-count">Students Completed: {{ completedCount }}/{{ totalStudents }}</span>
-                  <a (click)="navigateToProgress()">
-                      <span class="eye-icon"><i class="fa fa-eye"></i></span>
-                  </a>
-              </div> -->
           </div>
           <p class="mb-4">
               {{ det.instruction }}
@@ -96,12 +42,12 @@
           
                 <!-- Non-essay answer display -->
                 <div *ngIf="answer.type !== 'Essay'" class="input-wrapper">
-                    <h6>Key Answer: <u>{{ answer.key_answer }}</u></h6>
+                    <h6><b>Key Answer</b>: <u>{{ answer.key_answer }}</u></h6>
                 </div>
               <!-- </li> -->
-                <div *ngIf="answer.type != 'true-false'" class="score-input">
+                <div *ngIf="answer.type != 'true-false'" class="score-input mb-3 mt-2">
                     <label for="scoreinput" style="color: red;">Score:</label>
-                    <input style="width: 50px;" id="scoreinput" type="text" [(ngModel)]="answer.score" [value]="answer.score"><!-- Display the score -->
+                    <input style="width: 20px; border-radius: 10px;" id="scoreinput" type="text" [(ngModel)]="answer.score" [value]="answer.score">/{{answer.points}}<!-- Display the score -->
                     <button class="nav-btn2" (click)="manualCheck(answer.question_id, answer.score)">Update Score</button>
                 </div>
             </div>

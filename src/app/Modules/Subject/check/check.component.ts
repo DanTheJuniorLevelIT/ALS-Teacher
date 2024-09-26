@@ -13,6 +13,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './check.component.css'
 })
 export class CheckComponent implements OnInit {
+
+  fname: any;
+  lname: any;
   // checkForm!: FormGroup;
   subjectID: number | null = null;
   studScore: any;
@@ -31,11 +34,15 @@ export class CheckComponent implements OnInit {
   isTeacher: boolean = true;
 
   ngOnInit(): void {
+    const first = localStorage.getItem('fname');
+    const last = localStorage.getItem('lname');
+    this.fname = first;
+    this.lname = last;
     // Retrieve the subjectID from localStorage
     const storedSubjectID = localStorage.getItem('subjectID');
-      const storedAssessmentID = localStorage.getItem('assid');
-      const storedModuleID = localStorage.getItem('moduleid');
-      const storedLearnerID = localStorage.getItem('lrn');
+    const storedAssessmentID = localStorage.getItem('assid');
+    const storedModuleID = localStorage.getItem('moduleid');
+    const storedLearnerID = localStorage.getItem('lrn');
       if (storedSubjectID) {
         this.moduleID = storedModuleID;
         this.subjectID = +storedSubjectID;  // Convert the string to a number

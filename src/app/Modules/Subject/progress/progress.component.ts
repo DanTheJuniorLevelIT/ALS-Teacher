@@ -98,10 +98,12 @@ autoCheck() {
     this.isModalOpen = false;
   }
 
-  navigateToChecking(lrnid: any) {
+  navigateToChecking(lrnid: any, fname: any, lname: any) {
     const storedSubjectID = localStorage.getItem('subjectID');
     const storedAssessmentID = localStorage.getItem('assid');
     localStorage.setItem('lrn', lrnid);
+    localStorage.setItem('fname', fname);
+    localStorage.setItem('lname', lname);
     // Store the subjectID in localStorage
   
     // Navigate to the modules page
