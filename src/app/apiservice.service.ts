@@ -56,6 +56,16 @@ export class ApiserviceService {
     return this.http.get(`${this.url}api/subjects/allSubjects/${id}`, { headers });
   }
 
+  createAnnouncement(data: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.post(this.url + 'api/subjects/createAnnouncement', data, { headers });
+  }
+
+  getAnnouncement(id: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/subjects/showAnnouncement/${id}`, { headers });
+  }
+
   // END
 
   //Discussion Services

@@ -1,55 +1,65 @@
-<!-- <div class="container"> -->
-    <!-- <div class="sidebar">
-        <div class="course-details">
-            <img src="./assets/SCTS.jfif" alt="Profile Picture" class="profile-pic">
-            <h2>Scientific and critical thinking</h2>
-            <h6>8:00AM - 9:00AM</h6>
-        </div>
-        <ul>
-            <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">Modules</a></li>
-            <li><a [routerLink]="['/main/Subject/main/students']">Students</a></li>
-        </ul>
-    </div> -->
-    <!-- <div class="topnav" *ngFor="let subspec of subjectDetail"> -->
-    <div class="topnav">
+    <!-- <div class="topnav">
         <div class="left-section">
             <img [src]="'/assets/' + subjectDetail .image" alt="Profile Picture" class="profile-pic">
             <div class="course-info">
-                <!-- <h2>Scientific and critical thinking</h2> -->
                 <h2>{{ subjectDetail .subject_name }}</h2>
                 <h6>{{ subjectDetail .Schedule }}</h6>
-                <!-- <h6>8:00AM - 9:00AM</h6> -->
             </div>
         </div>
         <div class="right-section">
             <ul>
                 <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectDetail .classid]">Modules</a></li>
-                <!-- <li><a [routerLink]="['/main/Subject/main/students']">Students</a></li> -->
-                <!-- <li><a [routerLink]="['/main/Subject/main/students']">Progress</a></li> -->
             </ul>
         </div>
     </div>
     <div class="main-content">
         <router-outlet></router-outlet>
-    </div>
-<!-- </div> -->
+    </div> -->
 
-<div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-        <span class="close" (click)="closeModal()">&times;</span>
-        <h2>Add Module</h2>
-        <div class="input-group">
-            <label class="label">Title</label>
-            <input autocomplete="off" name="Email" id="Email" class="input" type="text">
-        <div>
-        <div class="input-group2">
-            <label class="label2">Description</label>
-            <input autocomplete="off" name="Email" id="Email" class="input2" type="text">
-        <div>
-        <div class="button-group">
-            <button class="submit-btn">ADD</button>
+<!-- Topnav with announcement square -->
+<div class="topnav">
+    <!-- Small square for announcement modal trigger -->
+    <div class="announcement-trigger" (click)="toggleModal()"><i class="fa fa-bullhorn fa-2x" aria-hidden="true"></i></div>
+
+    <div class="left-section">
+        <img [src]="'/assets/' + subjectDetail.image" alt="Profile Picture" class="profile-pic">
+        <div class="course-info">
+            <h2>{{ subjectDetail.subject_name }}</h2>
+            <h6>{{ subjectDetail.Schedule }}</h6>
         </div>
+    </div>
+
+    <div class="right-section">
+        <ul>
+            <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectDetail.classid]">Modules</a></li>
+        </ul>
     </div>
 </div>
 
+<!-- Main content -->
+<div class="main-content">
+    <router-outlet></router-outlet>
+</div>
+
+<!-- Dropdown-style announcement box -->
+<div class="announcement-dropdown" *ngIf="isModalOpen">
+    <div class="dropdown-content">
+        <h3>{{ announcements.title }}</h3>
+
+        <!-- Display existing announcements -->
+        <ul>
+            <li>{{ announcements.instruction }}</li>
+        </ul>
+
+        <!-- Add new announcement -->
+        <div class="add-announcement">
+            <input type="text" [(ngModel)]="newAnnouncementTitle" placeholder="Announcement Title" />
+            <br />
+            <textarea [(ngModel)]="newAnnouncementInstruction" placeholder="Announcement Instruction" rows="3" style="width: 100%;"></textarea>
+            <br />
+            <button (click)="addAnnouncement()">Add</button>
+            <button class="ms-2" (click)="closeModal()">Close</button>
+        </div>
+    </div>
+</div>
 
