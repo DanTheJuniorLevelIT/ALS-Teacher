@@ -3,6 +3,7 @@ import { FormGroup, FormControl, ReactiveFormsModule, FormsModule } from '@angul
 import { Router, RouterModule } from '@angular/router';
 import { ApiserviceService } from '../apiservice.service';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login',
@@ -42,20 +43,50 @@ export class LoginComponent implements OnInit{
   
           // Navigate to the desired page
           if(token != null || token != undefined){
+            const Toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 1500,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+              }
+            });
+            Toast.fire({
+              icon: "success",
+              title: "Signed in successfully"
+            });
             this.route.navigate(['/main/Home/']);
           }else{
             console.error('Invalid Login');
-            alert('Incorrect Email or Password');
+            // alert('Incorrect Email or Password');
+            Swal.fire({
+              title: "Invalid Login",
+              // text: "Fill out the Email and Password",
+              icon: "error"
+            });
           }
         },
         error => {
           console.error('Error logging in:', error);
-          alert('Invalid Email or Password');
+          // alert('Invalid Email or Password');
+          Swal.fire({
+            title: "Invalid Email or Password",
+            // text: "Fill out the Email and Password",
+            icon: "error"
+          });
         }
       );
     } else {
       console.error('Form is not valid');
-      alert('Form is not valid');
+      // alert('Form is not valid');
+      Swal.fire({
+        title: "Form is not Valid",
+        text: "Fill out the Email and Password",
+        icon: "error"
+      });
     }
   }
 

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ApiserviceService } from '../../../apiservice.service';
-import { response } from 'express';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-question',
@@ -202,15 +202,36 @@ addQuestion() {
 }
 
 deleteQuestion(){
-  this.qid = this.selectedQuestion.question_id;
-  console.log('Question ID: ',this.qid);
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.qid = this.selectedQuestion.question_id;
+      console.log('Question ID: ',this.qid);
 
-  this.apiService.deleteQuestion(this.qid).subscribe((response: any)=>{
-    this.res = response.status;
-    console.log('Message: ', this.res);
-    this.loadQuestions();
-    this.closeModal();
-  })
+      this.apiService.deleteQuestion(this.qid).subscribe((response: any)=>{
+        this.res = response.status;
+        console.log('Message: ', this.res);
+        this.loadQuestions();
+        this.closeModal();
+      })
+    }
+  });
+  // this.qid = this.selectedQuestion.question_id;
+  // console.log('Question ID: ',this.qid);
+
+  // this.apiService.deleteQuestion(this.qid).subscribe((response: any)=>{
+  //   this.res = response.status;
+  //   console.log('Message: ', this.res);
+  //   this.loadQuestions();
+  //   this.closeModal();
+  // })
 }
 
 resetForm() {
