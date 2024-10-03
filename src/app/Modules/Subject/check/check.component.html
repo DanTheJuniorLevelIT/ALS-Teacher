@@ -27,12 +27,16 @@
 
           <!-- Loop through the questions array -->
           <ol>
-            <div *ngFor="let answer of studentAnswers; let i = index">
+            <div *ngFor="let answer of studentAnswers; let i = index" class="mt-3">
               <!-- <li> -->
                 <div class="hoverable-question">
                     <span *ngIf="answer.type != 'Essay'" style="color: blue;"><u>{{ answer.student_answer }}</u></span>
                     {{ i + 1 }}. <!-- Display the question number -->
                     <strong>{{ answer.question }}</strong> <!-- Display the question text -->
+                </div>
+
+                <div *ngIf="answer.type !== 'Essay' && answer.type !== 'identification'">
+                    <label><span style="color: red;"> Score:</span> {{answer.score}}/{{answer.points}}</label>
                 </div>
           
                 <!-- Essay answer display -->
