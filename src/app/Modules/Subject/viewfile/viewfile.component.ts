@@ -4,23 +4,25 @@ import { RouterModule } from '@angular/router';
 import { ApiserviceService } from '../../../apiservice.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FileNamePipe } from '../../../file-name.pipe';
+import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-check',
+  selector: 'app-viewfile',
   standalone: true,
-  imports: [RouterModule, CommonModule, FormsModule],
-  templateUrl: './check.component.html',
-  styleUrl: './check.component.css'
+  imports: [RouterModule, CommonModule, FormsModule, FileNamePipe],
+  templateUrl: './viewfile.component.html',
+  styleUrl: './viewfile.component.css'
 })
-export class CheckComponent implements OnInit {
+export class ViewfileComponent implements OnInit {
 
   fname: any;
   lname: any;
   // checkForm!: FormGroup;
   subjectID: number | null = null;
+  aid: any;
   studScore: any;
-  studFile: any;
   totalScore: number = 0;
   maxScore: number = 0;
   assessmentID: any;
@@ -29,9 +31,10 @@ export class CheckComponent implements OnInit {
   questions: any;
   studentAnswers: any;
   studentScores: any;
+  studentFile: any;
   det: any
 
-  constructor(private apiserv: ApiserviceService) {}
+  constructor(private apiserv: ApiserviceService, private sanitizer: DomSanitizer) {}
 
   isTeacher: boolean = true;
 
@@ -67,35 +70,55 @@ export class CheckComponent implements OnInit {
       if (response.status === 'success') {
         this.studentAnswers = response.data;
         this.totalScore = response.total_score;
-        this.studFile = response.studentFile;
         this.studScore = response.studentScore;
         this.studentScores = response.scores;
         this.maxScore = response.max_score;
+        this.studentFile = response.studentFile;
+        this.aid = response.answerid;
+        console.log('student Answer ID: ', this.aid);
+        console.log('student File: ', this.studentFile);
         console.log('student answers: ', this.studentAnswers);
-        console.log('student file: ', this.studFile);
+        console.log('student scores: ', this.studentScores);
         console.log('student Total Score: ', this.studScore);
       } else {
         console.error('Failed to load student answers');
       }
     });
   }
+
+  // View file in a new tab
+  viewFile(fileUrl: string) {
+    const fullFilePath = this.apiserv.getBaseUrl() + 'storage/Files/' + fileUrl;
+    if (fileUrl.endsWith('.pdf')) {
+      window.open(fullFilePath as string, '_blank'); // Open PDFs in a new tab
+    } else {
+      const link = document.createElement('a');
+      link.href = fullFilePath;
+      link.download = fileUrl.split('/').pop() || 'downloaded-file';
+      link.click(); // Trigger download for other files
+    }
+  }
   
 
-  getLetter(index: number): string {
-    return String.fromCharCode(65 + index);  // Converts 0 -> 'A', 1 -> 'B', etc.
-  }
+  // Download file
+  // downloadFile(fileUrl: string) {
+  //   const link = document.createElement('a');
+  //   link.href = this.apiserv.getBaseUrl() + 'storage/Files/' + fileUrl;
+  //   link.download = fileUrl.split('/').pop() || 'downloaded-file';
+  //   link.click();
+  // }
 
   //working
-  manualCheck(questionId: number, score: number) {
+  manualCheck(score: number) {
     const payload = {
       assessment_id: this.assessmentID,
       learner_id: this.learnerID,
-      question_id: questionId,
+      answerid: this.aid,
       score: score  // Only add this to essay questions
     };
   
     // Call API to submit the score
-    this.apiserv.submitScore(payload).subscribe(
+    this.apiserv.updateScore(payload).subscribe(
       (response: any) => {
         if (response.status === 'success') {
           // console.log('Essay score added successfully');

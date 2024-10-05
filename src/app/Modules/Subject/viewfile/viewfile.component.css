@@ -1,0 +1,350 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+.sidebar {
+    width: 300px;
+    height: 600px;
+    margin-right: 20px;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.notification-icon{
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.course-details {
+    text-align: center;
+}
+
+.course-details img.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.course-details h2, .course-details h3 {
+    margin: 10px 0;
+    color: #333;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin: 20px 0;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.sidebar ul li a.active {
+    color: #0c7db1;
+}
+
+.main-content {
+    padding-left: 10px;
+    max-width: 1000px;
+    width: 100%;
+}
+
+.header {
+    text-align: center;
+}
+
+.header h1 {
+    /* color: #666; */
+    margin-bottom: 20px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.student-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.student-count {
+    font-size: 1rem;
+    color: #333;
+}
+
+.eye-icon {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* Ensure buttons wrap to the next line on smaller screens */
+}
+
+.nav-btn {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 1 1 auto; /* Allow buttons to grow and shrink */
+    max-width: 200px; /* Ensure buttons don't get too large */
+}
+
+.nav-btn2 {
+    padding: 5px 10px;
+    margin-top: 5px;
+    margin-left: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    flex: 1 1 auto; /* Allow buttons to grow and shrink */
+    max-width: 200px; /* Ensure buttons don't get too large */
+}
+
+
+a.active .nav-btn {
+    background-color: #0056b3; 
+    /* box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);  */
+}
+
+.nav-btn:hover {
+    background-color: #0056b3;
+}
+
+.nav-btn2:hover {
+    background-color: #0056b3;
+}
+
+.modules {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.module {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.module a {
+    text-decoration: none;
+    color: #0c7db1;
+    font-weight: bold;
+}
+
+.module p {
+    color: #888;
+    margin: 0;
+}
+
+.file-link {
+    margin-top: 5px; /* Add some space above the file link */
+    padding-left: 20px; /* Indent the file link */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.file-link a {
+    text-decoration: none;
+    color: #0056b3;
+    font-weight: normal;
+}
+
+.file-link a:hover {
+    text-decoration: underline;
+} 
+
+.hoverable-question {
+    cursor: pointer;
+    /* transition: color 0.3s ease, background-color 0.3s ease; */
+}
+
+.hoverable-question:hover {
+    color: #007bff; /* Change text color on hover */
+    background-color: #f1f1f1; /* Optionally, change background on hover */
+    /* padding: 5px; Add a bit of padding on hover to make it stand out */
+    border-radius: 4px; /* Round the edges */
+}
+
+/* Modal Style */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Adjust width to be responsive */
+    max-width: 600px; /* Max width for larger screens */
+    position: relative;
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.label {
+    margin-bottom: .3rem;
+    font-size: .9rem;
+    font-weight: bold;
+    color: #05060f99;
+}
+
+.input, .textarea {
+    max-width: 100%;
+    background-color: #f5f5f5;
+    padding: 0 1rem;
+    border: 2px solid transparent;
+    font-size: 1rem;
+    transition: border-color .3s, color .3s, background .2s;
+}
+
+.input:hover, .input:focus, .textarea:hover, .textarea:focus {
+    outline: none;
+    border-color: #05060f;
+}
+
+.textarea {
+    height: 100px;
+    resize: vertical; /* Allows vertical resizing */
+}
+
+.choice-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping to the next row */
+    gap: 1rem; /* Space between options */
+}
+
+.choice-container .input-group {
+    flex: 1 1 45%; /* Makes each option take up about half the width */
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.submit-btn {
+    padding: 10px 20px;
+    background-color: #0c7db1;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color .3s;
+}
+
+.submit-btn:hover {
+    background-color: #055a8c;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.input-wrapper label {
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input[type="radio"] {
+    margin-right: 0.5rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%; /* Increase width for smaller screens */
+        padding: 15px; /* Adjust padding */
+    }
+
+    .choice-container .input-group {
+        flex: 1 1 100%; /* Stack options vertically on small screens */
+    }
+
+    .textarea {
+        height: 120px; /* Increase height for better visibility */
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 100%; /* Full width for very small screens */
+        padding: 10px; /* Adjust padding */
+    }
+
+    .textarea {
+        height: 150px; /* Increase height for better visibility */
+    }
+}

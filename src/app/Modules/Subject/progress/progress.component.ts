@@ -111,4 +111,17 @@ autoCheck() {
     this.router.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', this.moduleID, 'assess', 'question', storedAssessmentID, 'checking']);
   }
 
+  navigateToViewFile(lrnid: any, fname: any, lname: any) {
+    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedAssessmentID = localStorage.getItem('assid');
+    localStorage.setItem('lrn', lrnid);
+    localStorage.setItem('fname', fname);
+    localStorage.setItem('lname', lname);
+    // Store the subjectID in localStorage
+  
+    // Navigate to the modules page
+    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
+    this.router.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', this.moduleID, 'assess', 'question', storedAssessmentID, 'file']);
+  }
+
 }

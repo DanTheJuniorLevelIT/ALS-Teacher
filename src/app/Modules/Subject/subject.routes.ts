@@ -12,6 +12,7 @@ import { CheckComponent } from './check/check.component';
 import { DiscussComponent } from './discuss/discuss.component';
 import { DiscussionComponent } from './discussion/discussion.component';
 import { StudentsComponent } from './students/students.component';
+import { ViewfileComponent } from './viewfile/viewfile.component';
 
 export const subjectRoute: Routes = [
     { path: 'main', component: SubjectmainComponent,
@@ -28,6 +29,7 @@ export const subjectRoute: Routes = [
                     { path: 'modules/:moduleid/discuss/:discid/discussion', component: DiscussionComponent },
                     { path: 'modules/:moduleid/assess/question/:questionid/progress', component: ProgressComponent }, 
                     { path: 'modules/:moduleid/assess/question/:questionid/checking', component: CheckComponent },
+                    { path: 'modules/:moduleid/assess/question/:questionid/file', component: ViewfileComponent },
                     { path: '', redirectTo: 'modules', pathMatch: 'full' }
                     // { path: 'modules/discuss/:id/discussion', component: DiscussionComponent},
                 ]

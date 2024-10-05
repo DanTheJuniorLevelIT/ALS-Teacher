@@ -12,6 +12,11 @@ export class ApiserviceService {
 
   constructor(private http: HttpClient) {}
 
+  // Create a getter method for the URL
+  getBaseUrl() {
+    return this.url;
+  }
+
   // Dan Work Services
   // Example: loginAdmin does not need an authorization token
   verifyAdmin(login: any){
@@ -152,6 +157,11 @@ export class ApiserviceService {
   submitScore(data: any) {
     const headers = { 'Authorization': 'Bearer ' + this.token };
     return this.http.post(`${this.url}api/subjects/submitScore`, data, { headers });
+  }
+
+  updateScore(data: any) {
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.post(`${this.url}api/subjects/updateScore`, data, { headers });
   }
 
   getStudentAnswers (id: any, lrnid: any){

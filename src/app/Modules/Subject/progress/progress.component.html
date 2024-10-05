@@ -61,8 +61,14 @@
                       </td>
                       <td>{{ student.score || 'No grade yet' }}
                         <a (click)="navigateToChecking(student.lrn, student.firstname, student.lastname)">
-                            <button class="nav-btn auto-check-btn">
+                            <button *ngIf="student.file == null" class="nav-btn auto-check-btn">
                                 <i class="fa fa-eye" aria-hidden="true"></i>
+                            </button>
+                        </a>
+                        <a (click)="navigateToViewFile(student.lrn, student.firstname, student.lastname)">
+                            <button *ngIf="student.file != null" class="nav-btn auto-check-btn">
+                            <!-- <button class="nav-btn auto-check-btn"> -->
+                                <i class="fa fa-file-image-o" aria-hidden="true"></i>
                             </button>
                         </a>
                       </td>
