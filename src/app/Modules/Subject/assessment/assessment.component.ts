@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormControlName, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ApiserviceService } from '../../../apiservice.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-assessment',
@@ -79,6 +80,10 @@ export class AssessmentComponent implements OnInit{
       this.apiService.createAssess(this.createAssessment.value).subscribe(
         response => {
           console.log('Assessment created:', response);
+          Swal.fire({
+            title: "Added New Assessment",
+            icon: "success"
+          });
           this.loadAssessments();
           this.closeModal(); // Close the modal
           // Optionally, navigate to another page
@@ -86,10 +91,18 @@ export class AssessmentComponent implements OnInit{
         },
         error => {
           console.error('Error creating assessment:', error);
+          Swal.fire({
+            title: "Error creating assessment",
+            icon: "error"
+          });
         }
       );
     } else {
       console.error('Form is not valid');
+      Swal.fire({
+        title: "A Form is not valid",
+        icon: "error"
+      });
     }
   }
 

@@ -51,8 +51,7 @@
               <!-- </li> -->
                 <div *ngIf="answer.type != 'true-false'" class="score-input mb-3 mt-2">
                     <label for="scoreinput" style="color: red;">Score:</label>
-                    <input style="width: 20px; border-radius: 10px;" id="scoreinput" type="text" [(ngModel)]="answer.score" [value]="answer.score">/{{answer.points}}<!-- Display the score -->
-                    <button class="nav-btn2" (click)="manualCheck(answer.question_id, answer.score)">Update Score</button>
+                    <input style="width: 20px; border-radius: 10px;" id="scoreinput" type="text" [(ngModel)]="answer.score" [value]="answer.score" (blur)="manualCheck(answer.question_id, answer.score)">/{{answer.points}}<!-- Display the score -->
                 </div>
             </div>
           </ol>

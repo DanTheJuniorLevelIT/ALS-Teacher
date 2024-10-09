@@ -121,15 +121,14 @@
     position: relative;
 } */
 
-.announcement-trigger {
+/* .announcement-trigger {
     position: absolute;
     top: -10px;
     left: -10px;
     width: 20px;
     height: 20px;
-    /* background-color: red; */
     cursor: pointer;
-}
+} */
 
 /* Dropdown-style announcement box */
 .announcement-dropdown {
@@ -220,7 +219,7 @@ ul li {
     color: #666;
 }
 
-.right-section ul {
+/* .right-section ul {
     list-style: none;
     display: flex;
     padding: 0;
@@ -229,12 +228,33 @@ ul li {
 
 .right-section ul li {
     margin-left: 20px;
-}
+} */
 
 .right-section ul li a {
     text-decoration: none;
     color: #333;
     font-weight: bold;
+} 
+
+.right-section {
+    display: flex;
+    align-items: center;
+}
+
+.inline-list {
+    display: flex;
+    list-style-type: none;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+}
+
+.inline-list li {
+    margin-right: 10px; /* Adjust as necessary for spacing */
+}
+
+.announcement-trigger {
+    cursor: pointer;
 }
 
 .right-section ul li a.active {

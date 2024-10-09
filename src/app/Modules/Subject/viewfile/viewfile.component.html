@@ -36,9 +36,8 @@
             <h6>
                 <span style="color: red;"> 
                     Score: 
-                    <input style="width: 20px; border-radius: 10px;" id="scoreinput" type="text" [(ngModel)]="studScore.score" [value]="studScore.score"> 
+                    <input style="width: 20px; border-radius: 10px;" id="scoreinput" type="text" [(ngModel)]="studScore.score" [value]="studScore.score" (blur)="manualCheck(studScore.score)"> 
                 </span>/{{maxScore}}
-                <button class="nav-btn2" (click)="manualCheck(studScore.score)">Update Score</button>
             </h6>
             
     

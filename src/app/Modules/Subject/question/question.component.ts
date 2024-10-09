@@ -119,7 +119,12 @@ export class QuestionComponent implements OnInit{
     // Pre-fill the form fields with selected question data
     this.questionText = this.selectedQuestion.question;
     this.questionType = this.selectedQuestion.type;
-    this.keyAnswer = this.selectedQuestion.key_answer;
+    // Set keyAnswer based on question type
+    if (this.questionType === 'essay') {
+      this.keyAnswer = '';  // Key answer is not required for essay type
+    } else {
+      this.keyAnswer = this.selectedQuestion.key_answer;  // Use the key answer for other types
+    }
     this.points = this.selectedQuestion.points;
   
     if (this.questionType === 'multiple-choice') {
@@ -158,7 +163,7 @@ addQuestion() {
     assessment_id: this.assessmentID,
     question: this.questionText,
     type: this.questionType,
-    key_answer: this.keyAnswer,
+    key_answer: this.questionType !== 'Essay' ? this.keyAnswer : null, // Don't send key_answer for essay
     points: this.points,
     options: this.getOptions()
   };
@@ -167,16 +172,28 @@ addQuestion() {
     // Update existing question
     this.apiService.editQuestion(questionPayload).subscribe(
       (response: any) => {
+        Swal.fire({
+          title: "Updated Question",
+          icon: "success"
+        });
         this.loadQuestions();
         this.closeModal();
       },
       error => {
         console.error('Error updating question', error);
+        Swal.fire({
+          title: "Error Updating Question",
+          icon: "error"
+        });
       }
     );
   } else {
     if (this.questionType === 'multiple-choice' && this.getOptions().length < 2) {
-      alert('Please enter at least two valid options.');
+      // alert('Please enter at least two valid options.');
+      Swal.fire({
+        title: "Please enter at least two valid options.",
+        icon: "warning"
+      });
       return;
     }    
     // Add new question
@@ -190,12 +207,20 @@ addQuestion() {
           points: response.question.points,
           options: response.question.options || []
         };
+        Swal.fire({
+          title: "Added New Question",
+          icon: "success"
+        });
         // this.questions.push(newQuestion);
         this.loadQuestions();
         this.closeModal();
       },
       error => {
         console.error('Error adding question', error);
+        Swal.fire({
+          title: "Error adding question",
+          icon: "error"
+        });
       }
     );
   }

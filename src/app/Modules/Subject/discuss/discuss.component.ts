@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { ApiserviceService } from '../../../apiservice.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-discuss',
@@ -66,6 +67,10 @@ export class DiscussComponent implements OnInit{
   save(){
     this.apiService.createDiscussion(this.createDiscussion.value).subscribe((response: any)=>{
       console.log("Discussion Created: ", response)
+      Swal.fire({
+        title: "Added New Discussion",
+        icon: "success"
+      });
       this.closeModal();
       this.loadDiscussion();
     })

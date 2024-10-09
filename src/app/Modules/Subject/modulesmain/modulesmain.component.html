@@ -18,8 +18,7 @@
 
 <!-- Topnav with announcement square -->
 <div class="topnav">
-    <!-- Small square for announcement modal trigger -->
-    <div class="announcement-trigger" (click)="toggleModal()"><i class="fa fa-bullhorn fa-2x" aria-hidden="true"></i></div>
+    
 
     <div class="left-section">
         <img [src]="'/assets/' + subjectDetail.image" alt="Profile Picture" class="profile-pic">
@@ -29,11 +28,25 @@
         </div>
     </div>
 
-    <div class="right-section">
+    <!-- <div class="right-section">
         <ul>
             <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectDetail.classid]">Modules</a></li>
         </ul>
-    </div>
+        <ul>
+            <div class="announcement-trigger" (click)="toggleModal()"><i class="fa fa-bullhorn fa-2x" aria-hidden="true"></i></div>
+        </ul>
+    </div> -->
+    <div class="right-section">
+        <ul class="inline-list">
+            <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectDetail.classid]">Modules</a> | </li>
+            <li>
+                <!-- Small square for announcement modal trigger -->
+                <div class="announcement-trigger" (click)="toggleModal()">
+                    <i class="fa fa-bullhorn fa-lg" aria-hidden="true"></i>
+                </div>
+            </li>
+        </ul>
+    </div>    
 </div>
 
 <!-- Main content -->

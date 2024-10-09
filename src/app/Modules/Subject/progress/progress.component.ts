@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ApiserviceService } from '../../../apiservice.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-progress',
@@ -78,13 +79,20 @@ loadStudents(){
 autoCheck() {
   this.apiserv.autoCheck(this.subjectID, this.assessmentID).subscribe(
     (response: any) => {
-      console.log('Auto check completed:', response);
+      Swal.fire({
+        title: "Auto Check Completed",
+        icon: "success"
+      });
       this.students = response.score;
       this.students = response.status;
       // After auto-check, reload the student data to get updated scores
     },
     (error) => {
       console.error('Error during auto-check:', error);
+      Swal.fire({
+        title: "Something went wrong!",
+        icon: "error"
+      });
     }
   );
 }
