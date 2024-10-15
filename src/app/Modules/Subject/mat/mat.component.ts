@@ -304,6 +304,7 @@ export class MatComponent implements OnInit{
               icon: "success"
             });
             this.getLessons(this.moduleID);
+            this.loadAssessments();
           },
           (error) => {
             // Error response handling
