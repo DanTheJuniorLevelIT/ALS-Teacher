@@ -77,6 +77,7 @@ export class LoginComponent implements OnInit{
             // text: "Fill out the Email and Password",
             icon: "error"
           });
+          this.loginForm.reset();
         }
       );
     } else {
@@ -87,6 +88,7 @@ export class LoginComponent implements OnInit{
         text: "Fill out the Email and Password",
         icon: "error"
       });
+      this.loginForm.reset();
     }
   }
 
