@@ -89,7 +89,7 @@
                         <h6>Assessments</h6>
                         <ul>
                             <li *ngFor="let assessment of lesson.filteredAssessments">
-                                <a style="cursor: pointer; color: blue; text-decoration: underline;" (click)="navigateToQuestions(assessment.assessmentID)">{{ assessment.Title }}</a>
+                                <a style="cursor: pointer; color: blue; text-decoration: underline;" (click)="navigateToQuestions(assessment.assessmentID, lesson.topic_title)">{{ assessment.Title }}</a>
                             </li>
                         </ul>
                     </div>

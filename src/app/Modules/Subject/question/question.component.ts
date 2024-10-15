@@ -18,6 +18,7 @@ export class QuestionComponent implements OnInit{
   res: any;
 
   subjectID: number | null = null;
+  lessonTitle: any;
   assessmentID: any;
   moduleID: any;
   det: any;
@@ -48,6 +49,7 @@ export class QuestionComponent implements OnInit{
   ngOnInit(): void {
     this.options.push({ text: '' });
     // Retrieve the subjectID from localStorage
+    this.lessonTitle = localStorage.getItem('lessTitle');
     const storedSubjectID = localStorage.getItem('subjectID');
     const storedAssessmentID = localStorage.getItem('assid');
     const storedModuleID = localStorage.getItem('moduleid');

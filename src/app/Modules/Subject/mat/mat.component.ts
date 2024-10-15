@@ -166,10 +166,11 @@ export class MatComponent implements OnInit{
     }
   }
 
-  navigateToQuestions(assID: number) {
+  navigateToQuestions(assID: number, lessTitle: any) {
     const storedSubjectID = localStorage.getItem('subjectID');
     // Store the subjectID in localStorage
     localStorage.setItem('assid', assID.toString());
+    localStorage.setItem('lessTitle', lessTitle);
 
     // Navigate to the modules page
     // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
