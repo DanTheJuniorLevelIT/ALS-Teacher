@@ -1,6 +1,6 @@
 .form-container {
     width: 80%; /* Adjust width to 80% of the viewport */
-    height: 490px; /* Adjust height to 600px */
+    height: 690px; /* Adjust height to 600px */
     margin: 0 auto;
     padding: 30px; /* Increase padding for more spacing inside */
     border: 1px solid #ccc;
@@ -50,7 +50,7 @@
 
 .textarea-input {
     width: 100%; /* Full width */
-    height: 100px; /* Adjust this height as needed */
+    height: 300px; /* Adjust this height as needed */
     padding: 10px;
     font-size: 16px; /* Adjust font size */
     box-sizing: border-box; /* Ensure padding is included in the width and height */
