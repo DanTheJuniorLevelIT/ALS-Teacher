@@ -76,6 +76,17 @@ export class MatComponent implements OnInit{
   });
   }
 
+  transformText(text: string): string {
+    // Split text into paragraphs by double newlines or line breaks
+    let paragraphs = text.split(/\n\s*\n/);
+  
+    // For each paragraph, add <p> tags, and within each paragraph add <br> after each period
+    return paragraphs
+      .map(paragraph => paragraph.replace(/\.\s*/g, '.<br>')) // Add <br> after each period
+      .map(paragraph => `<p>${paragraph}</p>`) // Wrap each transformed paragraph in <p> tags
+      .join(''); // Join all paragraphs together
+  }
+
   getLessons(id: number) {
     this.apiService.getLessons(id).subscribe(
       (response) => {

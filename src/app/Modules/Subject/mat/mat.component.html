@@ -44,7 +44,7 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
                     <h5>{{ lesson.topic_title }}</h5>
-                    <p>{{ lesson.lesson }}</p>
+                    <p [innerHTML]="transformText(lesson.lesson)"></p>
                 </div>
                 <div class="dropdown">
                     <button (click)="toggleDropdown(lesson)" class="dropbtn">
@@ -63,18 +63,25 @@
                     <div class="col-6">
                         <h6>Download Files</h6>
                             <!-- <a href="#"> {{lesson.filename}}</a><br> -->
-                            <a *ngIf="lesson.file">{{ lesson.file }}</a>
-                            <i *ngIf="lesson.file" (click)="deleteFile(lesson.lesson_id)" class="fa fa-trash fa-1x" aria-hidden="true"></i>
+                            <ul>
+                                <div *ngIf="lesson.file">
+                                    <li>
+                                        <a *ngIf="lesson.file" [href]="'http://localhost:8000/storage/lesson-file/' + lesson.file" target="_blank">{{ lesson.file }}</a>
+                                        <i *ngIf="lesson.file" (click)="deleteFile(lesson.lesson_id)" class="fa fa-trash fa-1x ms-2" style="cursor: pointer;" aria-hidden="true"></i>
+                                    </li>
+                                </div>
 
-                            <!-- Displaying media files line by line -->
-                            <div *ngIf="lesson.media_files">
-                                <ng-container *ngFor="let mediaFile of lesson.media_files.split(',')">
-                                    <!-- <img [src]="'http://localhost:8000/storage/' + mediaFile" alt="" class="card-img-top" style="width: 40px; height: 40px;"> -->
-                                    <a>{{mediaFile}}</a>
-                                    <i (click)="deleteMediaFile(lesson.media_ids.split(',')[i] || lesson.media_ids)" class="fa fa-trash fa-1x" aria-hidden="true"></i>
-                                    <br>
-                                </ng-container>
-                            </div>
+                                <!-- Displaying media files line by line -->
+                                <div *ngIf="lesson.media_files">
+                                    <ng-container *ngFor="let mediaFile of lesson.media_files.split(',')">
+                                        <li>
+                                            <a [href]="'http://localhost:8000/storage/' + mediaFile" target="_blank">{{mediaFile}}</a>
+                                        <i (click)="deleteMediaFile(lesson.media_ids.split(',')[i] || lesson.media_ids)" class="fa fa-trash fa-1x ms-2" style="cursor: pointer;" aria-hidden="true"></i>
+                                        </li>
+                                        <br>
+                                    </ng-container>
+                                </div>
+                            </ul>
                     </div>
     
                     <!-- Second Column: Assessments -->
