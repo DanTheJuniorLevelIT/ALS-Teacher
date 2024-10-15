@@ -16,25 +16,14 @@
     </div>
 </div>
 <div class="modules">
-    <div class="module">
+    <div class="module" *ngFor="let lesson of lessons;">
         <div class="module-header">
-            <h5>Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</h5>
-            <p>Lesson 1</p>
+            <h5>{{ lesson.topic_title }}</h5>
         </div>
-        <div class="file-link" *ngFor="let dc of discuss">
-            <!-- <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/discuss/discussion']">What are your tought about Nosebleeds, Swallowing Objects, Poisoning and Dog Bites?</a> -->
+        <div class="file-link" *ngFor="let dc of lesson.filteredDiscussions">
             <a (click)="navigateToDiscussions(dc.discussionid, dc.discussion_topic, dc.created)">{{dc.discussion_topic}}</a>
         </div>
     </div>
-    <!-- <div class="module">
-        <div class="module-header">
-            <h5>Sprains, Dislocations and Fractures</h5>
-            <p>Lesson 2</p>
-        </div>
-        <div class="file-link">
-            <a href="#">What do you feel when experience this injury?</a>
-        </div>
-    </div> -->
 </div>
 
 <div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
@@ -45,8 +34,7 @@
             <div class="input-group">
                 <label class="label">Lesson</label>
                 <select formControlName="lesson_id" name="typeOfQuestion" id="typeOfQuestion" class="input">
-                    <option value="1">Lesson 1</option>
-                    <option value="2">Lesson 2</option>
+                    <option *ngFor="let lesson of lessons" [value]="lesson.lesson_id">{{lesson.topic_title}}</option>
                 </select>
             </div>
             <div class="input-group">

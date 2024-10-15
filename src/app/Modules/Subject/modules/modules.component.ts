@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { HttpClient } from '@angular/common/http';
 import { ApiserviceService } from '../../../apiservice.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modules',
@@ -51,12 +52,22 @@ export class ModulesComponent implements OnInit {
     if (this.createModule.valid) {
       this.apiService.createMods(this.createModule.value).subscribe(
         (response) => {
+          Swal.fire({
+            title: "Success",
+            text: "Module created",
+            icon: "success"
+          });
           console.log('Module created:', response);
           this.closeModal(); // Close the modal after creation
           this.getModules(this.storedSubjectID); // Reload the module list
           this.createModule.reset();  // Reset the createModule form
         },
         (error) => {
+          Swal.fire({
+            title: "Error",
+            text: "Error Creating Module: " + error,
+            icon: "error"
+          });
           console.error('Error creating module:', error);
         }
       );

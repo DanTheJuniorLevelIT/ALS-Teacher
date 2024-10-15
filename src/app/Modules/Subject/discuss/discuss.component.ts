@@ -18,6 +18,8 @@ export class DiscussComponent implements OnInit{
   moduleID: any;
   moduleTitle: any;
   discuss: any;
+  lessons: any;
+  assess: any;
 
   isModalOpen = false;
 
@@ -37,21 +39,34 @@ export class DiscussComponent implements OnInit{
       this.subjectID = +storedSubjectID;  // Convert the string to a number
       this.moduleID = storedModuleID;  // Convert the string to a number
       this.moduleTitle = storedModuleTitle;  // Convert the string to a number
-      this.loadDiscussion();
+      this.apiService.getLessons(this.moduleID).subscribe((response: any) => {
+        this.lessons = response;
+        console.log('Lesson: ', this.lessons);
+        // After lessons are loaded, load discussions
+        this.loadDiscussion();
+      });
       console.log('Retrieved Subject ID from localStorage:', this.subjectID);
     } else {
       console.error('No subjectID found in localStorage.');
     }
   }
 
-  loadDiscussion(){
+  loadDiscussion() {
     this.apiService.getDiscussion().subscribe(
       (response: any) => {
         this.discuss = response;
-        console.log(this.discuss);
+  
+        // Now, we will filter the discussions by lesson_id for each lesson
+        this.lessons.forEach((lesson: any) => {
+          lesson.filteredDiscussions = this.discuss.filter(
+            (discussion: any) => discussion.lesson_id === lesson.lesson_id
+          );
+        });
+  
+        console.log('Discussions:', this.discuss);
       },
       (error) => {
-        console.error('Error fetching users:', error);
+        console.error('Error fetching discussions:', error);
       }
     );
   }

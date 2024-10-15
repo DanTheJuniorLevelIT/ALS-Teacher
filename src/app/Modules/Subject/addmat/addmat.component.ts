@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-addmat',
@@ -55,10 +56,20 @@ export class AddmatComponent implements OnInit {
 
     this.apiService.createTopic(formData).subscribe(
       (response) => {
+        Swal.fire({
+          title: "Success",
+          text: "Lesson created",
+          icon: "success"
+        });
         console.log('Lesson created successfully:', response);
         this.route.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', storedModuleID, 'mat']); // Redirect on success
       },
       (error) => {
+        Swal.fire({
+          title: "Error",
+          text: "Error Creating lesson: " + error,
+          icon: "error"
+        });
         console.error('Error creating lesson:', error);
       }
     );
