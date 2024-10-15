@@ -1,74 +1,16 @@
+<!-- Smooth scrolling CSS -->
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+</style>
+
+<!-- <h1 style="text-align: center;">{{moduleTitle}}</h1> -->
 <!-- <div class="header">
-    <h1 style="text-align: center;">First Aid: A Necessity</h1>
-    <div class="button-group">
-        <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat']">
-            <button class="nav-btn">Learning Material</button>
-        </a>
-        <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/assess']">
-            <button class="nav-btn">Assessment</button>
-        </a>
-        <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/discuss']">
-            <button class="nav-btn">Discussion</button>
-        </a>
-    </div>
-    <div class="notification-icon" (click)="openModal()">
-        <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
-    </div>
-</div>
-<div class="modules">
-    <div class="module">
-        <div class="module-header">
-            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat/lesson']">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</a>
-            <p>Lesson 1</p>
-        </div>
-        <div class="file-link">
-            <a href="#">Download Lesson 1 Materials</a>
-        </div>
-    </div>
-    <div class="module">
-        <div class="module-header">
-            <a href="#">Sprains, Dislocations and Fractures</a>
-            <p>Lesson 2</p>
-        </div>
-        <div class="file-link">
-            <a href="#">Download Lesson 2 Materials</a>
-        </div>
-    </div>
-</div>
-
-<div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-        <span class="close" (click)="closeModal()">&times;</span>
-        <h2>Add Lesson</h2>
-        <div class="input-group">
-            <label class="label">Topic Title</label>
-            <input autocomplete="off" name="topicTitle" id="topicTitle" class="input" type="text">
-        </div>
-        <div class="input-group2">
-            <label class="label2">Lesson</label>
-            <input autocomplete="off" name="lesson" id="lesson" class="input2" type="text">
-        </div>
-        <div class="input-group">
-            <label class="label">Handout</label>
-            <textarea name="file" id="text" class="input"></textarea>
-        </div>
-        <div class="input-group">
-            <label class="label">File</label>
-            <input type="file" name="file" id="file" class="input">
-        </div>
-        <div class="button-group2">
-            <button class="submit-btn">ADD</button>
-        </div>
-    </div>
-</div> -->
-
-<div class="header">
-    <h1 style="text-align: center;">{{moduleTitle}}</h1>
-    <div class="button-group">
+    <div class="button-group" style="margin-top: 20px;">
         <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'mat']"  routerLinkActive="active">
             <button class="nav-btn">Learning Material</button>
         </a>
-        <!-- <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/:id/modules/assess']"  routerLinkActive="active"> -->
             <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'assess']"  routerLinkActive="active">
             <button class="nav-btn">Assessment</button>
         </a>
@@ -79,59 +21,128 @@
     <div class="notification-icon" (click)="openModal()">
         <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
     </div>
+</div> -->
+<a id="top"></a>
+<div class="header">
+    <div class="button-group" style="margin-top: 10px;">
+        <button class="nav-btn"  [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'addmat']" style="display: flex; align-items: center;">
+            <i class="fa fa-plus" aria-hidden="true" style="margin-right: 8px;"></i> Lesson
+        </button>
+        <button class="nav-btn" (click)="openModal2()" style="display: flex; align-items: center;">
+            <i class="fa fa-plus" aria-hidden="true" style="margin-right: 8px;"></i> Assessment
+        </button>
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']" routerLinkActive="active">
+            <button class="nav-btn">Discussion</button>
+        </a>
+    </div>
 </div>
 
-<div class="modules">
-    <div class="module" *ngFor="let lesson of lessons">
-        <div class="module-header">
-            <div>
-                <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat/lesson']">{{lesson.title}}</a>
-                <p>{{lesson.name}}</p> -->
-                <h5>{{lesson.name}}: {{lesson.title}}</h5>
-                <p>{{lesson.desc}}</p>
+<div class="container">
+    <!-- Lesson Details in 9 columns -->
+    <div class="col-9">
+        <div class="card" *ngFor="let lesson of lessons; let i = index" [attr.id]="'lesson-' + i" style="margin-bottom: 40px;">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div>
+                    <h5>{{ lesson.topic_title }}</h5>
+                    <p>{{ lesson.lesson }}</p>
+                </div>
+                <div class="dropdown">
+                    <button (click)="toggleDropdown(lesson)" class="dropbtn">
+                        <i class="fa fa-ellipsis-v"></i>
+                    </button>
+                    <div class="dropdown-content" [ngClass]="{'show': lesson.isDropdownOpen}">
+                        <a (click)="updateLesson(lesson.lesson_id)" [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'updateLesson']" >Update</a>                  
+                        <a (click)="uploadFile(lesson.lesson_id)" [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'upload']" >Upload</a>                  
+                        <a (click)="deleteLesson(lesson.lesson_id)">Delete</a>
+                    </div>
+                </div>
             </div>
-            <div class="dropdown">
-                <button (click)="toggleDropdown(lesson)" class="dropbtn">
-                    <i class="fa fa-ellipsis-v"></i>
-                </button>
-                <div class="dropdown-content" [ngClass]="{'show': lesson.isDropdownOpen}">
-                    <a href="#" (click)="updateLesson(lesson)">Update</a>
-                    <a href="#" (click)="uploadFile(lesson)">Upload</a>
+            <div class="card-body">
+                <div class="row">
+                    <!-- First Column: Downloadable Materials -->
+                    <div class="col-6">
+                        <h6>Download Files</h6>
+                            <!-- <a href="#"> {{lesson.filename}}</a><br> -->
+                            <a *ngIf="lesson.file">{{ lesson.file }}</a>
+                            <i *ngIf="lesson.file" (click)="deleteFile(lesson.lesson_id)" class="fa fa-trash fa-1x" aria-hidden="true"></i>
+
+                            <!-- Displaying media files line by line -->
+                            <div *ngIf="lesson.media_files">
+                                <ng-container *ngFor="let mediaFile of lesson.media_files.split(',')">
+                                    <!-- <img [src]="'http://localhost:8000/storage/' + mediaFile" alt="" class="card-img-top" style="width: 40px; height: 40px;"> -->
+                                    <a>{{mediaFile}}</a>
+                                    <i (click)="deleteMediaFile(lesson.media_ids.split(',')[i] || lesson.media_ids)" class="fa fa-trash fa-1x" aria-hidden="true"></i>
+                                    <br>
+                                </ng-container>
+                            </div>
+                    </div>
+    
+                    <!-- Second Column: Assessments -->
+                    <div class="col-6">
+                        <h6>Assessments</h6>
+                        <ul>
+                            <li *ngFor="let assessment of lesson.filteredAssessments">
+                                <a style="cursor: pointer; color: blue; text-decoration: underline;" (click)="navigateToQuestions(assessment.assessmentID)">{{ assessment.Title }}</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="file-link">
-            <a href="#">Download {{lesson.name}} Materials</a>
-            <!-- <a href="#" (click)="deleteLesson(lesson)" class="delete-link">Delete</a> -->
-            <i class="fa fa-times" style="cursor: pointer;" aria-hidden="true"></i>
+    </div>
+    
+    
+    <!-- Table of Contents in 3 columns -->
+    <div class="col-3">
+        <div class="toc sticky-toc" style="text-align: end;">
+            <h4>{{moduleTitle}}</h4>
+            <div *ngFor="let lesson of lessons; let i = index">
+                <div class="toc-item">
+                    <a [routerLink]="[]" [fragment]="'lesson-' + i">
+                        <h6>{{ lesson.topic_title }}</h6>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Add Back to Top link -->
+            <div class="toc-item" style="margin-top: 20px;">
+                <a [routerLink]="[]" [fragment]="'top'" style="color: blue; text-decoration: underline;">Back to Top</a>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Modal for adding a lesson -->
-<div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
+<!-- Assessment Modal -->
+<div class="modal" [ngClass]="{'show': isModalOpen2}" (click)="closeModal2()">
     <div class="modal-content" (click)="$event.stopPropagation()">
-        <span class="close" (click)="closeModal()">&times;</span>
-        <h2>Add Lesson</h2>
-        <div class="input-group">
-            <label class="label">Topic Title</label>
-            <input autocomplete="off" name="topicTitle" id="topicTitle" class="input" type="text" [(ngModel)]="newLessonTitle">
-        </div>
-        <div class="input-group2">
-            <label class="label2">Lesson</label>
-            <input autocomplete="off" name="lesson" id="lesson" class="input2" type="text" [(ngModel)]="newLessonName">
-        </div>
-        <div class="input-group">
-            <label class="label">Description</label>
-            <textarea name="file" id="text" class="input" [(ngModel)]="newLessonHandout"></textarea>
-        </div>
-        <div class="input-group">
-            <label class="label">File</label>
-            <input type="file" name="file" id="file" class="input" (change)="onFileSelected($event)">
-        </div>
-        <div class="button-group2">
-            <button class="submit-btn" (click)="addLesson()">ADD</button>
-        </div>
+        <span class="close" (click)="closeModal2()">&times;</span>
+        <h2>Add Assessment</h2>
+        <form [formGroup]="createAssessment" (ngSubmit)="save()">
+            <div class="input-group">
+                <label class="label">Title</label>
+                <input formControlName="title" autocomplete="off" name="title" id="title" class="input" type="text">
+            </div>
+            <div class="input-group">
+                <label class="label">Instruction</label>
+                <textarea formControlName="instruction" autocomplete="off" name="description" id="description" class="textarea"></textarea>
+            </div>
+            <div class="input-group">
+                <label class="label">Description</label>
+                <textarea formControlName="description" autocomplete="off" name="description" id="description" class="textarea"></textarea>
+            </div>
+            <div class="input-group">
+                <label class="label">Lesson</label>
+                <select formControlName="lesson_id" name="typeOfQuestion" id="typeOfQuestion" class="input">
+                    <option *ngFor="let lesson of lessons" [value]="lesson.lesson_id">{{lesson.topic_title}}</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label class="label">Due Date</label>
+                <input formControlName="due_date" autocomplete="off" name="dueDate" id="dueDate" class="input" type="date">
+            </div>
+            <div class="button-group">
+                <button class="submit-btn">ADD</button>
+            </div>
+        </form>
     </div>
 </div>
-

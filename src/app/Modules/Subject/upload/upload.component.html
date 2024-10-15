@@ -1,0 +1,17 @@
+<div class="card-container">
+    <div class="card">
+        <h2>Upload File or Image </h2>
+        <div class="card-content">
+            <div class="input-group">
+                <h5>{{lessons.topic_title}}</h5>
+            </div>
+            <div class="file-upload-section">
+                <label>File</label><br>
+                <input type="file" class="file-input" (change)="onFileSelected($event)">
+              </div>
+              <div class="button-group">
+                <button class="submit-btn" type="button" (click)="onUpload()">Upload</button>
+              </div>
+        </div>
+    </div>
+</div>

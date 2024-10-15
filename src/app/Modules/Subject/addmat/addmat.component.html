@@ -1,0 +1,20 @@
+<div class="form-container">
+    <h2>Add Lesson</h2>
+    <form [formGroup]="createLesson" (ngSubmit)="save()" enctype="multipart/form-data">
+        <div class="input-group">
+            <label class="label" for="topicTitle">Topic Title</label>
+            <input formControlName="topic_title" autocomplete="off" name="topicTitle" id="topicTitle" class="input" type="text" required>
+        </div>
+        <div class="input-group2">
+            <label class="label2" for="lesson">Lesson</label>
+            <textarea formControlName="lesson" autocomplete="off" name="lesson" id="lesson" class="textarea-input" rows="8" required></textarea>
+        </div>
+        <div class="input-group">
+            <label class="label" for="file">File</label>
+            <input type="file" name="file" id="file" class="input" (change)="onFileSelected($event)">
+        </div>
+        <div class="button-group2">
+            <button class="submit-btn" type="submit">Save</button>
+        </div>
+    </form>
+</div>

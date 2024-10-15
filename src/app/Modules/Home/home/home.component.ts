@@ -12,6 +12,8 @@ import { ApiserviceService } from '../../../apiservice.service';
 })
 export class HomeComponent implements OnInit{
 
+  isLoading: boolean = false; // This controls the loader visibility
+
   sub: any;
   shl: any;
   authtoken: any;
@@ -54,6 +56,7 @@ export class HomeComponent implements OnInit{
   // }
 
   ngOnInit() {
+    this.loadClasses();
     const id = localStorage.getItem('id');
     this.teacherid = id;
     // this.apiserv.getSubjects().subscribe(
@@ -69,6 +72,15 @@ export class HomeComponent implements OnInit{
         console.error('Error fetching users:', error);
       }
     );
+  }
+
+  loadClasses() {
+    this.isLoading = true; // Show the loader before the data is loaded
+
+    // Simulate data fetching (you can replace this with an actual service call)
+    setTimeout(() => {
+      this.isLoading = false; // Hide the loader after data is fetched
+    }, 2000); // Simulated delay of 3 seconds
   }
 
   navigateToModules(subjectID: number) {

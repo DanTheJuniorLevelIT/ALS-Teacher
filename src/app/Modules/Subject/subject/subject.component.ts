@@ -44,17 +44,10 @@ export class SubjectComponent implements OnInit{
 
   constructor(private apiserv: ApiserviceService, private route: Router) {}
 
-  // ngOnInit(): void {
-  //   this.apiserv.getAllSubjects().subscribe(
-  //     (response) => {
-  //       this.subblp = response;
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching users:', error);
-  //     }
-  //   );
-  // }
+  isLoading: boolean = false; // This controls the loader visibility
+
   ngOnInit(): void {
+    this.loadSubjects();
     const id = localStorage.getItem('id');
     this.teacherid = id;
     this.apiserv.getAllTeacherSubjects(this.teacherid).subscribe(
@@ -67,6 +60,15 @@ export class SubjectComponent implements OnInit{
         console.error('Error fetching subjects:', error);
       }
     );
+  }
+
+  loadSubjects() {
+    this.isLoading = true; // Show the loader before the data is loaded
+
+    // Simulate data fetching (you can replace this with an actual service call)
+    setTimeout(() => {
+      this.isLoading = false; // Hide the loader after data is fetched
+    }, 2000); // Simulated delay of 3 seconds
   }
 
   filteredSubjects(){

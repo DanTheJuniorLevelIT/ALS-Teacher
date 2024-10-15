@@ -1,67 +1,52 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ApiserviceService } from '../../../apiservice.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-mat',
   standalone: true,
-  imports: [CommonModule,RouterModule, FormsModule],
+  imports: [CommonModule,RouterModule, FormsModule, ReactiveFormsModule],
   templateUrl: './mat.component.html',
   styleUrl: './mat.component.css'
 })
-// export class MatComponent {
-
-//   isModalOpen = false;
-
-//   openModal() {
-//     this.isModalOpen = true;
-//   }
-
-//   closeModal() {
-//     this.isModalOpen = false;
-//   }
-  
-// }
 
 export class MatComponent implements OnInit{
 
   subjectID: number | null = null;
   moduleID: any;
+  assess:any;
   moduleTitle: any;
+  LessonDetails:any;
+  storedSubjectID:any;
+  lessons:any;
+  selectLessonID:any;
 
   constructor(
-    private apiserv: ApiserviceService, 
+    private apiService: ApiserviceService, 
     private route: ActivatedRoute, 
+    private router: Router,
     private http: HttpClient,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private viewportScroller: ViewportScroller
   ) {}
 
-  isModalOpen = false;
-  newLessonTitle = '';
-  newLessonName = '';
-  newLessonDesc = '';
-  newLessonHandout = '';
-  lessons = [
-    {
-      title: 'Nosebleeds, Swallowing Objects, Poisoning and Dog Bites',
-      name: 'Lesson 1',
-      desc: 'Accidents happen at any time and at any place. How can you be sure that you are safe inside or outside your house? Study the pictures on the left. What do you see in them? If you happen to get injured and there is no doctor around, what should you do?',
-      isDropdownOpen: false
-    },
-    {
-      title: 'Sprains, Dislocations and Fractures',
-      name: 'Lesson 2',
-      desc: 'Accidents and hard physical activities can sometimes lead to bone and other injuries. These injuries can happen anywhere - even at home. It is best that you know how to give immediate treatment for injuries like sprains, dislocations and fractures.',
-      isDropdownOpen: false
-    }
-  ];
+  createAssessment = new FormGroup({
+    title: new FormControl(null),
+    lesson_id: new FormControl(null),
+    instruction: new FormControl(null),
+    description: new FormControl(null),
+    due_date: new FormControl(null)
+  })
 
+  isModalOpen2 = false;
 
   ngOnInit(): void {
     // Retrieve the subjectID from localStorage
+    this.loadAssessments();
     const storedSubjectID = localStorage.getItem('subjectID');
     const storedModuleID = localStorage.getItem('moduleid');
     const storedModuleTitle = localStorage.getItem('moduletitle');
@@ -69,56 +54,258 @@ export class MatComponent implements OnInit{
       this.subjectID = +storedSubjectID;  // Convert the string to a number
       this.moduleID = storedModuleID;  // Convert the string to a number
       this.moduleTitle = storedModuleTitle;  // Convert the string to a number
+      this.apiService.getLessons(this.moduleID).subscribe((response: any) => {
+        this.lessons = response;
+        console.log('Lesson: ', this.lessons);
+
+        // After getting lessons, map assessments to each lesson
+        this.lessons.forEach((lesson: any) => {
+          lesson.filteredAssessments = this.assess.filter(
+            (a: any) => a.lesson_id === lesson.lesson_id
+          );
+        });
+      });
       console.log('Retrieved Subject ID from localStorage:', this.subjectID);
     } else {
       console.error('No subjectID found in localStorage.');
     }
+    this.route.fragment.subscribe((fragment: any) => {
+      if (fragment) {
+          this.viewportScroller.scrollToAnchor(fragment);
+      }
+  });
   }
 
-  openModal() {
-    this.isModalOpen = true;
+  getLessons(id: number) {
+    this.apiService.getLessons(id).subscribe(
+      (response) => {
+        this.lessons = response;   
+        this.LessonDetails = response;
+        this.cdr.detectChanges();  
+        console.log('Lessons Details:', this.LessonDetails);
+      },
+      (error) => {
+        console.error('Error fetching lesson details:', error);
+      }
+    );
   }
 
-  closeModal() {
-    this.isModalOpen = false;
+  loadAssessments(){
+    this.apiService.getAssessment().subscribe(
+      (response: any) => {
+        this.assess = response;
+        console.log(this.assess);
+        this.lessons.forEach((lesson: any) => {
+          lesson.filteredAssessments = this.assess.filter(
+            (a: any) => a.lesson_id === lesson.lesson_id
+          );
+        });
+      },
+      (error) => {
+        console.error('Error fetching users:', error);
+      }
+    );
+  }
+
+  openModal2() {
+    this.isModalOpen2 = true;
+  }
+  
+  closeModal2() {
+    this.isModalOpen2 = false;
   }
 
   toggleDropdown(lesson: any) {
     lesson.isDropdownOpen = !lesson.isDropdownOpen;
   }
 
-  updateLesson(lesson: any) {
-    // Code to update the lesson
-    alert('Update lesson: ' + lesson.name);
-  }
+  save() {
+    if (this.createAssessment.valid) {
+      // const data = {
+      //   ...this.createAssessment.value
+      //   // subjectID: this.subjectID // Include subjectID if needed in your backend
+      // };
 
-  uploadFile(lesson: any) {
-    // Code to upload the file
-    alert('Upload file for lesson: ' + lesson.name);
-  }
-
-  deleteLesson(lesson: any) {
-    // Code to delete the lesson
-    this.lessons = this.lessons.filter(l => l !== lesson);
-    alert('Deleted lesson: ' + lesson.name);
-  }
-
-  addLesson() {
-    const newLesson = {
-      title: this.newLessonTitle,
-      name: this.newLessonName,
-      desc: this.newLessonDesc,
-      isDropdownOpen: false
-    };
-    this.lessons.push(newLesson);
-    this.closeModal();
-  }
-
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      // Handle the selected file
-      console.log('Selected file:', file.name);
+      this.apiService.createAssess(this.createAssessment.value).subscribe(
+        response => {
+          console.log('Assessment created:', response);
+          Swal.fire({
+            title: "Added New Assessment",
+            icon: "success"
+          });
+          this.loadAssessments();
+          this.closeModal2(); // Close the modal
+          // Optionally, navigate to another page
+          // this.router.navigate(['/some-route']);
+        },
+        error => {
+          console.error('Error creating assessment:', error);
+          Swal.fire({
+            title: "Error creating assessment",
+            icon: "error"
+          });
+        }
+      );
+    } else {
+      console.error('Form is not valid');
+      Swal.fire({
+        title: "A Form is not valid",
+        icon: "error"
+      });
     }
   }
+
+  navigateToQuestions(assID: number) {
+    const storedSubjectID = localStorage.getItem('subjectID');
+    // Store the subjectID in localStorage
+    localStorage.setItem('assid', assID.toString());
+
+    // Navigate to the modules page
+    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
+    this.router.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', this.moduleID, 'assess', 'question', assID]);
+  }
+
+  updateLesson(modules_id: any) {
+    this.selectLessonID = modules_id;
+    console.log('Selected Lesson ID', this.selectLessonID);
+    localStorage.setItem('Lesson Id', this.selectLessonID )
+    // this.router.navigate(['/main/subject', this.subjectID, 'modules', this.moduleID, 'upadateLesson', lessonID]);
+  }
+
+  uploadFile(modules_id: any) {
+    this.selectLessonID = modules_id;
+    console.log('Selected Lesson ID', this.selectLessonID);
+    localStorage.setItem('Lesson Id', this.selectLessonID )
+  }
+  
+  deleteLesson(lesson_id: number) {
+    // Show confirmation dialog using SweetAlert
+    Swal.fire({
+      title: "Are you sure you want to delete this lesson?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes"
+    }).then((result) => {
+      // If user confirms deletion
+      if (result.isConfirmed) {
+        // Call the delete API
+        this.apiService.deleteLesson(lesson_id).subscribe(
+          (response) => {
+            // Success response handling
+            console.log('Lesson deleted:', response);
+            // Remove the deleted lesson from the list
+            this.lessons = this.lessons.filter((lesson: any) => lesson.lesson_id !== lesson_id);
+            this.cdr.detectChanges();
+  
+            // Show success alert
+            Swal.fire({
+              title: "Deleted!",
+              text: "The lesson has been deleted.",
+              icon: "success"
+            });
+          },
+          (error) => {
+            // Error response handling
+            console.error('Error deleting lesson:', error);
+            Swal.fire({
+              title: "Error!",
+              text: "There was an issue deleting the lesson. Please try again.",
+              icon: "error"
+            });
+          }
+        );
+      }
+    });
+  }
+  
+
+  deleteFile(lesson_id: number) {
+    // Show confirmation dialog using SweetAlert
+    Swal.fire({
+      title: "Are you sure you want to delete this file?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes"
+    }).then((result) => {
+      // If user confirms deletion
+      if (result.isConfirmed) {
+        // Call the delete API for file deletion
+        this.apiService.deleteFile(lesson_id).subscribe(
+          (response) => {
+            // Success response handling
+            console.log('File deleted:', response);
+            
+            // Find the lesson in the lessons array and set its file property to null
+            const lesson = this.lessons.find((lesson: any) => lesson.lesson_id === lesson_id);
+            if (lesson) {
+              lesson.file = null; // Remove the file content
+            }
+            this.cdr.detectChanges();  // Manually trigger change detection
+  
+            // Show success alert
+            Swal.fire({
+              title: "Deleted!",
+              text: "The file has been deleted.",
+              icon: "success"
+            });
+          },
+          (error) => {
+            // Error response handling
+            console.error('Error deleting file:', error);
+            Swal.fire({
+              title: "Error!",
+              text: "There was an issue deleting the file. Please try again.",
+              icon: "error"
+            });
+          }
+        );
+      }
+    });
+  }  
+
+  deleteMediaFile(mediaId: string) {
+    Swal.fire({
+      title: "Are you sure you want to delete this file?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes"
+    }).then((result) => {
+      // If user confirms deletion
+      if (result.isConfirmed) {
+        // Call the delete API for file deletion
+        this.apiService.deleteMediaFile(mediaId).subscribe(
+          (response) => {
+            // Success response handling
+            console.log('File deleted:', response);
+            // Show success alert
+            Swal.fire({
+              title: "Deleted!",
+              text: "The file has been deleted.",
+              icon: "success"
+            });
+            this.getLessons(this.moduleID);
+          },
+          (error) => {
+            // Error response handling
+            console.error('Error deleting file:', error);
+            Swal.fire({
+              title: "Error!",
+              text: "There was an issue deleting the file. Please try again.",
+              icon: "error"
+            });
+          }
+        );
+      }
+    });
+}
+
 }

@@ -276,7 +276,8 @@ getOptions() {
   return [];
 }
 
-navigateToProgress() {
+navigateToProgress(title: any) {
+  localStorage.setItem('assessTitle', title);
   const storedSubjectID = localStorage.getItem('subjectID');
   const storedAssessmentID = localStorage.getItem('assid');
   // Store the subjectID in localStorage

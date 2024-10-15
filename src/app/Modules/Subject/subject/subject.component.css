@@ -1,3 +1,30 @@
+/* Loader for the content area, not full screen */
+.content-loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Only cover the content */
+  width: 100%;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+  z-index: 999; /* Keep it above content but within the content section */
+}
+
+.spinner {
+  border: 8px solid #f3f3f3; /* Light grey */
+  border-top: 8px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin .5s linear infinite;
+}
+
+/* Animation for the spinner */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .wrapper {
     margin: 0 auto;
     padding-left: 40px;

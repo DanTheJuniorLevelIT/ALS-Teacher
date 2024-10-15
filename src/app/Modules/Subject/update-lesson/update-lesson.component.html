@@ -1,0 +1,24 @@
+<div class="form-container"> 
+    <h2>Update Lesson</h2>
+    <form [formGroup]="updateLessonForm" (ngSubmit)="update()">
+      <div class="input-group">
+        <label class="label" for="topicTitle">Topic Title</label>
+        <input formControlName="topic_title" autocomplete="off" name="topic_title" id="topic_title" class="input" type="text" required>
+      </div>
+      
+      <div class="input-group2">
+        <label class="label2" for="lesson">Lesson</label>
+        <textarea formControlName="lesson" autocomplete="off" name="lesson" id="lesson" class="textarea-input" rows="8" required></textarea>
+      </div>
+      
+      <div>
+        <label>Current File: </label>
+        <span *ngIf="fileName">{{ fileName }}</span>
+      </div>
+
+      <div class="button-group2">
+        <button class="submit-btn" type="submit">Update</button>
+      </div>
+    </form>
+  </div>
+  

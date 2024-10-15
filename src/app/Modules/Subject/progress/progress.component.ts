@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class ProgressComponent {
 
+  assessTitle: any;
   students: any;
   totalPoints: any;
   isModalOpen = false;
@@ -32,9 +33,10 @@ constructor(private apiserv: ApiserviceService, private router: Router){}
 
 ngOnInit(): void {
   // Retrieve the subjectID from localStorage
+  this.assessTitle = localStorage.getItem('assessTitle');
   const storedSubjectID = localStorage.getItem('subjectID');
-    const storedAssessmentID = localStorage.getItem('assid');
-    const storedModuleID = localStorage.getItem('moduleid');
+  const storedAssessmentID = localStorage.getItem('assid');
+  const storedModuleID = localStorage.getItem('moduleid');
     if (storedSubjectID) {
       this.moduleID = storedModuleID;
       this.subjectID = +storedSubjectID;  // Convert the string to a number

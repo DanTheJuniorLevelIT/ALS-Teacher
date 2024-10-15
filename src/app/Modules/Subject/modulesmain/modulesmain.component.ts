@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ApiserviceService } from '../../../apiservice.service';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modulesmain',
@@ -21,6 +22,7 @@ export class ModulesmainComponent implements OnInit{
   title: string = '';
   instruction: string = '';
   announcements: any;
+  announcementid: any;
   newAnnouncementTitle = '';
   newAnnouncementInstruction = '';
 
@@ -88,8 +90,28 @@ export class ModulesmainComponent implements OnInit{
 
   viewAnnouncement(){
     this.apiserv.getAnnouncement(this.classid).subscribe((response: any)=>{
-      this.announcements = response
+      this.announcements = response.announce
+      this.announcementid = response.announceid
       console.log(this.announcements);
+      console.log(this.announcementid);
+      console.log(this.classid);
+      if(this.announcementid == this.classid){
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          }
+        });
+        Toast.fire({
+          icon: "question",
+          title: "There is still an Announcement"
+        });
+      }
     })
   }
 

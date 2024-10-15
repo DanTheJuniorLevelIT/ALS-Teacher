@@ -9,10 +9,10 @@
                 <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/:id/modules/mat']">First Aid: A Necessity</a> -->
                 <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'mat']">First Aid: A Necessity</a> -->
                 <!-- <a (click)="navigateToMaterials(mod.modules.id)">{{mod.title}}</a> -->
-                <a (click)="setModuleID(mod.modules_id, mod.title)" [routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']">
+                <a (click)="setModuleID(mod.modules_id, mod.title, mod.description)"[routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']">
                     {{ mod.title }}
                 </a>
-                <!-- <p>Aug 17, 2023</p> -->
+                <p>{{mod.date | date}}</p>
                 <!-- <p>{{subjectID}}</p> -->
             </div>
         </div>
@@ -20,21 +20,22 @@
 <div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
         <span class="close" (click)="closeModal()">&times;</span>
-        <h2>Add Module</h2>
-        <div class="input-group">
-            <label class="label">Title</label>
-            <input autocomplete="off" name="Email" id="Email" class="input" type="text">
-        <div>
-        <div class="input-group2">
-            <label class="label2">Description</label>
-            <input autocomplete="off" name="Email" id="Email" class="input2" type="text">
-        <div>
+        <h1>Add Module</h1>
+        <form [formGroup]="createModule" (ngSubmit)="save()">
+            <div class="input-group">
+                <label class="label">Title</label>
+                <input formControlName="title" autocomplete="off" name="title" id="title" class="input" type="text">
+            </div>
             <div class="input-group2">
-                <label class="label2">Date</label>
-                <input autocomplete="off" name="Email" id="Email" class="input2" type="date">
-            <div>
-        <div class="button-group">
-            <button class="submit-btn">ADD</button>
-        </div>
+                <label class="label2">Description</label>
+                <textarea formControlName="description" autocomplete="off" name="description" id="description" class="textarea"></textarea>            </div>
+                <div class="input-group2">
+                    <label class="label2">Date</label>
+                    <input formControlName="date" autocomplete="date" name="date" id="date" class="input2" type="date">
+                </div>
+            <div class="button-group">
+                <button class="submit-btn">ADD</button>
+            </div>
+        </form>
     </div>
 </div>

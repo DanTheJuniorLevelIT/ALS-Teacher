@@ -181,7 +181,57 @@ export class ApiserviceService {
   // END
 
   //Elzaina Work Services
+  createMods(data: any) {
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.post(this.url + 'api/modules/create', data, { headers });
+    // return this.http.post(this.url + 'api/modules/create', data,);
+  }
+  
+  getModules(id: number){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/modules/showModules/${id}`, { headers });
+  }
 
+  createTopic(data: FormData) {
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.post(`${this.url}api/modules/createLesson`, data, { headers });
+  }
+  
+  getLessons(id: number){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/modules/showLessons/${id}`, { headers });
+  }
+  getLesson(id: number){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/modules/getlessonid/${id}`, { headers });
+  }
+  updateLessonInfo(id: number, data: any) {
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.patch(`${this.url}api/modules/updateLessonInfo/${id}`, data, { headers });
+  }
+  
+  deleteLesson(id: number): Observable<any> {
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.delete(`${this.url}api/modules/deleteLesson/${id}`, { headers });
+  }
+
+  uploadFile(lessonId: any, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('lesson_id', lessonId);
+    formData.append('file', file);
+
+    return this.http.post(`${this.url}api/modules/uploadMedia`, formData);
+  }
+  
+  deleteFile(id: number): Observable<any> {
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.delete(`${this.url}api/modules/deleteFile/${id}`, { headers });
+  }
+
+  deleteMediaFile(mediaid: string): Observable<any> {
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.delete(`${this.url}api/modules/deleteMediaFile/${mediaid}`, { headers });
+  }
 
 
 

@@ -1,0 +1,58 @@
+.form-container {
+    width: 80%; /* Adjust width to 80% of the viewport */
+    height: 490px; /* Adjust height to 600px */
+    margin: 0 auto;
+    padding: 30px; /* Increase padding for more spacing inside */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fbfbfb;
+    box-sizing: border-box; /* Ensure padding is included in width and height */
+}
+
+.input-group, .input-group2 {
+    margin-bottom: 10px; /* Increase space between input fields */
+}
+
+.label, .label2 {
+    display: block;
+    margin-bottom: 10px; /* Add more space below labels */
+    font-weight: bold;
+}
+
+.input, .input2 {
+    width: 100%; /* Ensure inputs are full width */
+    height: 50px; /* Increase input height */
+    padding: 10px;
+    box-sizing: border-box; /* Include padding in input size */
+    font-size: 16px; /* Increase font size */
+}
+
+.button-group2 {
+    text-align: right;
+    margin-top: 1px; /* Add space above the button */
+}
+
+.submit-btn {
+    padding: 20px 30; /* Increase button padding */
+    background-color: #0385ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 20px; /* Increase button font size */
+}
+
+.submit-btn:hover {
+    background-color: #4ba6fc;
+}
+
+.textarea-input {
+    width: 100%; /* Full width */
+    height: 100px; /* Adjust this height as needed */
+    padding: 10px;
+    font-size: 16px; /* Adjust font size */
+    box-sizing: border-box; /* Ensure padding is included in the width and height */
+    resize: none; /* Disable resize if you want fixed dimensions */
+}

@@ -4,10 +4,9 @@
         <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'mat']"  routerLinkActive="active">
             <button class="nav-btn">Learning Material</button>
         </a>
-        <!-- <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/:id/modules/assess']"  routerLinkActive="active"> -->
-            <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'assess']"  routerLinkActive="active">
+        <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'mat']"  routerLinkActive="active">
             <button class="nav-btn">Assessment</button>
-        </a>
+        </a> -->
         <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']"  routerLinkActive="active">
             <button class="nav-btn">Discussion</button>
         </a>
@@ -23,7 +22,7 @@
                 <h2 class="text-xl font-bold mb-4">{{ det.title }}</h2>
                 <div class="student-info">
                     <span class="student-count">Students Completed: {{ completedCount }}/{{ totalStudents }}</span>
-                    <a (click)="navigateToProgress()">
+                    <a (click)="navigateToProgress(det.title)">
                         <span class="eye-icon"><i class="fa fa-eye"></i></span>
                     </a>
                 </div>

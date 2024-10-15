@@ -118,32 +118,12 @@
                     <p class="current-date">{{ currentDate | date: 'MMMM d, y | h:mm a' }}</p>
                 </div>
             </div>
-            <div class="cards-container">
-                <!-- <div class="card" *ngFor="let sub of sub">
-                    <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">
-                        <img src="./assets/SCTS.jfif" alt="Class 1">
-                        <div class="card-title">{{sub.subject_name}}</div>
-                        <div class="card-footer">
-                            <p class="subjecttime">{{sub.Schedule}}</p>
-                        </div>
-                    </a>
-                </div> -->
-                <!-- <div class="card" style="width: 12rem;">
-                    <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">
-                        <div class="image">
-                            <img src="/assets/communication.jpg" class="card-img-top border border-bottom" alt="...">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">BLP LS1: COMMUNICATION SKILLS</h5>
-                            <div class="card-details">            
-                                <p class="card-text">Mon-Fri | 7:00 - 8:00 AM</p>
-                                <p class="card-text">Elzaina Nabor</p>
-                            </div>
-                        </div>
-                    </a>
-                </div> -->
+            <div class="loader-container" *ngIf="isLoading">
+                <div class="spinner"></div>
+            </div>
+            <!-- Loader will be inside this div, only affecting this section -->
+            <div *ngIf="!isLoading" class="cards-container">
                 <div class="card" style="width: 12rem;" *ngFor="let sub of sub">
-                    <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', sub.subjectID]"> -->
                     <a (click)="navigateToModules(sub.classid)">
                         <div class="image">
                             <img src='/assets/{{sub.image}}' class="card-img-top border border-bottom" alt="...">
@@ -152,14 +132,13 @@
                             <h5 class="card-title">{{sub.subject_name}}</h5>
                             <div class="card-details">            
                                 <p class="card-text">{{sub.schedule}}</p>
-                                <!-- <p class="card-text">Elzaina Nabor</p> -->
                             </div>
                         </div>
                     </a>
                 </div>
             </div>
         </div>
-        <div class="notifications-column">
+        <div *ngIf="!isLoading" class="notifications-column">
             <div class="notification-section">
                 <h2>Recent Notifications</h2>
                 <ul *ngIf="notifications.length">
@@ -171,6 +150,46 @@
             </div>
         </div>
     </div>
+    
+    <!-- <div class="content">
+        <div class="classes-column">
+            <div class="header">
+                <div class="title-and-date">
+                    <h1>Classes of the Day | {{shl.school}}</h1>
+                    <p class="current-date">{{ currentDate | date: 'MMMM d, y | h:mm a' }}</p>
+                </div>
+            </div>
+            <div class="loader-container" *ngIf="isLoading">
+                <div class="spinner"></div>
+            </div>
+            <div *ngIf="!isLoading" class="cards-container">
+                    <div class="card" style="width: 12rem;" *ngFor="let sub of sub">
+                        <a (click)="navigateToModules(sub.classid)">
+                            <div class="image">
+                                <img src='/assets/{{sub.image}}' class="card-img-top border border-bottom" alt="...">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{sub.subject_name}}</h5>
+                                <div class="card-details">            
+                                    <p class="card-text">{{sub.schedule}}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+            </div>
+        </div>
+        <div *ngIf="!isLoading" class="notifications-column">
+            <div class="notification-section">
+                <h2>Recent Notifications</h2>
+                <ul *ngIf="notifications.length">
+                    <li *ngFor="let notification of notifications">
+                        {{ notification.message }}
+                    </li>
+                </ul>
+                <p *ngIf="!notifications.length">No new notifications</p>
+            </div>
+        </div>
+    </div> -->
 </div>
 
 <!-- First Design for Smaller Screens -->
