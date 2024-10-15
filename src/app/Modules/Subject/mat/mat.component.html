@@ -5,30 +5,13 @@
     }
 </style>
 
-<!-- <h1 style="text-align: center;">{{moduleTitle}}</h1> -->
-<!-- <div class="header">
-    <div class="button-group" style="margin-top: 20px;">
-        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'mat']"  routerLinkActive="active">
-            <button class="nav-btn">Learning Material</button>
-        </a>
-            <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'assess']"  routerLinkActive="active">
-            <button class="nav-btn">Assessment</button>
-        </a>
-        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']"  routerLinkActive="active">
-            <button class="nav-btn">Discussion</button>
-        </a>
-    </div>
-    <div class="notification-icon" (click)="openModal()">
-        <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
-    </div>
-</div> -->
 <a id="top"></a>
 <div class="header">
     <div class="button-group" style="margin-top: 10px;">
         <button class="nav-btn"  [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'addmat']" style="display: flex; align-items: center;">
             <i class="fa fa-plus" aria-hidden="true" style="margin-right: 8px;"></i> Lesson
         </button>
-        <button class="nav-btn" (click)="openModal2()" style="display: flex; align-items: center;">
+        <button *ngIf="lessons != 0" class="nav-btn" (click)="openModal2()" style="display: flex; align-items: center;">
             <i class="fa fa-plus" aria-hidden="true" style="margin-right: 8px;"></i> Assessment
         </button>
         <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']" routerLinkActive="active">

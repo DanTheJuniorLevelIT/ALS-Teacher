@@ -3,18 +3,20 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { ApiserviceService } from '../../../apiservice.service';
 import { HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modulesmain',
   standalone: true,
-  imports: [RouterModule, CommonModule, FormsModule],
+  imports: [RouterModule, CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './modulesmain.component.html',
   styleUrl: './modulesmain.component.css'
 })
 export class ModulesmainComponent implements OnInit{
   
+  announcementForm!: FormGroup;
+
   subjectId: number | null = null;
   subjectDetail: any;
   classid: any;
@@ -47,6 +49,10 @@ export class ModulesmainComponent implements OnInit{
   
   ngOnInit(): void {
     // Get the subjectId from route parameters
+    this.announcementForm = new FormGroup({
+      title: new FormControl('', Validators.required),
+      instruction: new FormControl('', Validators.required)
+    });
     const classid = localStorage.getItem('subjectID');
     this.classid = classid;
     this.route.params.subscribe(params => {
@@ -74,18 +80,20 @@ export class ModulesmainComponent implements OnInit{
     );
   }
 
-  addAnnouncement() {
+  addAnnouncement(titleInput: HTMLInputElement, instructionInput: HTMLTextAreaElement) {
     const announcementPayload = {
       subjectID: this.classid,
-      title: this.newAnnouncementTitle,
-      instruction: this.newAnnouncementInstruction
+      title: titleInput.value,
+      instruction: instructionInput.value
     };
 
-    this.apiserv.createAnnouncement(announcementPayload).subscribe((result:any)=>{
+    console.log('Payload:', announcementPayload);
+
+    this.apiserv.createAnnouncement(announcementPayload).subscribe(result => {
       this.viewAnnouncement();
-      this.resetForm();
-      // this.closeModal();
-    })
+      // Reset the form fields
+      this.resetForm(titleInput, instructionInput);
+    });
   }
 
   viewAnnouncement(){
@@ -115,8 +123,8 @@ export class ModulesmainComponent implements OnInit{
     })
   }
 
-  resetForm() {
-    this.newAnnouncementTitle = '';
-    this.newAnnouncementInstruction = '';
+  resetForm(titleInput: HTMLInputElement, instructionInput: HTMLTextAreaElement) {
+    titleInput.value = '';
+    instructionInput.value = '';
   }
 }

@@ -1,25 +1,5 @@
-    <!-- <div class="topnav">
-        <div class="left-section">
-            <img [src]="'/assets/' + subjectDetail .image" alt="Profile Picture" class="profile-pic">
-            <div class="course-info">
-                <h2>{{ subjectDetail .subject_name }}</h2>
-                <h6>{{ subjectDetail .Schedule }}</h6>
-            </div>
-        </div>
-        <div class="right-section">
-            <ul>
-                <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectDetail .classid]">Modules</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="main-content">
-        <router-outlet></router-outlet>
-    </div> -->
-
 <!-- Topnav with announcement square -->
 <div class="topnav">
-    
-
     <div class="left-section">
         <img [src]="'/assets/' + subjectDetail.image" alt="Profile Picture" class="profile-pic">
         <div class="course-info">
@@ -27,15 +7,6 @@
             <h6>{{ subjectDetail.Schedule }}</h6>
         </div>
     </div>
-
-    <!-- <div class="right-section">
-        <ul>
-            <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectDetail.classid]">Modules</a></li>
-        </ul>
-        <ul>
-            <div class="announcement-trigger" (click)="toggleModal()"><i class="fa fa-bullhorn fa-2x" aria-hidden="true"></i></div>
-        </ul>
-    </div> -->
     <div class="right-section">
         <ul class="inline-list">
             <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectDetail.classid]">Modules</a> | </li>
@@ -66,11 +37,11 @@
 
         <!-- Add new announcement -->
         <div class="add-announcement">
-            <input type="text" [(ngModel)]="newAnnouncementTitle" placeholder="Announcement Title" />
+            <input type="text" #titleInput placeholder="Announcement Title" />
             <br />
-            <textarea [(ngModel)]="newAnnouncementInstruction" placeholder="Announcement Instruction" rows="3" style="width: 100%;"></textarea>
+            <textarea #instructionInput placeholder="Announcement Instruction" rows="3" style="width: 100%;"></textarea>
             <br />
-            <button (click)="addAnnouncement()">Add</button>
+            <button (click)="addAnnouncement(titleInput, instructionInput)">Add</button>
             <button class="ms-2" (click)="closeModal()">Close</button>
         </div>
     </div>
