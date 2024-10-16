@@ -200,9 +200,19 @@ a.active .nav-btn {
     transition: color .3s cubic-bezier(.25,.01,.25,1) 0s;
 }
 
-.input, .input2 {
+.input{
     max-width: 100%;
     height: 44px;
+    background-color: #05060f0a;
+    padding: 0 1rem;
+    border: 2px solid transparent;
+    font-size: 1rem;
+    transition: border-color .3s cubic-bezier(.25,.01,.25,1) 0s, color .3s cubic-bezier(.25,.01,.25,1) 0s, background .2s cubic-bezier(.25,.01,.25,1) 0s;
+}
+
+.input2{
+    max-width: 100%;
+    height: 300px;
     background-color: #05060f0a;
     padding: 0 1rem;
     border: 2px solid transparent;

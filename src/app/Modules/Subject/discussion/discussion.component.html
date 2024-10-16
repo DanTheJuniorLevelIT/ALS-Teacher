@@ -1,85 +1,3 @@
-<!-- <div class="header">
-    <h1 style="text-align: center;">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</h1>
-    <div class="button-group">
-      <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'mat']"  routerLinkActive="active">
-          <button class="nav-btn">Learning Material</button>
-      </a>
-          <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'assess']"  routerLinkActive="active">
-          <button class="nav-btn">Assessment</button>
-      </a>
-      <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']"  routerLinkActive="active">
-          <button class="nav-btn">Discussion</button>
-      </a>
-  </div>
-</div>
-<div class="modules">
-        <div class="discussion-container">
-            <div class="question-section">
-              <div class="question-header">
-                <div class="question-date">{{date}}</div>
-                <div class="question-text">
-                  {{discTopic}}
-                </div>
-              </div>
-              <div class="answer-list">
-                <div *ngFor="let discussion of discussions" [ngClass]="{'student-answer': discussion.role === 'student', 'teacher-answer': discussion.role === 'teacher'}" class="answer">
-                  <div class="answer-user">{{ discussion.user }}</div>
-                  <div class="answer-date">{{ discussion.date | date:'medium' }}</div>
-                  <div class="answer-text">{{ discussion.answer }}</div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="answer-form">
-              <form [formGroup]="discussionForm" (ngSubmit)="submitAnswer()">
-                <textarea formControlName="answer" placeholder="Insert text here..."></textarea>
-                <button type="submit">Reply</button>
-              </form>
-            </div>
-          </div>
-</div> -->
-
-<!-- Working -->
-<!-- <div class="header">
-  <h1 style="text-align: center;">{{ discTopic }}</h1>
-  <div class="button-group">
-      <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'mat']">
-          <button class="nav-btn">Learning Material</button>
-      </a>
-      <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'assess']">
-          <button class="nav-btn">Assessment</button>
-      </a>
-      <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']">
-          <button class="nav-btn">Discussion</button>
-      </a>
-  </div>
-</div>
-
-<div class="modules">
-  <div class="discussion-container">
-      <div class="question-section">
-          <div class="question-header">
-              <div class="question-date">{{date}}</div>
-              <div class="question-text">{{ discTopic }}</div>
-          </div>
-          <div class="answer-list">
-              <div *ngFor="let discussion of discussions" [ngClass]="{'student-answer': discussion.role === 'student', 'teacher-answer': discussion.role === 'teacher'}" class="answer">
-                  <div class="answer-user">{{ discussion.user }}</div>
-                  <div class="answer-date">{{ discussion.date | date:'medium' }}</div>
-                  <div class="answer-text">{{ discussion.answer }}</div>
-              </div>
-          </div>
-      </div>
-      
-      <div class="answer-form">
-          <form [formGroup]="discussionForm" (ngSubmit)="submitAnswer()">
-              <textarea formControlName="answer" placeholder="Insert text here..."></textarea>
-              <button type="submit">Reply</button>
-          </form>
-      </div>
-  </div>
-</div> -->
-
 <div class="modules">
   <div class="discussion-container">
       <div class="question-section">
@@ -93,7 +11,8 @@
                    class="answer">
                   <div class="answer-user">{{ discussion.user }}</div>
                   <div class="answer-date">{{ discussion.date | date:'medium' }}</div>
-                  <div class="answer-text">{{ discussion.answer }}</div>
+                  <div class="answer-text"><p [innerHTML]="transformText(discussion.answer)"></p></div>
+                  <!-- <div class="answer-text">{{ discussion.answer }}</div> -->
               </div>
           </div>
       </div>

@@ -197,49 +197,16 @@ export class DiscussionComponent implements OnInit {
     }
   }
 
-  // Load discussion replies
-  //working
-  // loadDiscussions(discussionID: number) {
-  //   this.apiService.viewDiscussionReplies(discussionID).subscribe((data: any) => {
-  //     const groupedDiscussions: any[] = [];
-
-  //     // Group by student-teacher pairs
-  //     let currentStudentReply: { user: string; date: any; answer: any; role: string; } | null = null;
-
-  //     data.forEach((reply: any) => {
-  //       if (reply.lrn) { // Student reply
-  //         if (currentStudentReply) {
-  //           groupedDiscussions.push(currentStudentReply); // Push previous student reply
-  //           currentStudentReply = null;
-  //         }
-  //         currentStudentReply = {
-  //           user: 'Student',
-  //           date: reply.created_at,
-  //           answer: reply.reply,
-  //           role: 'student'
-  //         };
-  //       } else { // Teacher reply
-  //         if (currentStudentReply) {
-  //           groupedDiscussions.push(currentStudentReply); // Push student reply
-  //           currentStudentReply = null; // Reset student reply
-  //         }
-  //         groupedDiscussions.push({
-  //           user: 'Teacher',
-  //           date: reply.created_at,
-  //           answer: reply.reply,
-  //           role: 'teacher'
-  //         });
-  //       }
-  //     });
-
-  //     // If there is a student reply left without a teacher reply, add it
-  //     if (currentStudentReply) {
-  //       groupedDiscussions.push(currentStudentReply);
-  //     }
-
-  //     this.discussions = groupedDiscussions;
-  //   });
-  // }
+  transformText(text: string): string {
+    // Split text into paragraphs by double newlines or line breaks
+    let paragraphs = text.split(/\n\s*\n/);
+  
+    // For each paragraph, add <p> tags, and within each paragraph add <br> after each period
+    return paragraphs
+      .map(paragraph => paragraph.replace(/\.\s*/g, '.<br>')) // Add <br> after each period
+      .map(paragraph => `<p>${paragraph}</p>`) // Wrap each transformed paragraph in <p> tags
+      .join(''); // Join all paragraphs together
+  }
 
   loadDiscussions(discussionID: number) {
     this.apiService.viewDiscussionReplies(discussionID).subscribe((data: any) => {
