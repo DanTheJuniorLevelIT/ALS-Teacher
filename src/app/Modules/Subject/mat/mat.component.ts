@@ -232,6 +232,50 @@ export class MatComponent implements OnInit{
       }
     });
   }
+
+  deleteAssessment(id: any){
+    console.log(id);
+    // Show confirmation dialog using SweetAlert
+    Swal.fire({
+      title: "Are you sure you want to delete this Assessment?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes"
+    }).then((result) => {
+      // If user confirms deletion
+      if (result.isConfirmed) {
+        // Call the delete API
+        this.apiService.deleteAssessment(id).subscribe(
+          (response) => {
+            // Success response handling
+            console.log('Lesson deleted:', response);
+            // Remove the deleted lesson from the list
+            this.loadAssessments();
+            this.cdr.detectChanges();
+  
+            // Show success alert
+            Swal.fire({
+              title: "Deleted!",
+              text: "The Assessment has been deleted.",
+              icon: "success"
+            });
+          },
+          (error) => {
+            // Error response handling
+            console.error('Error deleting assessment:', error);
+            Swal.fire({
+              title: "Error!",
+              text: "There was an issue deleting the assessment. Please try again.",
+              icon: "error"
+            });
+          }
+        );
+      }
+    });
+  }
   
 
   deleteFile(lesson_id: number) {

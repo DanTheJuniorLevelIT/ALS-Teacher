@@ -108,6 +108,11 @@ export class ApiserviceService {
     return this.http.get(this.url + 'api/subjects/assessment', { headers });
   }
 
+  deleteAssessment(id: number) {
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.delete(`${this.url}api/modules/deleteAssessment/${id}`, { headers });
+  }
+
   getAssessmentDetails(id: any){
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.get(`${this.url}api/subjects/showAssessment/${id}`, { headers });
