@@ -11,9 +11,6 @@
             <button class="nav-btn">Discussion</button>
         </a>
     </div>
-    <div class="notification-icon" (click)="openModal()">
-        <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
-    </div>
 </div>
 <div class="modules">
     <div class="module">
@@ -82,7 +79,12 @@
                     </li>
                 </ol>
             </div>
-
+            <!-- Add Question Section -->
+            <div class="add-question mt-6">
+                <a (click)="openModal()" style="cursor: pointer;" class="text-blue-500 hover:text-blue-700 font-semibold inline-flex items-center">
+                    <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add Question
+                </a>
+            </div>
         </div>
     </div>
 </div>
@@ -97,33 +99,39 @@
         <div class="input-group">
             <label class="label">Type of Question</label>
             <select [(ngModel)]="questionType" class="input" (change)="onQuestionTypeChange()">
-            <option value="multiple-choice">Multiple Choice</option>
-            <option value="true-false">True or False</option>
-            <option value="identification">Identification</option>
-            <option value="Essay">Essay</option>
+                <option value="multiple-choice">Multiple Choice</option>
+                <option value="true-false">True or False</option>
+                <option value="identification">Identification</option>
+                <option value="Essay">Essay</option>
             </select>
         </div>
 
+        <!-- Multiple Choice Section -->
         <div *ngIf="questionType === 'multiple-choice'">
             <div class="input-group">
                 <label class="label">Question</label>
                 <textarea [(ngModel)]="questionText" class="textarea" placeholder="Enter the question here"></textarea>
             </div>
-        
+
             <div class="choice-container">
                 <!-- Loop through the options array to render each option -->
                 <div class="input-group" *ngFor="let option of options; let i = index">
                     <label class="label">Option {{ optionLabels[i] }}</label>
-                    <input [(ngModel)]="options[i].text" class="input" type="text" placeholder="Enter Option {{ optionLabels[i] }}">
+                    <input [(ngModel)]="options[i].text"
+                           class="input"
+                           type="text"
+                           placeholder="Enter Option {{ optionLabels[i] }}"
+                           (click)="setKeyAnswer(options[i].text)"
+                           [class.selected-option]="keyAnswer === options[i].text" 
+                    >
                 </div>
         
                 <!-- Button to add a new option -->
                 <button class="btn-add-option" (click)="addOption()">Add Option</button>
             </div>
         </div>
-        
-    
 
+        <!-- True-False Section -->
         <div *ngIf="questionType === 'true-false'">
             <div class="input-group">
                 <label class="label">Question</label>
@@ -136,6 +144,7 @@
             </div>
         </div>
 
+        <!-- Identification Section -->
         <div *ngIf="questionType === 'identification'">
             <div class="input-group">
                 <label class="label">Question</label>
@@ -143,33 +152,34 @@
             </div>
         </div>
 
+        <!-- Essay Section -->
         <div *ngIf="questionType === 'Essay'">
             <div class="input-group">
                 <label class="label">Question</label>
                 <textarea [(ngModel)]="questionText" class="textarea" placeholder="Enter the question here"></textarea>
             </div>
         </div>
-  
 
-      <!-- Key Answer Input Field -->
+        <!-- Key Answer Input Field (only visible for Identification and Multiple Choice) -->
         <div *ngIf="questionType !== 'Essay' && questionType !== 'true-false'" class="input-group">
             <label class="label">Key Answer</label>
-            <input [(ngModel)]="keyAnswer" class="input" type="text" placeholder="Enter the key answer here">
+            <input [(ngModel)]="keyAnswer" class="input" type="text" [readonly]="questionType === 'multiple-choice'" placeholder="Click an option to set as key answer">
         </div>
-  
+
         <div class="input-group">
             <label class="label">Points</label>
             <input [(ngModel)]="points" class="input" type="number" min="0" placeholder="Enter points">
         </div>
-  
-      <div class="button-group">
-        <button class="submit-btn me-2" (click)="addQuestion()">{{ isEditing ? 'Update' : 'Add' }}</button>
-        <div *ngIf="isEditing == true">
-            <button class="submit-btn me-2" (click)="deleteQuestion()">Delete</button>
+
+        <div class="button-group">
+            <button class="submit-btn me-2" (click)="addQuestion()">{{ isEditing ? 'Update' : 'Add' }}</button>
+            <div *ngIf="isEditing">
+                <button class="submit-btn me-2" (click)="deleteQuestion()">Delete</button>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
+
 
 
 

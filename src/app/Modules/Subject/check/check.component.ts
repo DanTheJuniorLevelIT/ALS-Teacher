@@ -99,9 +99,20 @@ export class CheckComponent implements OnInit {
       (response: any) => {
         if (response.status === 'success') {
           // console.log('Essay score added successfully');
-          Swal.fire({
-            title: "Updated Score",
-            icon: "success"
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            }
+          });
+          Toast.fire({
+            icon: "success",
+            title: "Updated Score"
           });
           this.totalScore = response.total_score;  // Update total score
           this.loadStudentAnswers(this.assessmentID, this.learnerID);  // Reload answers to refresh the scores

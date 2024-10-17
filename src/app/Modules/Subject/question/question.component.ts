@@ -84,6 +84,10 @@ export class QuestionComponent implements OnInit{
     }
   }
 
+  setKeyAnswer(optionText: string) {
+    this.keyAnswer = optionText;
+  }
+
   loadQuestions(){
     this.apiService.getQuestion(this.assessmentID).subscribe((response: any) => {
       if (response.data && Array.isArray(response.data)) {

@@ -27,33 +27,40 @@
           <!-- Loop through the questions array -->
           <ol>
             <div *ngFor="let answer of studentAnswers; let i = index" class="mt-3">
-              <!-- <li> -->
                 <div class="hoverable-question">
-                    <span *ngIf="answer.type != 'Essay'" style="color: blue;"><u>{{ answer.student_answer }}</u></span>
+                    <!-- Display student's answer if it's not an essay -->
+                    <span *ngIf="answer.type !== 'Essay'" style="color: blue;"><u>{{ answer.student_answer }}</u></span>
                     {{ i + 1 }}. <!-- Display the question number -->
                     <strong>{{ answer.question }}</strong> <!-- Display the question text -->
                 </div>
-
-                <div *ngIf="answer.type !== 'Essay' && answer.type !== 'identification'">
-                    <label><span style="color: red;"> Score:</span> {{answer.score}}/{{answer.points}}</label>
-                </div>
-          
+        
                 <!-- Essay answer display -->
                 <div *ngIf="answer.type === 'Essay'" class="input-wrapper">
                     <textarea style="width: 600px; height: 100px;" name="q{{answer.question_id}}" [value]="answer.student_answer" disabled></textarea>
                 </div>
-          
+        
                 <!-- Non-essay answer display -->
-                <div *ngIf="answer.type !== 'Essay'" class="input-wrapper">
-                    <h6><b>Key Answer</b>: <u>{{ answer.key_answer }}</u></h6>
+                <div *ngIf="answer.type == 'Essay'" class="input-wrapper">
+                    <h6><b>Key Answer:</b> <u>{{ answer.key_answer }}</u> | <span style="color: red;">Score:</span> {{ answer.score }}/{{ answer.points }}</h6>
                 </div>
-              <!-- </li> -->
-                <div *ngIf="answer.type != 'true-false'" class="score-input mb-3 mt-2">
-                    <label for="scoreinput" style="color: red;">Score:</label>
-                    <input style="width: 20px; border-radius: 10px;" id="scoreinput" type="text" [(ngModel)]="answer.score" [value]="answer.score" (blur)="manualCheck(answer.question_id, answer.score)">/{{answer.points}}<!-- Display the score -->
+        
+                <!-- Score display for True/False (non-editable) -->
+                <div *ngIf="answer.type === 'true-false'">
+                    <h6><b>Key Answer:</b> {{ answer.key_answer }} | <span style="color: red;">Score:</span> {{ answer.score }}/{{ answer.points }}</h6>
+                </div>
+        
+                <!-- Score display for Multiple-Choice (non-editable) -->
+                <div *ngIf="answer.type === 'multiple-choice'">
+                    <h6><b>Key Answer:</b> {{ answer.key_answer }} | <span style="color: red;">Score:</span> {{ answer.score }}/{{ answer.points }}</h6>
+                </div>
+        
+                <!-- Editable score for Identification and Essays -->
+                <div *ngIf="answer.type !== 'true-false' && answer.type !== 'multiple-choice'" class="score-input mb-3 mt-2">
+                    <h6><b>Key Answer:</b> {{ answer.key_answer }} | <span style="color: red;">Score:</span> <input style="margin-left: 5px; width: 30px; border-radius: 10px;" id="scoreinput" type="text" [(ngModel)]="answer.score" (blur)="manualCheck(answer.question_id, answer.score)">/{{ answer.points }}</h6>
+                    
                 </div>
             </div>
-          </ol>
+          </ol>        
         </div>
     </div>
 </div>
