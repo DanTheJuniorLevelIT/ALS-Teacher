@@ -4,16 +4,15 @@
                 <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
             </div>
         </div>
-        <div class="modules">
+        <div class="loader-container" *ngIf="isLoading">
+            <div class="spinner"></div>
+        </div>
+        <div *ngIf="!isLoading" class="modules">
             <div class="module" *ngFor="let mod of modules">
-                <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/:id/modules/mat']">First Aid: A Necessity</a> -->
-                <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', 'mat']">First Aid: A Necessity</a> -->
-                <!-- <a (click)="navigateToMaterials(mod.modules.id)">{{mod.title}}</a> -->
                 <a (click)="setModuleID(mod.modules_id, mod.title, mod.description)"[routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']">
                     {{ mod.title }}
                 </a>
                 <p>{{mod.date | date}}</p>
-                <!-- <p>{{subjectID}}</p> -->
             </div>
         </div>
 

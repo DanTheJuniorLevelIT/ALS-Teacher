@@ -21,8 +21,11 @@
 </div>
 
 <div class="container">
+    <div class="loader-container" *ngIf="isLoading">
+        <div class="spinner"></div>
+    </div>
     <!-- Lesson Details in 9 columns -->
-    <div class="col-9">
+    <div *ngIf="!isLoading" class="col-9">
         <div class="card" *ngFor="let lesson of lessons; let i = index" [attr.id]="'lesson-' + i" style="margin-bottom: 40px;">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
@@ -84,7 +87,7 @@
     
     
     <!-- Table of Contents in 3 columns -->
-    <div class="col-3">
+    <div *ngIf="!isLoading" class="col-3">
         <div class="toc sticky-toc" style="text-align: end;">
             <h4>{{moduleTitle}}</h4>
             <div *ngFor="let lesson of lessons; let i = index">

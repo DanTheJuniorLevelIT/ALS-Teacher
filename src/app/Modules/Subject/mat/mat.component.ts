@@ -16,6 +16,8 @@ import Swal from 'sweetalert2';
 
 export class MatComponent implements OnInit{
 
+  isLoading: boolean = false; // This controls the loader visibility
+
   subjectID: number | null = null;
   moduleID: any;
   assess:any;
@@ -45,6 +47,7 @@ export class MatComponent implements OnInit{
   isModalOpen2 = false;
 
   ngOnInit(): void {
+    this.loadMaterials();
     // Retrieve the subjectID from localStorage
     this.loadAssessments();
     const storedSubjectID = localStorage.getItem('subjectID');
@@ -74,6 +77,15 @@ export class MatComponent implements OnInit{
           this.viewportScroller.scrollToAnchor(fragment);
       }
   });
+  }
+
+  loadMaterials() {
+    this.isLoading = true; // Show the loader before the data is loaded
+
+    // Simulate data fetching (you can replace this with an actual service call)
+    setTimeout(() => {
+      this.isLoading = false; // Hide the loader after data is fetched
+    }, 1000); // Simulated delay of 3 seconds
   }
 
   transformText(text: string): string {

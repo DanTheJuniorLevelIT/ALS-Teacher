@@ -17,6 +17,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./modules.component.css']  // Fixed to styleUrls
 })
 export class ModulesComponent implements OnInit {
+
+  isLoading: boolean = false; // This controls the loader visibility
   
   subjectID: number | null = null;
   storedSubjectID: any;
@@ -40,12 +42,22 @@ export class ModulesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadModules();
     this.storedSubjectID = localStorage.getItem('subjectID');
     
     this.apiService.getModules(this.storedSubjectID).subscribe((response: any) => {
       this.modules = response;
       console.log('Modules:', this.modules);
     });
+  }
+
+  loadModules() {
+    this.isLoading = true; // Show the loader before the data is loaded
+
+    // Simulate data fetching (you can replace this with an actual service call)
+    setTimeout(() => {
+      this.isLoading = false; // Hide the loader after data is fetched
+    }, 1000); // Simulated delay of 3 seconds
   }
 
   save() {

@@ -14,6 +14,8 @@ import Swal from 'sweetalert2';
 })
 export class DiscussComponent implements OnInit{
 
+  isLoading: boolean = false; // This controls the loader visibility
+
   subjectID: number | null = null;
   moduleID: any;
   moduleTitle: any;
@@ -32,6 +34,7 @@ export class DiscussComponent implements OnInit{
 
   ngOnInit(): void {
     // Retrieve the subjectID from localStorage
+    this.loadTopics();
     const storedSubjectID = localStorage.getItem('subjectID');
     const storedModuleID = localStorage.getItem('moduleid');
     const storedModuleTitle = localStorage.getItem('moduletitle');
@@ -49,6 +52,15 @@ export class DiscussComponent implements OnInit{
     } else {
       console.error('No subjectID found in localStorage.');
     }
+  }
+
+  loadTopics() {
+    this.isLoading = true; // Show the loader before the data is loaded
+
+    // Simulate data fetching (you can replace this with an actual service call)
+    setTimeout(() => {
+      this.isLoading = false; // Hide the loader after data is fetched
+    }, 1000); // Simulated delay of 3 seconds
   }
 
   loadDiscussion() {

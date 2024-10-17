@@ -15,7 +15,10 @@
         <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
     </div>
 </div>
-<div class="modules">
+<div class="loader-container" *ngIf="isLoading">
+    <div class="spinner"></div>
+</div>
+<div *ngIf="!isLoading" class="modules">
     <div class="module" *ngFor="let lesson of lessons;">
         <div class="module-header">
             <h5>{{ lesson.topic_title }}</h5>
