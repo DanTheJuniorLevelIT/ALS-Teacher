@@ -264,10 +264,20 @@ export class MatComponent implements OnInit{
             this.cdr.detectChanges();
   
             // Show success alert
-            Swal.fire({
-              title: "Deleted!",
-              text: "The lesson has been deleted.",
-              icon: "success"
+            const Toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 1500,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+              }
+            });
+            Toast.fire({
+              icon: "success",
+              title: "Deleted!"
             });
           },
           (error) => {
@@ -308,10 +318,20 @@ export class MatComponent implements OnInit{
             this.cdr.detectChanges();
   
             // Show success alert
-            Swal.fire({
-              title: "Deleted!",
-              text: "The Assessment has been deleted.",
-              icon: "success"
+            const Toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 1500,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+              }
+            });
+            Toast.fire({
+              icon: "success",
+              title: "Deleted"
             });
           },
           (error) => {
@@ -356,10 +376,20 @@ export class MatComponent implements OnInit{
             this.cdr.detectChanges();  // Manually trigger change detection
   
             // Show success alert
-            Swal.fire({
-              title: "Deleted!",
-              text: "The file has been deleted.",
-              icon: "success"
+            const Toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 1500,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+              }
+            });
+            Toast.fire({
+              icon: "success",
+              title: "Deleted"
             });
           },
           (error) => {
@@ -394,10 +424,20 @@ export class MatComponent implements OnInit{
             // Success response handling
             console.log('File deleted:', response);
             // Show success alert
-            Swal.fire({
-              title: "Deleted!",
-              text: "The file has been deleted.",
-              icon: "success"
+            const Toast = Swal.mixin({
+              toast: true,
+              position: "top-end",
+              showConfirmButton: false,
+              timer: 1500,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+              }
+            });
+            Toast.fire({
+              icon: "success",
+              title: "Deleted"
             });
             this.getLessons(this.moduleID);
             this.loadAssessments();

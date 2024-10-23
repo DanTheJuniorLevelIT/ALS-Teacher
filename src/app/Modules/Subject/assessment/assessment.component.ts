@@ -66,17 +66,8 @@ export class AssessmentComponent implements OnInit{
     );
   }
 
-  // save(){
-  //   console.log(this.createAssessment.value);
-  // }
-
   save() {
     if (this.createAssessment.valid) {
-      // const data = {
-      //   ...this.createAssessment.value
-      //   // subjectID: this.subjectID // Include subjectID if needed in your backend
-      // };
-
       this.apiService.createAssess(this.createAssessment.value).subscribe(
         response => {
           console.log('Assessment created:', response);
