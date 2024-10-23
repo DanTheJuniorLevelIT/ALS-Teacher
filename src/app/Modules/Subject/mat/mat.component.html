@@ -71,13 +71,28 @@
                     </div>
     
                     <!-- Second Column: Assessments -->
+                    <!-- Assessments -->
                     <div class="col-6">
                         <h6>Assessments</h6>
                         <ul>
                             <li *ngFor="let assessment of lesson.filteredAssessments">
-                                <a style="cursor: pointer; color: blue; text-decoration: underline;" (click)="navigateToQuestions(assessment.assessmentID, lesson.topic_title)">{{ assessment.Title }}</a>
+                                <a style="cursor: pointer; text-decoration: underline;" 
+                                    (click)="navigateToQuestions(assessment.assessmentID, lesson.topic_title)"
+                                    [ngStyle]="{'color': assessment.isOpen ? 'blue' : 'gray'}">
+                                    {{ assessment.Title }}
+                                </a>
                                 <i (click)="deleteAssessment(assessment.assessmentID)" class="fa fa-trash fa-1x ms-2" style="cursor: pointer;" aria-hidden="true"></i>
-                            </li>
+                                
+                                <div class="button-group">
+                                <!-- Show the button only when the assessment is closed -->
+                                <button *ngIf="!assessment.isOpen" class="nav-btn2" 
+                                            style="background-color: gray;"
+                                            (click)="toggleAssessmentStatus(assessment)">
+                                    <i class="fa fa-check" aria-hidden="true" style="margin-right: 8px;"></i>
+                                    Open
+                                </button>
+                                </div>
+                            </li>                              
                         </ul>
                     </div>
                 </div>

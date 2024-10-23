@@ -21,6 +21,7 @@ export class MatComponent implements OnInit{
   subjectID: number | null = null;
   moduleID: any;
   assess:any;
+  assessment: any;
   moduleTitle: any;
   LessonDetails:any;
   storedSubjectID:any;
@@ -116,8 +117,15 @@ export class MatComponent implements OnInit{
   loadAssessments(){
     this.apiService.getAssessment().subscribe(
       (response: any) => {
+        const today = new Date();
         this.assess = response;
         console.log(this.assess);
+
+        this.assess.forEach((assessment: any) => {
+          const dueDate = new Date(assessment.Due_date);
+          assessment.isOpen = dueDate > today ? true : false; // Close if due date has passed
+        });
+
         this.lessons.forEach((lesson: any) => {
           lesson.filteredAssessments = this.assess.filter(
             (a: any) => a.lesson_id === lesson.lesson_id
@@ -177,6 +185,37 @@ export class MatComponent implements OnInit{
       });
     }
   }
+
+  toggleAssessmentStatus(assessment: any) {
+    // Check if assessment is closed and needs to be reopened
+    if (!assessment.isOpen) {
+      // Set a new due date (e.g., one day from today)
+      const newDueDate = this.calculateNewDueDate();
+  
+      // Call the API to update the due date
+      this.apiService.updateDueDate(assessment.assessmentID, newDueDate).subscribe(
+        (response: any) => {
+          console.log(response.message);
+          // Update the UI to reflect the change
+          assessment.isOpen = true;
+          assessment.Due_date = newDueDate;
+        },
+        (error) => {
+          console.error('Error updating due date:', error);
+        }
+      );
+    } else {
+      // Logic for closing the assessment (if needed)
+      assessment.isOpen = false;
+    }
+  }
+  
+  calculateNewDueDate(): string {
+    const currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() + 1); // Add 1 day
+    return currentDate.toISOString().split('T')[0]; // Format as 'YYYY-MM-DD'
+  }
+  
 
   navigateToQuestions(assID: number, lessTitle: any) {
     const storedSubjectID = localStorage.getItem('subjectID');

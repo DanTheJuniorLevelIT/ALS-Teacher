@@ -95,6 +95,11 @@ export class ApiserviceService {
     return this.http.post(`${this.url}api/subjects/discussion/reply`, data, { headers });
   }
 
+  updateDueDate(assessmentID: number, newDueDate: string) {
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.put(this.url + `api/assessment/update-due-date/${assessmentID}`, { due_date: newDueDate }, { headers });
+  }
+
   //END
 
   // Assessment Services

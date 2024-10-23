@@ -35,6 +35,22 @@ body {
     background-color: #0056b3;
 }
 
+.nav-btn2 {
+    padding: 5px 10px;
+    margin-right: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    flex: 0 1 auto;
+    max-width: 200px;
+}
+
+.nav-btn2:hover {
+    background-color: #0056b3;
+}
+
 .notification-icon {
     display: flex;
     align-items: center;
