@@ -13,7 +13,7 @@
                     {{ mod.title }}
                 </a>
                 <div *ngIf="!isModuleOpen(mod.date)" style="color: gray; display: flex; justify-content: space-between; align-items: center;">
-                    <span>{{ mod.title }} (Closed)</span>
+                    <span (click)="setModuleID(mod.modules_id, mod.title, mod.description)"[routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']" style="cursor: pointer;">{{ mod.title }} (Closed)</span>
                     <button class="open-btn nav-btn2" (click)="forceOpenModule(mod.modules_id)" style="margin-left: 10px;">Open</button>
                 </div>
                 <p>{{mod.date | date}}</p>
