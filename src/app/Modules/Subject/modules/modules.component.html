@@ -9,9 +9,13 @@
         </div>
         <div *ngIf="!isLoading" class="modules">
             <div class="module" *ngFor="let mod of modules">
-                <a (click)="setModuleID(mod.modules_id, mod.title, mod.description)"[routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']">
+                <a *ngIf="isModuleOpen(mod.date)"  (click)="setModuleID(mod.modules_id, mod.title, mod.description)"[routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']">
                     {{ mod.title }}
                 </a>
+                <div *ngIf="!isModuleOpen(mod.date)" style="color: gray; display: flex; justify-content: space-between; align-items: center;">
+                    <span>{{ mod.title }} (Closed)</span>
+                    <button class="open-btn nav-btn2" (click)="forceOpenModule(mod.modules_id)" style="margin-left: 10px;">Open</button>
+                </div>
                 <p>{{mod.date | date}}</p>
             </div>
         </div>

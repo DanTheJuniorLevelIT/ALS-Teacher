@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,6 +27,8 @@ export class ModulesComponent implements OnInit {
   classId: any;
   moduleDetails: any;
   isModalOpen = false;
+
+  today: string = '';
   
   createModule = new FormGroup({
     title: new FormControl(null),
@@ -39,7 +41,10 @@ export class ModulesComponent implements OnInit {
     private apiService: ApiserviceService,
     private route: Router, 
     private cdr: ChangeDetectorRef
-  ) {}
+  ) {
+    // Set today's date in 'yyyy-MM-dd' format
+    this.today = formatDate(new Date(), 'yyyy-MM-dd', 'en');
+  }
 
   ngOnInit(): void {
     this.loadModules();
@@ -49,6 +54,38 @@ export class ModulesComponent implements OnInit {
       this.modules = response;
       console.log('Modules:', this.modules);
     });
+  }
+
+  isModuleOpen(moduleDate: string): boolean {
+    const moduleDateParsed = new Date(moduleDate); // Parse the module date
+    const todayParsed = new Date(this.today);      // Parse today's date
+
+    // Open the module if the module date is today or in the past
+    return moduleDateParsed <= todayParsed;
+  }
+
+  // Function to force open a module by updating its date to today's date
+  forceOpenModule(moduleID: number) {
+    // Call the API to update the module date to today's date
+    this.apiService.updateModuleDate(moduleID, this.today).subscribe(
+      (response) => {
+        Swal.fire({
+          title: "Success",
+          text: "Module has been opened",
+          icon: "success"
+        });
+        // Reload the modules to reflect the change
+        this.getModules(this.storedSubjectID);
+      },
+      (error) => {
+        Swal.fire({
+          title: "Error",
+          text: "Failed to open module: " + error,
+          icon: "error"
+        });
+        console.error('Error updating module date:', error);
+      }
+    );
   }
 
   loadModules() {

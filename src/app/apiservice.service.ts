@@ -196,6 +196,11 @@ export class ApiserviceService {
     return this.http.post(this.url + 'api/modules/create', data, { headers });
     // return this.http.post(this.url + 'api/modules/create', data,);
   }
+
+  updateModuleDate(id: number, date: string) {
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.put(`${this.url}api/modules/updateDate/${id}`, { date }, { headers });
+  }
   
   getModules(id: number){
     const headers = {'Authorization': 'Bearer ' + this.token};
