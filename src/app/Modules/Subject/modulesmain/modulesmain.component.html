@@ -25,23 +25,34 @@
     <router-outlet></router-outlet>
 </div>
 
-<!-- Dropdown-style announcement box -->
+<!-- Announcement Modal -->
 <div class="announcement-dropdown" *ngIf="isModalOpen">
     <div class="dropdown-content">
-        <h3>{{ announcements.title }}</h3>
+        <h3>{{ announcements?.title || '*' }}</h3>
 
-        <!-- Display existing announcements -->
+        <!-- Existing Announcement Display -->
         <ul>
-            <li>{{ announcements.instruction }}</li>
+            <li>{{ announcements?.instruction || '*' }}</li>
         </ul>
 
-        <!-- Add new announcement -->
+        <!-- Edit or Add New Announcement -->
         <div class="add-announcement">
-            <input type="text" #titleInput placeholder="Announcement Title" />
+            <input 
+                type="text" 
+                #titleInput 
+                placeholder="Announcement Title" 
+                [(ngModel)]="newAnnouncementTitle"
+            />
             <br />
-            <textarea #instructionInput placeholder="Announcement Instruction" rows="3" style="width: 100%;"></textarea>
+            <textarea 
+                #instructionInput 
+                placeholder="Announcement Instruction" 
+                rows="3" 
+                style="width: 100%;"
+                [(ngModel)]="newAnnouncementInstruction"
+            ></textarea>
             <br />
-            <button (click)="addAnnouncement(titleInput, instructionInput)">Add</button>
+            <button (click)="addAnnouncement(titleInput, instructionInput)">Save</button>
             <button class="ms-2" (click)="closeModal()">Close</button>
         </div>
     </div>

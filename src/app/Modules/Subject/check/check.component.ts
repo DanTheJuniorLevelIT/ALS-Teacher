@@ -17,7 +17,7 @@ export class CheckComponent implements OnInit {
 
   fname: any;
   lname: any;
-  // checkForm!: FormGroup;
+  lessonTitle: any;
   subjectID: number | null = null;
   studScore: any;
   studFile: any;
@@ -41,6 +41,7 @@ export class CheckComponent implements OnInit {
     this.fname = first;
     this.lname = last;
     // Retrieve the subjectID from localStorage
+    this.lessonTitle = localStorage.getItem('lessTitle');
     const storedSubjectID = localStorage.getItem('subjectID');
     const storedAssessmentID = localStorage.getItem('assid');
     const storedModuleID = localStorage.getItem('moduleid');

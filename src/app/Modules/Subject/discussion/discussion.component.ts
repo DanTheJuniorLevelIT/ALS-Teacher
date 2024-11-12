@@ -16,6 +16,7 @@ export class DiscussionComponent implements OnInit {
   subjectID: number | null = null;
   moduleID: any;
   moduleTitle: any;
+  lessonTitle: any;
   discussuinID: any;
   discTopic: any;
   date: any;
@@ -34,6 +35,7 @@ export class DiscussionComponent implements OnInit {
     const storedModuleID = localStorage.getItem('moduleid');
     const storedModuleTitle = localStorage.getItem('moduletitle');
     const storedDiscussionID = localStorage.getItem('discussionid');
+    this.lessonTitle = localStorage.getItem('lessTitle');
     if (storedSubjectID) {
       this.subjectID = +storedSubjectID;
       this.moduleID = storedModuleID;

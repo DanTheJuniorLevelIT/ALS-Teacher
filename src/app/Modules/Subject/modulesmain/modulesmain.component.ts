@@ -43,8 +43,17 @@ export class ModulesmainComponent implements OnInit{
     this.isModalOpen = false;
   }
 
+  // toggleModal() {
+  //   this.isModalOpen = !this.isModalOpen;
+  // }
+
+   // Open the modal with pre-populated data if an announcement exists
   toggleModal() {
     this.isModalOpen = !this.isModalOpen;
+    if (this.isModalOpen && this.announcements) {
+      this.newAnnouncementTitle = this.announcements.title;
+      this.newAnnouncementInstruction = this.announcements.instruction;
+    }
   }
   
   ngOnInit(): void {
@@ -80,19 +89,60 @@ export class ModulesmainComponent implements OnInit{
     );
   }
 
+  // addAnnouncement(titleInput: HTMLInputElement, instructionInput: HTMLTextAreaElement) {
+  //   const announcementPayload = {
+  //     subjectID: this.classid,
+  //     title: titleInput.value,
+  //     instruction: instructionInput.value
+  //   };
+
+  //   console.log('Payload:', announcementPayload);
+
+  //   this.apiserv.createAnnouncement(announcementPayload).subscribe(result => {
+  //     this.viewAnnouncement();
+  //     // Reset the form fields
+  //     this.resetForm(titleInput, instructionInput);
+  //   });
+  // }
+
+  // Add or update announcement
+  // addAnnouncement(titleInput: HTMLInputElement, instructionInput: HTMLTextAreaElement) {
+  //   const announcementPayload = {
+  //     subjectID: this.classid,
+  //     title: this.newAnnouncementTitle,
+  //     instruction: this.newAnnouncementInstruction
+  //   };
+
+  //   this.apiserv.createAnnouncement(announcementPayload).subscribe(result => {
+  //     this.viewAnnouncement();
+  //     this.resetForm();
+  //   });
+  // }
+
   addAnnouncement(titleInput: HTMLInputElement, instructionInput: HTMLTextAreaElement) {
+    // If both fields are empty, delete the announcement
+    if (!this.newAnnouncementTitle.trim() && !this.newAnnouncementInstruction.trim()) {
+      this.deleteAnnouncement();
+      return;
+    }
+
+    // Otherwise, add or update the announcement
     const announcementPayload = {
       subjectID: this.classid,
-      title: titleInput.value,
-      instruction: instructionInput.value
+      title: this.newAnnouncementTitle,
+      instruction: this.newAnnouncementInstruction
     };
-
-    console.log('Payload:', announcementPayload);
 
     this.apiserv.createAnnouncement(announcementPayload).subscribe(result => {
       this.viewAnnouncement();
-      // Reset the form fields
-      this.resetForm(titleInput, instructionInput);
+      this.resetForm();
+    });
+  }
+
+  deleteAnnouncement() {
+    this.apiserv.deleteAnnouncement(this.classid).subscribe(result => {
+      this.viewAnnouncement();  // Refresh announcement view after deletion
+      this.resetForm();
     });
   }
 
@@ -123,8 +173,31 @@ export class ModulesmainComponent implements OnInit{
     })
   }
 
-  resetForm(titleInput: HTMLInputElement, instructionInput: HTMLTextAreaElement) {
-    titleInput.value = '';
-    instructionInput.value = '';
+  // viewAnnouncement() {
+  //   this.apiserv.getAnnouncement(this.classid).subscribe((response: any) => {
+  //     this.announcements = response.announce;
+  //     this.announcementid = response.announceid;
+  //     if (this.announcementid === this.classid) {
+  //       Swal.fire({
+  //         icon: "question",
+  //         title: "There is still an Announcement",
+  //         toast: true,
+  //         position: "top-end",
+  //         showConfirmButton: false,
+  //         timer: 2000,
+  //         timerProgressBar: true,
+  //       });
+  //     }
+  //   });
+  // }
+
+  // resetForm(titleInput: HTMLInputElement, instructionInput: HTMLTextAreaElement) {
+  //   titleInput.value = '';
+  //   instructionInput.value = '';
+  // }
+
+  resetForm() {
+    this.newAnnouncementTitle = '';
+    this.newAnnouncementInstruction = '';
   }
 }

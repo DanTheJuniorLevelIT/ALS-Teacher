@@ -9,14 +9,8 @@
 <div class="header">
     <div class="button-group" style="margin-top: 10px;">
         <button class="nav-btn"  [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'addmat']" style="display: flex; align-items: center;">
-            <i class="fa fa-plus" aria-hidden="true" style="margin-right: 8px;"></i> Lesson
+            <i class="fa fa-plus" aria-hidden="true" style="margin-right: 8px;"></i> Lessons
         </button>
-        <button *ngIf="lessons != 0" class="nav-btn" (click)="openModal2()" style="display: flex; align-items: center;">
-            <i class="fa fa-plus" aria-hidden="true" style="margin-right: 8px;"></i> Assessment
-        </button>
-        <a *ngIf="lessons != 0"  [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']" routerLinkActive="active">
-            <button class="nav-btn">Discussion</button>
-        </a>
     </div>
 </div>
 
@@ -40,6 +34,7 @@
                     <div class="dropdown-content" [ngClass]="{'show': lesson.isDropdownOpen}">
                         <a (click)="updateLesson(lesson.lesson_id)" [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'updateLesson']" >Update</a>                  
                         <a (click)="uploadFile(lesson.lesson_id)" [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'upload']" >Upload</a>                  
+                        <a (click)="openModal2(lesson.lesson_id)" >Add Assessment</a>                  
                         <a (click)="deleteLesson(lesson.lesson_id)">Delete</a>
                     </div>
                 </div>
@@ -52,7 +47,7 @@
                         <ul>
                             <div *ngIf="lesson.file">
                                 <li>
-                                    <a *ngIf="lesson.file" [href]="'http://localhost:8000/storage/lesson-file/' + lesson.file" target="_blank">{{ lesson.file }}</a>
+                                    <a *ngIf="lesson.file" [href]="'http://localhost:8000/storage/' + lesson.file" target="_blank">{{ lesson.file }}</a>
                                     <i *ngIf="lesson.file" (click)="deleteFile(lesson.lesson_id)" class="fa fa-trash fa-1x ms-2" style="cursor: pointer;" aria-hidden="true"></i>
                                 </li>
                             </div>
@@ -97,6 +92,11 @@
                     </div>
                 </div>
             </div>
+            <div class="card-footer" >
+                <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']" [queryParams]="{ lessonId: lesson.lesson_id, lessTitle: lesson.topic_title }" (click)="setLessonID(lesson.lesson_id)" routerLinkActive="active">
+                    Discussions | {{lesson.cDiscussion || 0}} Topic/s
+                </a>
+            </div>
         </div>
     </div>
     
@@ -139,12 +139,12 @@
                 <label class="label">Description</label>
                 <textarea formControlName="description" autocomplete="off" name="description" id="description" class="textarea"></textarea>
             </div>
-            <div class="input-group">
+            <!-- <div class="input-group">
                 <label class="label">Lesson</label>
                 <select formControlName="lesson_id" name="typeOfQuestion" id="typeOfQuestion" class="input">
                     <option *ngFor="let lesson of lessons" [value]="lesson.lesson_id">{{lesson.topic_title}}</option>
                 </select>
-            </div>
+            </div> -->
             <div class="input-group">
                 <label class="label">Due Date</label>
                 <input formControlName="due_date" autocomplete="off" name="dueDate" id="dueDate" class="input" type="date">

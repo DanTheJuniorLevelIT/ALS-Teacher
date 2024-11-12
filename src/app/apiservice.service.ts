@@ -71,6 +71,11 @@ export class ApiserviceService {
     return this.http.get(`${this.url}api/subjects/showAnnouncement/${id}`, { headers });
   }
 
+  deleteAnnouncement(classid: any) {
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.delete(this.url + `api/subjects/deleteAnnouncement/${classid}`, { headers });
+  }
+
   // END
 
   //Discussion Services
@@ -80,9 +85,9 @@ export class ApiserviceService {
     return this.http.post(this.url + 'api/subjects/createDiscuss', data, { headers });
   }
 
-  getDiscussion(){
+  getDiscussion(lessid: any){
     const headers = {'Authorization': 'Bearer ' + this.token};
-    return this.http.get(this.url + 'api/subjects/discussion', { headers });
+    return this.http.get(this.url + `api/subjects/showDiscussion/${lessid}`, { headers });
   }
 
   viewDiscussionReplies(discussionid: any){
@@ -98,6 +103,11 @@ export class ApiserviceService {
   updateDueDate(assessmentID: number, newDueDate: string) {
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.put(this.url + `api/assessment/update-due-date/${assessmentID}`, { due_date: newDueDate }, { headers });
+  }
+
+  countDiscussion(lessId: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/subjects/discussion/${lessId}`, { headers });
   }
 
   //END

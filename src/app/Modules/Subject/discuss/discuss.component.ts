@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ApiserviceService } from '../../../apiservice.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -19,6 +19,8 @@ export class DiscussComponent implements OnInit{
   subjectID: number | null = null;
   moduleID: any;
   moduleTitle: any;
+  lessonTitle: any;
+  lessonid: any;
   discuss: any;
   lessons: any;
   assess: any;
@@ -26,11 +28,11 @@ export class DiscussComponent implements OnInit{
   isModalOpen = false;
 
   createDiscussion = new FormGroup({
-    lesson_id: new FormControl(null),
+    lesson_id: new FormControl(localStorage.getItem('idLesson')),
     discussion_topic: new FormControl(null)
   })
 
-  constructor(private apiService: ApiserviceService, private router: Router) {}
+  constructor(private apiService: ApiserviceService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     // Retrieve the subjectID from localStorage
@@ -43,10 +45,19 @@ export class DiscussComponent implements OnInit{
       this.moduleID = storedModuleID;  // Convert the string to a number
       this.moduleTitle = storedModuleTitle;  // Convert the string to a number
       this.apiService.getLessons(this.moduleID).subscribe((response: any) => {
-        this.lessons = response;
+        this.lessons = response.lessons;
         console.log('Lesson: ', this.lessons);
+        this.loadDiscussion(localStorage.getItem);
         // After lessons are loaded, load discussions
-        this.loadDiscussion();
+        // Get lessonId from query params
+        this.route.queryParams.subscribe(params => {
+          const lessTitle = params['lessTitle'];
+          const lessonId = params['lessonId'];
+          this.lessonTitle = lessTitle;
+          if (lessonId) {
+              this.loadDiscussion(lessonId);
+          }
+        });
       });
       console.log('Retrieved Subject ID from localStorage:', this.subjectID);
     } else {
@@ -63,8 +74,8 @@ export class DiscussComponent implements OnInit{
     }, 1000); // Simulated delay of 3 seconds
   }
 
-  loadDiscussion() {
-    this.apiService.getDiscussion().subscribe(
+  loadDiscussion(lessonid: any) {
+    this.apiService.getDiscussion(lessonid).subscribe(
       (response: any) => {
         this.discuss = response;
   
@@ -99,16 +110,25 @@ export class DiscussComponent implements OnInit{
         icon: "success"
       });
       this.closeModal();
-      this.loadDiscussion();
+      // this.loadDiscussion(localStorage.getItem('lessonid'));
+      this.route.queryParams.subscribe(params => {
+        const lessonId = params['lessonId'];
+        const lessTitle = params['lessTitle'];
+        this.lessonTitle = lessTitle;
+        if (lessonId) {
+            this.loadDiscussion(lessonId);
+        }
+      });
     })
   }
 
-  navigateToDiscussions(did: any, disctopic: any, date: any) {
+  navigateToDiscussions(did: any, disctopic: any, date: any, lesTitle: any) {
     const storedSubjectID = localStorage.getItem('subjectID');
     // Store the subjectID in localStorage
     localStorage.setItem('discussionid', did);
     localStorage.setItem('disctopic', disctopic);
     localStorage.setItem('date', date);
+    localStorage.setItem('lessTitle', lesTitle);
 
     // Navigate to the modules page
     // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);

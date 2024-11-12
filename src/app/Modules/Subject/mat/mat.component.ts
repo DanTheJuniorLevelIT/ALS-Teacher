@@ -23,6 +23,8 @@ export class MatComponent implements OnInit{
   assess:any;
   assessment: any;
   moduleTitle: any;
+  LessonID:any;
+  cDiscussion: any;
   LessonDetails:any;
   storedSubjectID:any;
   lessons:any;
@@ -51,6 +53,7 @@ export class MatComponent implements OnInit{
     this.loadMaterials();
     // Retrieve the subjectID from localStorage
     this.loadAssessments();
+    // this.countDiscussion(this.lessons.lesson_id);
     const storedSubjectID = localStorage.getItem('subjectID');
     const storedModuleID = localStorage.getItem('moduleid');
     const storedModuleTitle = localStorage.getItem('moduletitle');
@@ -58,12 +61,16 @@ export class MatComponent implements OnInit{
       this.subjectID = +storedSubjectID;  // Convert the string to a number
       this.moduleID = storedModuleID;  // Convert the string to a number
       this.moduleTitle = storedModuleTitle;  // Convert the string to a number
+      // this.getLessons(this.moduleID);
       this.apiService.getLessons(this.moduleID).subscribe((response: any) => {
-        this.lessons = response;
+        this.lessons = response.lessons;
+        // this.countDiscussion(response.lessonid);
         console.log('Lesson: ', this.lessons);
+        console.log('Lessonid: ', response.lessonid);
 
         // After getting lessons, map assessments to each lesson
         this.lessons.forEach((lesson: any) => {
+          this.countDiscussion(lesson);
           lesson.filteredAssessments = this.assess.filter(
             (a: any) => a.lesson_id === lesson.lesson_id
           );
@@ -107,6 +114,12 @@ export class MatComponent implements OnInit{
         this.LessonDetails = response;
         this.cdr.detectChanges();  
         console.log('Lessons Details:', this.LessonDetails);
+
+          this.lessons.forEach((lesson: any) => {
+          lesson.filteredAssessments = this.assess.filter(
+            (a: any) => a.lesson_id === lesson.lesson_id
+          );
+        });
       },
       (error) => {
         console.error('Error fetching lesson details:', error);
@@ -138,8 +151,28 @@ export class MatComponent implements OnInit{
     );
   }
 
-  openModal2() {
+  countDiscussion(lesson: any){
+    localStorage.setItem('lessonid', lesson.lesson_id)
+    console.log('lesson ID: ' + lesson);
+    this.apiService.countDiscussion(lesson.lesson_id).subscribe((response: any)=>{
+      lesson.cDiscussion = response;
+    })
+  }
+
+  setLessonID(id: any){
+    localStorage.setItem('idLesson', id);
+  }
+
+  openModal2(lessonid: any) {
     this.isModalOpen2 = true;
+    this.LessonID = lessonid;
+    this.createAssessment = new FormGroup({
+      title: new FormControl(null),
+      lesson_id: new FormControl(this.LessonID),
+      instruction: new FormControl(null),
+      description: new FormControl(null),
+      due_date: new FormControl(null)
+    })
   }
   
   closeModal2() {

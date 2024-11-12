@@ -7,9 +7,9 @@
         <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'assess']"  routerLinkActive="active">
             <button class="nav-btn">Assessment</button>
         </a> -->
-        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']"  routerLinkActive="active">
+        <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']"  routerLinkActive="active">
             <button class="nav-btn">Discussion</button>
-        </a>
+        </a> -->
     </div>
     <div class="notification-icon" (click)="openModal()">
         <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
@@ -19,12 +19,14 @@
     <div class="spinner"></div>
 </div>
 <div *ngIf="!isLoading" class="modules">
-    <div class="module" *ngFor="let lesson of lessons;">
+    <div class="module">
         <div class="module-header">
-            <h5>{{ lesson.topic_title }}</h5>
+            <h5>{{ lessonTitle }}</h5>
         </div>
-        <div class="file-link" *ngFor="let dc of lesson.filteredDiscussions">
-            <a (click)="navigateToDiscussions(dc.discussionid, dc.discussion_topic, dc.created)">{{dc.discussion_topic}}</a>
+        <div class="file-link" *ngFor="let dc of discuss">
+            -> <a (click)="navigateToDiscussions(dc.discussionid, dc.discussion_topic, dc.created, lessonTitle)">
+                {{ dc.discussion_topic }}
+            </a>
         </div>
     </div>
 </div>
@@ -34,12 +36,12 @@
         <span class="close" (click)="closeModal()">&times;</span>
         <form [formGroup]="createDiscussion" (ngSubmit)="save()">
             <h2>Add Discussion</h2>
-            <div class="input-group">
+            <!-- <div class="input-group">
                 <label class="label">Lesson</label>
                 <select formControlName="lesson_id" name="typeOfQuestion" id="typeOfQuestion" class="input">
                     <option *ngFor="let lesson of lessons" [value]="lesson.lesson_id">{{lesson.topic_title}}</option>
                 </select>
-            </div>
+            </div> -->
             <div class="input-group">
                 <label class="label">Discussion Question</label>
                 <!-- <input formControlName="discussion_topic" autocomplete="off" name="topicTitle" id="topicTitle" class="input" type="text"> -->
