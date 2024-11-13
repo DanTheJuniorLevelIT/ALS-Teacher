@@ -9,16 +9,27 @@
         </div>
         <div *ngIf="!isLoading" class="modules">
             <div class="module" *ngFor="let mod of modules">
-                <a *ngIf="isModuleOpen(mod.date)"  (click)="setModuleID(mod.modules_id, mod.title, mod.description)"[routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']">
-                    {{ mod.title }}
-                </a>
-                <div *ngIf="!isModuleOpen(mod.date)" style="color: gray; display: flex; justify-content: space-between; align-items: center;">
-                    <span (click)="setModuleID(mod.modules_id, mod.title, mod.description)"[routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']" style="cursor: pointer;">{{ mod.title }} (Closed)</span>
-                    <button class="open-btn nav-btn2" (click)="forceOpenModule(mod.modules_id)" style="margin-left: 10px;">Open</button>
+                <!-- Module Title and Date -->
+                <div class="module-header">
+                    <a *ngIf="isModuleOpen(mod.date)" (click)="setModuleID(mod.modules_id, mod.title, mod.description)"
+                       [routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']">
+                        {{ mod.title }}
+                    </a>
+                    <span *ngIf="!isModuleOpen(mod.date)" (click)="setModuleID(mod.modules_id, mod.title, mod.description)"
+                          [routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']"
+                          class="closed-module" style="color: gray; cursor: pointer;">
+                        {{ mod.title }} (Closed)
+                    </span>
+                    <span class="module-date">{{ mod.date | date }}</span>
+                    <button *ngIf="!isModuleOpen(mod.date)" class="open-btn nav-btn2" (click)="forceOpenModule(mod.modules_id)">Open</button>
                 </div>
-                <p>{{mod.date | date}}</p>
+                <!-- Module Description -->
+                <div class="module-description">
+                    <p>{{ mod.description }}</p>
+                </div>
             </div>
         </div>
+        
 
 <div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">

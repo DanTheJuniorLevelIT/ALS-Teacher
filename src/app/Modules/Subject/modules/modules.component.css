@@ -54,28 +54,46 @@
   }
 
 .modules {
+    width: 100%;
     background-color: #FFF;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .module {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.module-header {
     display: flex;
     justify-content: space-between;
-    padding: 10px 0;
-    /* border-bottom: 1px solid #ddd; */
+    align-items: center;
 }
 
-.module a {
+.module-header a, .module-header .closed-module {
+    font-weight: bold;
     text-decoration: none;
     color: #333;
-    font-weight: bold;
+    font-size: 1rem;
 }
 
-.module p {
+.module-date {
     color: #888;
-    margin: 0;
+    font-size: 0.9rem;
+    margin-left: auto;
 }
+
+.open-btn {
+    margin-left: 10px;
+}
+
+.module-description {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
 
 /* Modal Style */
 .modal {
