@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 export class ProgressComponent {
 
   assessTitle: any;
+  lessonTitle: any;
   students: any;
   totalPoints: any;
   isModalOpen = false;
@@ -37,6 +38,7 @@ ngOnInit(): void {
   const storedSubjectID = localStorage.getItem('subjectID');
   const storedAssessmentID = localStorage.getItem('assid');
   const storedModuleID = localStorage.getItem('moduleid');
+  this.lessonTitle = localStorage.getItem('lessTitle');
     if (storedSubjectID) {
       this.moduleID = storedModuleID;
       this.subjectID = +storedSubjectID;  // Convert the string to a number
