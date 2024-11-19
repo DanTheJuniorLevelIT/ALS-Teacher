@@ -72,9 +72,9 @@ export class SubjectComponent implements OnInit{
   }
 
   filteredSubjects(){
-    this.subBlp = this.allSubjects.filter((sub: { Program: string; }) => sub.Program == 'blp');
-    this.subAlsElem = this.allSubjects.filter((sub: { Program: string; })=> sub.Program == 'alsElem');
-    this.subAlsJhs = this.allSubjects.filter((sub: { Program: string; }) => sub.Program == 'alsJhs');
+    this.subBlp = this.allSubjects.filter((sub: { Program: string; }) => sub.Program == 'Basic Literacy Program');
+    this.subAlsElem = this.allSubjects.filter((sub: { Program: string; })=> sub.Program == 'ALS Elementary');
+    this.subAlsJhs = this.allSubjects.filter((sub: { Program: string; }) => sub.Program == 'ALS Junior High School');
   }
 
   openModal() {

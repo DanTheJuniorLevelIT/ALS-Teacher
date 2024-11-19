@@ -13,6 +13,7 @@ templateUrl: './discussion.component.html',
 })
 export class DiscussionComponent implements OnInit {
   
+  private intervalId: any; // To store the interval reference
   subjectID: number | null = null;
   moduleID: any;
   moduleTitle: any;
@@ -45,6 +46,18 @@ export class DiscussionComponent implements OnInit {
       this.date = localStorage.getItem('date');
 
       this.loadDiscussions(this.discussuinID);
+
+      // Set an interval to refresh discussions every 10 seconds
+      this.intervalId = setInterval(() => {
+        this.loadDiscussions(this.discussuinID);
+      }, 5000); // 5000ms = 5 seconds
+    }
+  }
+
+  ngOnDestroy(): void {
+    // Clear the interval when the component is destroyed to prevent memory leaks
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
     }
   }
 
