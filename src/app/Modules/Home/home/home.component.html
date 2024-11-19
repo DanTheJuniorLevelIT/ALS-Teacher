@@ -33,9 +33,11 @@
             <div class="notification-section">
                 <h2>Recent Notifications</h2>
                 <ul *ngIf="notifications.length">
-                    <li *ngFor="let notification of notifications">
-                        {{ notification.message }}
-                    </li>
+                    <a [routerLink]="['/main/Message/main/message']">
+                        <p *ngFor="let notification of notifications">
+                            {{ notification.message }}
+                        </p>
+                    </a>
                 </ul>
                 <p *ngIf="!notifications.length">No new notifications</p>
             </div>
