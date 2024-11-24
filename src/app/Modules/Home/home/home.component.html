@@ -3,15 +3,25 @@
 <div class="wrapper second-design">
     <div class="content">
         <div class="classes-column">
-            <div class="header">
-                <div class="title-and-date">
+            <div class="loader-container" *ngIf="isLoading">
+                <div class="spinner"></div>
+            </div>
+            <div *ngIf="!isLoading" class="header">
+                <div *ngIf="sub == 0" class="title-and-date">
+                    <h1>No Classes for Today</h1>
+                    <p class="current-date">{{ currentDate | date: 'MMMM d, y | h:mm a' }}</p>
+                </div>
+            </div>
+
+            <div *ngIf="!isLoading" class="header">
+                <div *ngIf="sub != 0" class="title-and-date">
                     <h1>Classes of the Day | {{shl.school}}</h1>
                     <p class="current-date">{{ currentDate | date: 'MMMM d, y | h:mm a' }}</p>
                 </div>
             </div>
-            <div class="loader-container" *ngIf="isLoading">
+            <!-- <div class="loader-container" *ngIf="isLoading">
                 <div class="spinner"></div>
-            </div>
+            </div> -->
             <!-- Loader will be inside this div, only affecting this section -->
             <div *ngIf="!isLoading" class="cards-container">
                 <div class="card" style="width: 12rem;" *ngFor="let sub of sub">
@@ -32,12 +42,12 @@
         <div *ngIf="!isLoading" class="notifications-column">
             <div class="notification-section">
                 <h2>Recent Notifications</h2>
-                <ul *ngIf="notifications.length">
-                    <li *ngFor="let notification of notifications">
-                        {{ notification.message }}
+                <ul *ngIf="messages.length">
+                    <li *ngFor="let notification of messages" [routerLink]="['/main/Message/main/message']" style="cursor: pointer;">
+                        {{ notification.messages }}
                     </li>
                 </ul>
-                <p *ngIf="!notifications.length">No new notifications</p>
+                <p *ngIf="!messages.length">No new notifications</p>
             </div>
         </div>
     </div>

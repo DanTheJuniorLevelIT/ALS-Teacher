@@ -43,7 +43,7 @@ export class UploadComponent implements OnInit{
     this.lessonId = localStorage.getItem('Lesson Id');
     console.log('lesson',lesson_id)
     console.log('Lesson ID:', this.lessonId); 
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     const storedModuleID = localStorage.getItem('moduleid');
     const storedModuleTitle = localStorage.getItem('moduletitle');
     
@@ -83,7 +83,7 @@ export class UploadComponent implements OnInit{
   }
 
   onUpload() {
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     const storedModuleID = localStorage.getItem('moduleid');
     this.lessonId = localStorage.getItem('Lesson Id');
     if (this.selectedFile) {

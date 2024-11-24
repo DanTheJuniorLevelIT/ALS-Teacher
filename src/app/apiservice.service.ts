@@ -191,6 +191,27 @@ export class ApiserviceService {
 
   // END
 
+  //Messages
+  getMessages(id: any){
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.get(`${this.url}api/messages/${id}`, { headers });
+  }
+
+  student(id: any){
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.get(`${this.url}api/students/${id}`, { headers });
+  }
+
+  sendReply(data: any){
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.post(`${this.url}api/messages/reply`, data, { headers });
+  }
+
+  sendMessage(data: any){
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.post(`${this.url}api/messages/compose`, data, { headers });
+  }
+
 
   // User
   createUser(data: any){

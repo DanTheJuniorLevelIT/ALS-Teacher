@@ -35,7 +35,7 @@ constructor(private apiserv: ApiserviceService, private router: Router){}
 ngOnInit(): void {
   // Retrieve the subjectID from localStorage
   this.assessTitle = localStorage.getItem('assessTitle');
-  const storedSubjectID = localStorage.getItem('subjectID');
+  const storedSubjectID = localStorage.getItem('classid');
   const storedAssessmentID = localStorage.getItem('assid');
   const storedModuleID = localStorage.getItem('moduleid');
   this.lessonTitle = localStorage.getItem('lessTitle');
@@ -111,7 +111,7 @@ autoCheck() {
   }
 
   navigateToChecking(lrnid: any, fname: any, lname: any) {
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     const storedAssessmentID = localStorage.getItem('assid');
     localStorage.setItem('lrn', lrnid);
     localStorage.setItem('fname', fname);
@@ -124,7 +124,7 @@ autoCheck() {
   }
 
   navigateToViewFile(lrnid: any, fname: any, lname: any) {
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     const storedAssessmentID = localStorage.getItem('assid');
     localStorage.setItem('lrn', lrnid);
     localStorage.setItem('fname', fname);

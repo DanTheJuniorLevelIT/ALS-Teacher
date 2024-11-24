@@ -34,7 +34,7 @@ export class ModulesComponent implements OnInit {
     title: new FormControl(null),
     description: new FormControl(null),
     date: new FormControl(null),
-    classid: new FormControl(localStorage.getItem('subjectID'))
+    classid: new FormControl(localStorage.getItem('classid'))
   });
 
   constructor(
@@ -48,7 +48,7 @@ export class ModulesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadModules();
-    this.storedSubjectID = localStorage.getItem('subjectID');
+    this.storedSubjectID = localStorage.getItem('classid');
     
     this.apiService.getModules(this.storedSubjectID).subscribe((response: any) => {
       this.modules = response;

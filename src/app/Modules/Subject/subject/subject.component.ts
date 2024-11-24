@@ -85,12 +85,12 @@ export class SubjectComponent implements OnInit{
     this.isModalOpen = false;
   }
 
-  navigateToModules(subjectID: number) {
-    // Store the subjectID in localStorage
-    localStorage.setItem('subjectID', subjectID.toString());
+  navigateToModules(classid: number) {
+    // Store the classid in localStorage
+    localStorage.setItem('classid', classid.toString());
 
     // Navigate to the modules page
-    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
-    this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID]);
+    // this.route.navigate(['/main/Subject/main/subject/modulesmain', classid, 'modules']);
+    this.route.navigate(['/main/Subject/main/subject/modulesmain', classid]);
   }
 }

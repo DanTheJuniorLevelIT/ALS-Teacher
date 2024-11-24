@@ -32,7 +32,7 @@ export class DiscussionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     const storedModuleID = localStorage.getItem('moduleid');
     const storedModuleTitle = localStorage.getItem('moduletitle');
     const storedDiscussionID = localStorage.getItem('discussionid');
@@ -45,12 +45,12 @@ export class DiscussionComponent implements OnInit {
       this.discTopic = localStorage.getItem('disctopic');
       this.date = localStorage.getItem('date');
 
-      this.loadDiscussions(this.discussuinID);
+      // this.loadDiscussions(this.discussuinID);
 
       // Set an interval to refresh discussions every 10 seconds
       this.intervalId = setInterval(() => {
         this.loadDiscussions(this.discussuinID);
-      }, 5000); // 5000ms = 5 seconds
+      }, 20000); // = 20 seconds
     }
   }
 
@@ -72,7 +72,9 @@ export class DiscussionComponent implements OnInit {
       .join(''); // Join all paragraphs together
   }
 
+  // OLD
   loadDiscussions(discussionID: number) {
+    console.log(discussionID);
     this.apiService.viewDiscussionReplies(discussionID).subscribe((data: any) => {
       const groupedDiscussions: any[] = [];
   
@@ -104,6 +106,8 @@ export class DiscussionComponent implements OnInit {
           });
         }
       });
+
+      console.log(data);
   
       // If there is a student reply left without a teacher reply, add it
       if (currentStudentReply) {
@@ -113,6 +117,63 @@ export class DiscussionComponent implements OnInit {
       this.discussions = groupedDiscussions;
     });
   }
+
+  // Cache
+  // loadDiscussions(discussionID: number) {
+  //   const cachedDiscussions = localStorage.getItem(`discussion_replies_${discussionID}`);
+  //   const cacheTimestamp = localStorage.getItem(`discussion_replies_timestamp_${discussionID}`);
+  //   const now = new Date().getTime();
+  
+  //   // If cached data exists and is less than 20 seconds old, use it
+  //   if (cachedDiscussions && cacheTimestamp && now - parseInt(cacheTimestamp) < 20000) {
+  //     this.discussions = JSON.parse(cachedDiscussions);
+  //     return; // Avoid API call
+  //   }
+  
+  //   // Otherwise, fetch from API and update the cache
+  //   this.apiService.viewDiscussionReplies(discussionID).subscribe((data: any) => {
+  //     const groupedDiscussions: any[] = [];
+  
+  //     let currentStudentReply: { user: string; date: any; answer: any; role: string; } | null = null;
+  
+  //     data.forEach((reply: any) => {
+  //       if (reply.lrn) { // Student reply
+  //         if (currentStudentReply) {
+  //           groupedDiscussions.push(currentStudentReply); 
+  //           currentStudentReply = null;
+  //         }
+  //         currentStudentReply = {
+  //           user: `${reply.student_firstname} ${reply.student_lastname}`,
+  //           date: reply.created_at,
+  //           answer: reply.reply,
+  //           role: 'student'
+  //         };
+  //       } else { // Teacher reply
+  //         if (currentStudentReply) {
+  //           groupedDiscussions.push(currentStudentReply);
+  //           currentStudentReply = null;
+  //         }
+  //         groupedDiscussions.push({
+  //           user: `${reply.teacher_firstname} ${reply.teacher_lastname}`,
+  //           date: reply.created_at,
+  //           answer: reply.reply,
+  //           role: 'teacher'
+  //         });
+  //       }
+  //     });
+  
+  //     if (currentStudentReply) {
+  //       groupedDiscussions.push(currentStudentReply);
+  //     }
+  
+  //     // Cache the results
+  //     localStorage.setItem(`discussion_replies_${discussionID}`, JSON.stringify(groupedDiscussions));
+  //     localStorage.setItem(`discussion_replies_timestamp_${discussionID}`, now.toString());
+  
+  //     this.discussions = groupedDiscussions;
+  //   });
+  // }
+  
   
 
   // Submit a new discussion reply
@@ -133,5 +194,26 @@ export class DiscussionComponent implements OnInit {
       this.discussionForm.reset();
     });
   }
+
+  // submitAnswer() {
+  //   const newAnswer = this.discussionForm.value.answer;
+  //   const storedTeacherID = localStorage.getItem('id');
+  
+  //   const payload = {
+  //     discussionid: this.discussuinID,
+  //     lrn: null,
+  //     adminID: storedTeacherID,
+  //     reply: newAnswer
+  //   };
+  
+  //   this.apiService.sendDiscussionReplies(payload).subscribe((response: any) => {
+  //     // Clear cache for this discussion
+  //     localStorage.removeItem(`discussion_replies_${this.discussuinID}`);
+  //     localStorage.removeItem(`discussion_replies_timestamp_${this.discussuinID}`);
+  
+  //     this.loadDiscussions(this.discussuinID); // Reload replies
+  //     this.discussionForm.reset();
+  //   });
+  // }
 }
 

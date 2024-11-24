@@ -34,7 +34,7 @@
     top: 200px; /* Adjust as necessary */
     right: 30px;
     cursor: pointer;
-    color: #c8242f;
+    color: #0F3041;
 }
 
 .add-icon:hover {
@@ -53,7 +53,7 @@
 }
 
 .message-table th {
-    background-color: #c8242f;
+    background-color: #0F3041;
     color: white;
 }
 
@@ -91,7 +91,7 @@
 .reply-box button {
     align-self: flex-end;
     padding: 10px 20px;
-    background-color: #c8242f;
+    background-color: #0F3041;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -99,11 +99,26 @@
 }
 
 .reply-box button:hover {
-    background-color: #a51d26;
+    background-color: #0F3041;
 }
   
   .notification-icon {
     cursor: pointer;
+  }
+
+  .spinner {
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin .5s linear infinite;
+  }
+
+  /* Animation for the spinner */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
   
   /* Modal styles */
@@ -172,7 +187,7 @@
 .reply-box button {
     align-self: flex-end;
     padding: 10px 20px;
-    background-color: #c8242f;
+    background-color: #0F3041;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -180,7 +195,7 @@
 }
 
 .reply-box button:hover {
-    background-color: #a51d26;
+    background-color: #0F3041;
 }
   
   .close {
@@ -218,7 +233,7 @@
 }
 
 .form-control:focus {
-    border-color: #c8242f;
+    border-color: #0F3041;
     outline: none;
 }
 
@@ -237,7 +252,7 @@
 }
 
 .btn-primary {
-    background-color: #c8242f;
+    background-color: #0F3041;
     color: #fff;
 }
 

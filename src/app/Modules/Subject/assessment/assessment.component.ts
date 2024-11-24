@@ -36,7 +36,7 @@ export class AssessmentComponent implements OnInit{
 
   ngOnInit(): void {
     // Retrieve the subjectID from localStorage
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     const token = localStorage.getItem('authToken');
     this.authtoken = token;
     const storedModuleID = localStorage.getItem('moduleid');
@@ -106,7 +106,7 @@ export class AssessmentComponent implements OnInit{
   }
 
   navigateToQuestions(assID: number) {
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     // Store the subjectID in localStorage
     localStorage.setItem('assid', assID.toString());
 

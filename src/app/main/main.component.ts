@@ -19,6 +19,7 @@ export class MainComponent implements OnInit{
   ngOnInit(): void {
     const authToken = localStorage.getItem('authToken');
     this.tok = authToken;
+    localStorage.removeItem('classid');
   }
 
   toggleSidebar() {

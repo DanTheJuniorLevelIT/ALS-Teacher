@@ -57,7 +57,7 @@ export class UpdateLessonComponent  implements OnInit{
     }
   }
   update() {
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     const storedModuleID = localStorage.getItem('moduleid');
     console.log(this.updateLessonForm.value)
     console.log('idnum',this.idNumber);

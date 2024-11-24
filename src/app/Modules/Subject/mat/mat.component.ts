@@ -54,7 +54,7 @@ export class MatComponent implements OnInit{
     // Retrieve the subjectID from localStorage
     this.loadAssessments();
     // this.countDiscussion(this.lessons.lesson_id);
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     const storedModuleID = localStorage.getItem('moduleid');
     const storedModuleTitle = localStorage.getItem('moduletitle');
     if (storedSubjectID) {
@@ -251,7 +251,7 @@ export class MatComponent implements OnInit{
   
 
   navigateToQuestions(assID: number, lessTitle: any) {
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     // Store the subjectID in localStorage
     localStorage.setItem('assid', assID.toString());
     localStorage.setItem('lessTitle', lessTitle);
@@ -424,6 +424,7 @@ export class MatComponent implements OnInit{
               icon: "success",
               title: "Deleted"
             });
+            this.getLessons(this.moduleID);
           },
           (error) => {
             // Error response handling

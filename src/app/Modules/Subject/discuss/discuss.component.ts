@@ -37,7 +37,7 @@ export class DiscussComponent implements OnInit{
   ngOnInit(): void {
     // Retrieve the subjectID from localStorage
     this.loadTopics();
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     const storedModuleID = localStorage.getItem('moduleid');
     const storedModuleTitle = localStorage.getItem('moduletitle');
     if (storedSubjectID) {
@@ -71,7 +71,7 @@ export class DiscussComponent implements OnInit{
     // Simulate data fetching (you can replace this with an actual service call)
     setTimeout(() => {
       this.isLoading = false; // Hide the loader after data is fetched
-    }, 1000); // Simulated delay of 3 seconds
+    }, 3000); // Simulated delay of 3 seconds
   }
 
   loadDiscussion(lessonid: any) {
@@ -123,7 +123,7 @@ export class DiscussComponent implements OnInit{
   }
 
   navigateToDiscussions(did: any, disctopic: any, date: any, lesTitle: any) {
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     // Store the subjectID in localStorage
     localStorage.setItem('discussionid', did);
     localStorage.setItem('disctopic', disctopic);

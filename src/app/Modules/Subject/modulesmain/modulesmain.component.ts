@@ -62,7 +62,7 @@ export class ModulesmainComponent implements OnInit{
       title: new FormControl('', Validators.required),
       instruction: new FormControl('', Validators.required)
     });
-    const classid = localStorage.getItem('subjectID');
+    const classid = localStorage.getItem('classid');
     this.classid = classid;
     this.route.params.subscribe(params => {
       this.subjectId = +params['id'];  // The '+' ensures it's treated as a number
@@ -128,7 +128,7 @@ export class ModulesmainComponent implements OnInit{
 
     // Otherwise, add or update the announcement
     const announcementPayload = {
-      subjectID: this.classid,
+      classid: this.classid,
       title: this.newAnnouncementTitle,
       instruction: this.newAnnouncementInstruction
     };
@@ -147,6 +147,7 @@ export class ModulesmainComponent implements OnInit{
   }
 
   viewAnnouncement(){
+    console.log(this.classid);
     this.apiserv.getAnnouncement(this.classid).subscribe((response: any)=>{
       this.announcements = response.announce
       this.announcementid = response.announceid

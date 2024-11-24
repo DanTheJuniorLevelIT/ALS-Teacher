@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit{
   shl: any;
   authtoken: any;
   teacherid: any;
+  messages: any;
 
 
   // constructor(private apiserv: ApiserviceService){}
@@ -59,6 +60,7 @@ export class HomeComponent implements OnInit{
     this.loadClasses();
     const id = localStorage.getItem('id');
     this.teacherid = id;
+    this.loadMessage(id);
     // this.apiserv.getSubjects().subscribe(
     this.apiserv.getTeacherSubjects(this.teacherid).subscribe(
       (response: any) => {
@@ -74,22 +76,30 @@ export class HomeComponent implements OnInit{
     );
   }
 
+  loadMessage(id: any){
+    this.apiserv.getMessages(id).subscribe((msg: any)=>{
+      // this.messages = msg;
+      this.messages = msg.filter((message: any) => !message.adminID);
+      console.log(this.messages);
+    })
+  }
+
   loadClasses() {
     this.isLoading = true; // Show the loader before the data is loaded
 
     // Simulate data fetching (you can replace this with an actual service call)
     setTimeout(() => {
       this.isLoading = false; // Hide the loader after data is fetched
-    }, 2000); // Simulated delay of 3 seconds
+    }, 2000); // Simulated delay of 2 seconds
   }
 
-  navigateToModules(subjectID: number) {
-    // Store the subjectID in localStorage
-    localStorage.setItem('subjectID', subjectID.toString());
+  navigateToModules(classid: number) {
+    // Store the classid in localStorage
+    localStorage.setItem('classid', classid.toString());
 
     // Navigate to the modules page
-    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
-    this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID]);
+    // this.route.navigate(['/main/Subject/main/subject/modulesmain', classid, 'modules']);
+    this.route.navigate(['/main/Subject/main/subject/modulesmain', classid]);
   }
 
 

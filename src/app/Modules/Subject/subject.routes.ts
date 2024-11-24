@@ -40,7 +40,6 @@ export const subjectRoute: Routes = [
                     // { path: 'modules/discuss/:id/discussion', component: DiscussionComponent},
                 ]
             },
-            { path: 'students', component: StudentsComponent},
             { path: '', redirectTo: 'subject', pathMatch: 'full' }
         ]
     },

@@ -50,7 +50,7 @@ export class QuestionComponent implements OnInit{
     this.options.push({ text: '' });
     // Retrieve the subjectID from localStorage
     this.lessonTitle = localStorage.getItem('lessTitle');
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     const storedAssessmentID = localStorage.getItem('assid');
     const storedModuleID = localStorage.getItem('moduleid');
     if (storedSubjectID) {
@@ -284,7 +284,7 @@ getOptions() {
 
 navigateToProgress(title: any) {
   localStorage.setItem('assessTitle', title);
-  const storedSubjectID = localStorage.getItem('subjectID');
+  const storedSubjectID = localStorage.getItem('classid');
   const storedAssessmentID = localStorage.getItem('assid');
   // Store the subjectID in localStorage
 
