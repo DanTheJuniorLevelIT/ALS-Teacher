@@ -6,7 +6,10 @@
               <div class="question-date">{{date}}</div>
               <div class="question-text">{{ discTopic }}</div>
           </div>
-          <div class="answer-list">
+        <div class="loader-container" *ngIf="isLoading">
+            <div class="spinner"></div>
+        </div>
+          <div class="answer-list" *ngIf="!isLoading">
               <div *ngFor="let discussion of discussions" 
                    [ngClass]="{'student-answer': discussion.role === 'student', 'teacher-answer': discussion.role === 'teacher'}" 
                    class="answer">

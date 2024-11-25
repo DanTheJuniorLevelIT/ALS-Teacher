@@ -12,6 +12,8 @@ templateUrl: './discussion.component.html',
   styleUrl: './discussion.component.css'
 })
 export class DiscussionComponent implements OnInit {
+
+  isLoading: boolean = false; // This controls the loader visibility
   
   private intervalId: any; // To store the interval reference
   subjectID: number | null = null;
@@ -45,7 +47,7 @@ export class DiscussionComponent implements OnInit {
       this.discTopic = localStorage.getItem('disctopic');
       this.date = localStorage.getItem('date');
 
-      // this.loadDiscussions(this.discussuinID);
+      this.spinner();
 
       // Set an interval to refresh discussions every 10 seconds
       this.intervalId = setInterval(() => {
@@ -59,6 +61,15 @@ export class DiscussionComponent implements OnInit {
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
+  }
+
+  spinner() {
+    this.isLoading = true; // Show the loader before the data is loaded
+
+    // Simulate data fetching (you can replace this with an actual service call)
+    setTimeout(() => {
+      this.isLoading = false; // Hide the loader after data is fetched
+    }, 20000); // Simulated delay of 20 seconds
   }
 
   transformText(text: string): string {

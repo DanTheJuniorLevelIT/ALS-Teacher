@@ -45,15 +45,6 @@
     
 </div>
 
-<!-- Notification Modal -->
-<div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-        <span class="close" (click)="closeModal()">&times;</span>
-        <h2>Notifications</h2>
-        <p>No new notifications</p>
-    </div>
-</div>
-
 <!-- Compose Message Modal -->
 <div class="modal" [ngClass]="{'show': isModalOpen2}" (click)="closeModal2()">
     <div class="modal-content2" (click)="$event.stopPropagation()">

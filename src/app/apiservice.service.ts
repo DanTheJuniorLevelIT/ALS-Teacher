@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,6 @@ export class ApiserviceService {
   }
 
   // Dan Work Services
-  // Example: loginAdmin does not need an authorization token
   verifyAdmin(login: any){
     return this.http.post(this.url + 'api/loginAdmin', login);
   }
@@ -30,7 +29,6 @@ export class ApiserviceService {
   }
 
   // Home and Subjects Services
-  // Example for getSubjects with authorization
   getSubjects(){
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.get(this.url + 'api/subjects', { headers });
@@ -163,12 +161,6 @@ export class ApiserviceService {
     return this.http.get(`${this.url}api/subjects/students/${id}/${assid}`, { headers });
   }
 
-  //1st approach
-  // autoCheck(id: any, assid: any) {
-  //   const headers = { 'Authorization': 'Bearer ' + this.token };
-  //   return this.http.get(`${this.url}api/subjects/autocheck/${id}/${assid}`, { headers });
-  // }
-
   autoCheck(id: any, assid: any) {
     const headers = { 'Authorization': 'Bearer ' + this.token };
     return this.http.post(`${this.url}api/subjects/autocheck/${id}/${assid}`, null, { headers });
@@ -191,28 +183,6 @@ export class ApiserviceService {
 
   // END
 
-  //Messages
-  getMessages(id: any){
-    const headers = { 'Authorization': 'Bearer ' + this.token };
-    return this.http.get(`${this.url}api/messages/${id}`, { headers });
-  }
-
-  student(id: any){
-    const headers = { 'Authorization': 'Bearer ' + this.token };
-    return this.http.get(`${this.url}api/students/${id}`, { headers });
-  }
-
-  sendReply(data: any){
-    const headers = { 'Authorization': 'Bearer ' + this.token };
-    return this.http.post(`${this.url}api/messages/reply`, data, { headers });
-  }
-
-  sendMessage(data: any){
-    const headers = { 'Authorization': 'Bearer ' + this.token };
-    return this.http.post(`${this.url}api/messages/compose`, data, { headers });
-  }
-
-
   // User
   createUser(data: any){
     const headers = {'Authorization': 'Bearer ' + this.token};
@@ -222,6 +192,7 @@ export class ApiserviceService {
   // END
 
   //Elzaina Work Services
+
   createMods(data: any) {
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.post(this.url + 'api/modules/create', data, { headers });
@@ -279,23 +250,53 @@ export class ApiserviceService {
     return this.http.delete(`${this.url}api/modules/deleteMediaFile/${mediaid}`, { headers });
   }
 
-
-
-
-
-
-
-
-
-
   //Mark Lemuel Work Services
 
+  //Messages
+  getMessages(id: any){
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.get(`${this.url}api/messages/${id}`, { headers });
+  }
 
+  student(id: any){
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.get(`${this.url}api/students/${id}`, { headers });
+  }
 
+  sendReply(data: any){
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.post(`${this.url}api/messages/reply`, data, { headers });
+  }
 
+  sendMessage(data: any){
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.post(`${this.url}api/messages/compose`, data, { headers });
+  }
 
-
-
+  //END
   
+  //Account
+
+  uploadProfilePicture(formData:any, id:any) {
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.post(`${this.url}api/uploadProfilePicture/${id}`, formData, { headers });
+  }
+
+  private profilePicSource = new BehaviorSubject<string>('assets/icon.jpg'); //Default Picture
+  currentProfilePic = this.profilePicSource.asObservable();
+
+  updateProfilePic(newPicUrl: string): void {
+    this.profilePicSource.next(newPicUrl);
+  }
+
+  updateAdminPassword(pdata: any, lrn: any) {
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.post(`${this.url}api/updateAdminPassword/${lrn}`, pdata, { headers });
+  }
+
+  // Reset profile picture to default icon when logging out
+  resetProfilePic() {
+    this.profilePicSource.next('assets/icon.jpg');
+  }
 }
 
