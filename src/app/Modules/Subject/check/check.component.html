@@ -41,7 +41,7 @@
                         <!-- Score Column -->
                         <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
                             <span *ngIf="answer.type === 'true-false' || answer.type === 'multiple-choice'">
-                                {{ answer.score }}/{{ answer.points }}
+                                {{ answer.score || 0 }}/{{ answer.points }}
                             </span>
                             <!-- Editable Score for other types -->
                             <span *ngIf="answer.type !== 'true-false' && answer.type !== 'multiple-choice'">

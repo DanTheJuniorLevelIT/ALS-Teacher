@@ -17,7 +17,7 @@ export class QuestionComponent implements OnInit{
   qid: any;
   res: any;
 
-  subjectID: number | null = null;
+  ClassID: number | null = null;
   lessonTitle: any;
   assessmentID: any;
   moduleID: any;
@@ -48,20 +48,20 @@ export class QuestionComponent implements OnInit{
 
   ngOnInit(): void {
     this.options.push({ text: '' });
-    // Retrieve the subjectID from localStorage
+    // Retrieve the ClassID from localStorage
     this.lessonTitle = localStorage.getItem('lessTitle');
-    const storedSubjectID = localStorage.getItem('classid');
+    const storedClassID = localStorage.getItem('classid');
     const storedAssessmentID = localStorage.getItem('assid');
     const storedModuleID = localStorage.getItem('moduleid');
-    if (storedSubjectID) {
+    if (storedClassID) {
       this.moduleID = storedModuleID;
-      this.subjectID = +storedSubjectID;  // Convert the string to a number
+      this.ClassID = +storedClassID;  // Convert the string to a number
       this.assessmentID = storedAssessmentID;
       this.loadQuestions();
       this.loadCompletion(); 
       console.log('Retrieved Subject ID from localStorage:', this.assessmentID);
     } else {
-      console.error('No subjectID found in localStorage.');
+      console.error('No ClassID found in localStorage.');
     }
 
     // this.apiService.getQuestion(this.assessmentID).subscribe((response: any)=>{
@@ -108,7 +108,7 @@ export class QuestionComponent implements OnInit{
   }
 
   loadCompletion(){
-    this.apiService.getCompletionStats(this.assessmentID).subscribe((stats: any) => {
+    this.apiService.getCompletionStats(this.assessmentID, this.ClassID).subscribe((stats: any) => {
       this.completedCount = stats.completed;
       this.totalStudents = stats.total;
     });
@@ -284,13 +284,13 @@ getOptions() {
 
 navigateToProgress(title: any) {
   localStorage.setItem('assessTitle', title);
-  const storedSubjectID = localStorage.getItem('classid');
+  const storedClassID = localStorage.getItem('classid');
   const storedAssessmentID = localStorage.getItem('assid');
-  // Store the subjectID in localStorage
+  // Store the ClassID in localStorage
 
   // Navigate to the modules page
-  // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
-  this.router.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', this.moduleID, 'assess', 'question', storedAssessmentID, 'progress']);
+  // this.route.navigate(['/main/Subject/main/subject/modulesmain', ClassID, 'modules']);
+  this.router.navigate(['/main/Subject/main/subject/modulesmain', storedClassID, 'modules', this.moduleID, 'assess', 'question', storedAssessmentID, 'progress']);
 }
 
 

@@ -151,9 +151,9 @@ export class ApiserviceService {
     return this.http.delete(`${this.url}api/subjects/deleteQuestion/${id}`, { headers });
   }
 
-  getCompletionStats(id: any){
+  getCompletionStats(id: any, cid: any){
     const headers = {'Authorization': 'Bearer ' + this.token};
-    return this.http.get(`${this.url}api/subjects/getCompleted/${id}`, { headers });
+    return this.http.get(`${this.url}api/subjects/getCompleted/${id}/${cid}`, { headers });
   }
 
   getStudents(id: any, assid: any){

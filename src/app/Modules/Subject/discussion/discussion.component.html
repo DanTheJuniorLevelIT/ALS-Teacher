@@ -21,7 +21,7 @@
           </div>
       </div>
       
-      <div class="answer-form">
+      <div class="answer-form" *ngIf="!isLoading">
           <form [formGroup]="discussionForm" (ngSubmit)="submitAnswer()">
               <textarea formControlName="answer" placeholder="Insert text here..."></textarea>
               <button type="submit">Reply</button>

@@ -35,7 +35,7 @@
                         <a (click)="updateLesson(lesson.lesson_id)" [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'updateLesson']" >Update</a>                  
                         <a (click)="uploadFile(lesson.lesson_id)" [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'upload']" >Upload</a>                  
                         <a (click)="openModal2(lesson.lesson_id)" >Add Assessment</a>                  
-                        <a (click)="deleteLesson(lesson.lesson_id)">Delete</a>
+                        <a (click)="deleteLesson(lesson)">Delete</a>
                     </div>
                 </div>
             </div>

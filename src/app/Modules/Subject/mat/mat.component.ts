@@ -62,20 +62,7 @@ export class MatComponent implements OnInit{
       this.moduleID = storedModuleID;  // Convert the string to a number
       this.moduleTitle = storedModuleTitle;  // Convert the string to a number
       // this.getLessons(this.moduleID);
-      this.apiService.getLessons(this.moduleID).subscribe((response: any) => {
-        this.lessons = response.lessons;
-        // this.countDiscussion(response.lessonid);
-        console.log('Lesson: ', this.lessons);
-        console.log('Lessonid: ', response.lessonid);
-
-        // After getting lessons, map assessments to each lesson
-        this.lessons.forEach((lesson: any) => {
-          this.countDiscussion(lesson);
-          lesson.filteredAssessments = this.assess.filter(
-            (a: any) => a.lesson_id === lesson.lesson_id
-          );
-        });
-      });
+      this.showLessons(this.moduleID);
       console.log('Retrieved Subject ID from localStorage:', this.subjectID);
     } else {
       console.error('No subjectID found in localStorage.');
@@ -105,6 +92,23 @@ export class MatComponent implements OnInit{
       .map(paragraph => paragraph.replace(/\.\s*/g, '.<br>')) // Add <br> after each period
       .map(paragraph => `<p>${paragraph}</p>`) // Wrap each transformed paragraph in <p> tags
       .join(''); // Join all paragraphs together
+  }
+
+  showLessons(id: any){
+    this.apiService.getLessons(id).subscribe((response: any) => {
+      this.lessons = response.lessons;
+      // this.countDiscussion(response.lessonid);
+      console.log('Lesson: ', this.lessons);
+      console.log('Lessonid: ', response.lessonid);
+
+      // After getting lessons, map assessments to each lesson
+      this.lessons.forEach((lesson: any) => {
+        this.countDiscussion(lesson);
+        lesson.filteredAssessments = this.assess.filter(
+          (a: any) => a.lesson_id === lesson.lesson_id
+        );
+      });
+    });
   }
 
   getLessons(id: number) {
@@ -274,10 +278,10 @@ export class MatComponent implements OnInit{
     localStorage.setItem('Lesson Id', this.selectLessonID )
   }
   
-  deleteLesson(lesson_id: number) {
+  deleteLesson(lesson: any) {
     // Show confirmation dialog using SweetAlert
     Swal.fire({
-      title: "Are you sure you want to delete this lesson?",
+      title: `Are you sure you want to delete the lesson: "${lesson.topic_title}"?`,
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
@@ -288,12 +292,13 @@ export class MatComponent implements OnInit{
       // If user confirms deletion
       if (result.isConfirmed) {
         // Call the delete API
-        this.apiService.deleteLesson(lesson_id).subscribe(
+        this.apiService.deleteLesson(lesson.lesson_id).subscribe(
           (response) => {
             // Success response handling
             console.log('Lesson deleted:', response);
             // Remove the deleted lesson from the list
-            this.lessons = this.lessons.filter((lesson: any) => lesson.lesson_id !== lesson_id);
+            // this.lessons = this.lessons.filter((lesson: any) => lesson.lesson_id !== lesson.lesson_id);
+            this.showLessons(this.moduleID);
             this.cdr.detectChanges();
   
             // Show success alert
@@ -402,10 +407,7 @@ export class MatComponent implements OnInit{
             console.log('File deleted:', response);
             
             // Find the lesson in the lessons array and set its file property to null
-            const lesson = this.lessons.find((lesson: any) => lesson.lesson_id === lesson_id);
-            if (lesson) {
-              lesson.file = null; // Remove the file content
-            }
+            this.showLessons(this.moduleID);
             this.cdr.detectChanges();  // Manually trigger change detection
   
             // Show success alert
@@ -474,6 +476,7 @@ export class MatComponent implements OnInit{
               title: "Deleted"
             });
             this.getLessons(this.moduleID);
+            this.showLessons(this.moduleID);
             this.loadAssessments();
           },
           (error) => {
