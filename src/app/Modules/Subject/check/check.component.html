@@ -46,7 +46,7 @@
                             <!-- Editable Score for other types -->
                             <span *ngIf="answer.type !== 'true-false' && answer.type !== 'multiple-choice'">
                                 <input
-                                    style="width: 40px; text-align: center;"
+                                    style="width: 20px; text-align: center;"
                                     type="text"
                                     [(ngModel)]="answer.score"
                                     (blur)="manualCheck(answer.question_id, answer.score)"
