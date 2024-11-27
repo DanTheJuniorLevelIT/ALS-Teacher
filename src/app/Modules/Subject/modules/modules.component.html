@@ -1,6 +1,6 @@
         <div class="header">
             <h1>My Modules</h1>
-            <div class="notification-icon" (click)="openModal()">
+            <div class="notification-icon" (click)="openModal()" *ngIf="!isLoading">
                 <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
             </div>
         </div>

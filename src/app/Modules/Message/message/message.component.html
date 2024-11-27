@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="cards-container">
-        <div class="add-icon" (click)="onAddMessage()">
+        <div class="add-icon" (click)="onAddMessage()" *ngIf="!isLoading">
             <i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
         </div>
         <table class="message-table">
