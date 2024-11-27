@@ -76,12 +76,24 @@ export class HomeComponent implements OnInit{
     );
   }
 
-  loadMessage(id: any){
-    this.apiserv.getMessages(id).subscribe((msg: any)=>{
-      // this.messages = msg;
-      this.messages = msg.filter((message: any) => !message.adminID);
-      console.log(this.messages);
-    })
+  loadMessage(id: any) {
+    const adminDetails = this.getAdminDetails();
+    if (adminDetails) {
+      const adminFullName = adminDetails.firstname + ' ' + adminDetails.lastname;
+  
+      this.apiserv.getMessages(id).subscribe((msg: any) => {
+        // Filter out messages sent by the admin
+        this.messages = msg.filter((message: any) => message.sender_name !== adminFullName);
+        console.log(this.messages); // Debug filtered messages
+      });
+    } else {
+      console.error('Admin details not found in localStorage.');
+    }
+  }
+
+  getAdminDetails() {
+    const details = localStorage.getItem('adminDetails');
+    return details ? JSON.parse(details) : null;
   }
 
   loadClasses() {

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ApiserviceService } from '../../../apiservice.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-message',
@@ -44,7 +45,14 @@ export class MessageComponent implements OnInit{
           this.apiserve.sendReply(replyPayload).subscribe(
               response => {
                   console.log('Reply sent successfully:', response);
-                  alert('Reply sent successfully!');
+                  // alert('Reply sent successfully!');
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Reply sent successfully!",
+                    showConfirmButton: false,
+                    timer: 1000
+                  });
                   this.isModalOpen3 = false;
                   this.replyText = ''; // Clear the reply box
                   this.loadMessage(localStorage.getItem('id')); // Reload messages to show the updated one
@@ -125,12 +133,26 @@ export class MessageComponent implements OnInit{
     const messageText = (document.getElementById('message') as HTMLTextAreaElement).value;
   
     if (!recipient) {
-      alert('Please select a recipient.');
+      // alert('Please select a recipient.');
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Please select a recipient.",
+        showConfirmButton: false,
+        timer: 1500
+      });
       return;
     }
   
     if (!messageText.trim()) {
-      alert('Message cannot be empty.');
+      // alert('Message cannot be empty.');
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Message cannot be empty.",
+        showConfirmButton: false,
+        timer: 1500
+      });
       return;
     }
   
@@ -143,7 +165,14 @@ export class MessageComponent implements OnInit{
     this.apiserve.sendMessage(messagePayload).subscribe(
       response => {
         console.log('Message sent successfully:', response);
-        alert('Message sent successfully!');
+        // alert('Message sent successfully!');
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Message sent successfully!",
+          showConfirmButton: false,
+          timer: 1000
+        });
         this.closeModal2();
         this.loadMessage(localStorage.getItem('id')); // Reload messages to update the list
       },

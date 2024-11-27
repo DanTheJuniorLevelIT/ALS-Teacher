@@ -114,7 +114,7 @@ export class ModulesComponent implements OnInit {
         (error) => {
           Swal.fire({
             title: "Error",
-            text: "Error Creating Module: " + error,
+            text: "Error Creating Module. Please fill all the input fields",
             icon: "error"
           });
           console.error('Error creating module:', error);

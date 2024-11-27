@@ -2,46 +2,40 @@
     <!-- <h1 style="text-align: center;">Checking</h1> -->
     <h1 style="text-align: center;">{{fname}} {{lname}}'s Assessment</h1>
     <div class="button-group">
-      <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'mat']"  routerLinkActive="active">
-          <button class="nav-btn">Learning Material</button>
-      </a>
-        <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'assess']"  routerLinkActive="active">
-          <button class="nav-btn">Assessment</button>
-      </a> -->
-      <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']"  routerLinkActive="active">
-          <button class="nav-btn">Discussion</button>
-      </a>
-  </div>
-  </div>
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'mat']"  routerLinkActive="active">
+            <button class="nav-btn">Learning Material</button>
+        </a>
+    </div>
+</div>
 <div class="modules">
-  <div class="module">
-      <div class="p-6 bg-background text-foreground">
-          <div class="header-container">
-              <h2 class="text-xl font-bold mb-4">{{ det.title }}</h2>
-              <!-- <h2 class="text-xl font-bold mb-4">Total Score: {{ studScore.score }}/{{ maxScore }}</h2> -->
-          </div>
-          <p class="mb-4">
-              {{ det.instruction }}
-          </p>
+    <div class="module">
+        <div class="p-6 bg-background text-foreground">
+            <div class="header-container">
+                <h2 class="text-xl font-bold mb-4">{{ det.title }}</h2>
+                <!-- <h2 class="text-xl font-bold mb-4">Total Score: {{ studScore.score }}/{{ maxScore }}</h2> -->
+            </div>
+            <p class="mb-4">
+                {{ det.instruction }}
+            </p>
 
-          <div class="file">
-            <h3>File Submission: </h3>
-            <!-- Display the file name using the fileName pipe -->
-            <h5 style="color: blue;">
-                {{ studScore.file | fileName }}
-                <!-- Button to view or download the PDF in a new tab -->
-                <button (click)="viewFile(studScore.file)">View File</button>
-            </h5>
-            <h6>
-                <span style="color: red;"> 
-                    Score: 
-                    <input style="width: 20px; border-radius: 10px;" id="scoreinput" type="text" [(ngModel)]="studScore.score" [value]="studScore.score" (blur)="manualCheck(studScore.score)"> 
-                </span>/{{maxScore}}
-            </h6>
-            
-    
-            
-          </div>
+            <div class="file">
+                <h3>File Submission: </h3>
+                <!-- Display the file name using the fileName pipe -->
+                <h5 style="color: blue;">
+                    {{ studScore.file | fileName }}
+                    <!-- Button to view or download the PDF in a new tab -->
+                    <button (click)="viewFile(studScore.file)">View File</button>
+                </h5>
+                <h6>
+                    <span style="color: red;"> 
+                        Score: 
+                        <input style="width: 20px; border-radius: 10px;" id="scoreinput" type="text" [(ngModel)]="studScore.score" [value]="studScore.score" (blur)="manualCheck(studScore.score)"> 
+                    </span>/{{maxScore}}
+                </h6>
+                
+        
+                
+            </div>
         </div>
     </div>
 </div>

@@ -44,7 +44,7 @@
                 <h2>Recent Notifications</h2>
                 <ul *ngIf="messages.length">
                     <li *ngFor="let notification of messages" [routerLink]="['/main/Message/main/message']" style="cursor: pointer;">
-                        {{ notification.messages }}
+                        {{ notification.messages }} -{{notification.firstname}} {{notification.lastname}}
                     </li>
                 </ul>
                 <p *ngIf="!messages.length">No new notifications</p>

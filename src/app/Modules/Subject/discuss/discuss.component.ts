@@ -110,6 +110,7 @@ export class DiscussComponent implements OnInit{
         icon: "success"
       });
       this.closeModal();
+      this.createDiscussion.get('discussion_topic')?.reset();
       // this.loadDiscussion(localStorage.getItem('lessonid'));
       this.route.queryParams.subscribe(params => {
         const lessonId = params['lessonId'];
