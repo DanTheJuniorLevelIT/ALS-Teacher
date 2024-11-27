@@ -9,15 +9,11 @@
         </div>
         <div *ngIf="!isLoading" class="modules">
             <div class="module" *ngFor="let mod of modules">
-                <!-- Module Title and Date -->
+            <!-- Module Title and Date -->
+            <a *ngIf="isModuleOpen(mod.date)" style="font-weight: bold; text-decoration: none; color: #333; font-size: 1rem;" (click)="setModuleID(mod.modules_id, mod.title, mod.description)" [routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']">
                 <div class="module-header">
-                    <a *ngIf="isModuleOpen(mod.date)" (click)="setModuleID(mod.modules_id, mod.title, mod.description)"
-                       [routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']">
-                        {{ mod.title }}
-                    </a>
-                    <span *ngIf="!isModuleOpen(mod.date)" (click)="setModuleID(mod.modules_id, mod.title, mod.description)"
-                          [routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']"
-                          class="closed-module" style="color: gray; cursor: pointer;">
+                    {{ mod.title }}
+                    <span *ngIf="!isModuleOpen(mod.date)" (click)="setModuleID(mod.modules_id, mod.title, mod.description)" [routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']" class="closed-module" style="color: gray; cursor: pointer;">
                         {{ mod.title }} (Closed)
                     </span>
                     <span class="module-date">{{ mod.date | date }}</span>
@@ -27,6 +23,7 @@
                 <div class="module-description">
                     <p>{{ mod.description }}</p>
                 </div>
+            </a>
             </div>
         </div>
         
