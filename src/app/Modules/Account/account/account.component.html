@@ -73,20 +73,49 @@
 				<div class="ps-lg-5">
 					<div class="card  text-white text-left h-100">
 						<div class="card-body bg-light text-dark p-4 p-xl-5">
-							<!-- <h2 class="pb-3 text-center">Take Web Design to the Next Level - Start Today!</h2> -->
 							<form [formGroup]="updateForm" (ngSubmit)="onSubmit()" method="post">
-								<div class="mb-3">
-									<label class="form-label" for="name">Old Password</label> <input class="form-control" id="name" type="password" formControlName="oldpassword">
+							  <!-- Old Password -->
+							  <div class="mb-3">
+								<label class="form-label" for="oldPassword">Old Password</label>
+								<input
+								  class="form-control"
+								  id="oldPassword"
+								  type="password"
+								  formControlName="oldpassword"
+								/>
+							  </div>
+						  
+							  <!-- New Password -->
+							  <div class="mb-3">
+								<label class="form-label" for="newPassword">New Password</label>
+								<input
+								  class="form-control"
+								  id="newPassword"
+								  type="password"
+								  formControlName="password"
+								/>
+								<div class="text-danger mt-1">
+								  Required minimum 6 characters
 								</div>
-								<div class="mb-3">
-									<label class="form-label" for="email">New Password</label> <input class="form-control" id="email" type="password" formControlName="password">
-								</div>
-								<div class="mb-3">
-									<label class="form-label" for="phone">Confirm Password</label><input class="form-control" id="phone" type="password" formControlName="password_confirmation">
-								</div><button class="btn btn-primary btn-lg" type="submit">Update</button>
-								<p class="mt-3 small fst-italic text-light">*Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+							  </div>
+						  
+							  <!-- Confirm Password -->
+							  <div class="mb-3">
+								<label class="form-label" for="confirmPassword">Confirm Password</label>
+								<input
+								  class="form-control"
+								  id="confirmPassword"
+								  type="password"
+								  formControlName="password_confirmation"
+								/>
+							  </div>
+						  
+							  <!-- Submit Button -->
+							  <button class="btn btn-primary btn-lg" type="submit">Update</button>
+							  <p class="mt-3 small fst-italic text-light">*Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 							</form>
-						</div>
+						  </div>
+						  
 					</div>
 				</div>
 			</div>

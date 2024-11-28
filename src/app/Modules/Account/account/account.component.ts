@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiserviceService } from '../../../apiservice.service';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
@@ -29,8 +29,7 @@ export class AccountComponent implements OnInit{
   })
   
 
-  constructor(private apiserve: ApiserviceService) { 
-    
+  constructor(private apiserve: ApiserviceService, private fb: FormBuilder) { 
   }
 
 

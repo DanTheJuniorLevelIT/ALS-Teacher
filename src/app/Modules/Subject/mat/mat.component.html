@@ -6,6 +6,24 @@
 </style>
 
 <a id="top"></a>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/main/Home/main/home']">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/main/Subject/main/subject']">
+            Subjects
+        </a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain', subjectID, 'modules']">
+          Modules
+        </a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Lessons</li>
+    </ol>
+</nav>
 <div class="header">
     <div class="button-group" style="margin-top: 10px;">
         <button *ngIf="!isLoading" class="nav-btn"  [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'addmat']" style="display: flex; align-items: center;">
@@ -77,14 +95,17 @@
                                     {{ assessment.Title }}
                                 </a>
                                 <i (click)="deleteAssessment(assessment.assessmentID)" class="fa fa-trash fa-1x ms-2" style="cursor: pointer;" aria-hidden="true"></i>
+                                <h6 style="color: red;">
+                                    Due Date: {{assessment.Due_date | date}}
+                                </h6>
                                 
                                 <div class="button-group">
                                 <!-- Show the button only when the assessment is closed -->
                                 <button *ngIf="!assessment.isOpen" class="nav-btn2" 
-                                            style="background-color: gray;"
+                                            style="background-color: blue;"
                                             (click)="toggleAssessmentStatus(assessment)">
                                     <i class="fa fa-check" aria-hidden="true" style="margin-right: 8px;"></i>
-                                    Open
+                                    Open assessment
                                 </button>
                                 </div>
                             </li>                              
@@ -93,7 +114,7 @@
                 </div>
             </div>
             <div class="card-footer" >
-                <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']" [queryParams]="{ lessonId: lesson.lesson_id, lessTitle: lesson.topic_title }" (click)="setLessonID(lesson.lesson_id)" routerLinkActive="active">
+                <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']" (click)="setLessonID(lesson)" routerLinkActive="active">
                     Discussions | {{lesson.cDiscussion || 0}} Topic/s
                 </a>
             </div>

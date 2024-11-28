@@ -1,3 +1,24 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/main/Home/main/home']">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/main/Subject/main/subject']">Subjects</a>
+      </li>
+      <li class="breadcrumb-item" >
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain', subjectID, 'modules']">
+          Modules
+        </a>
+      </li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain', subjectID, 'modules', moduleID, 'mat']">
+          Lessons
+        </a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Discussion</li>
+    </ol>
+</nav>
 <div class="header">
     <h1 style="text-align: center;">{{moduleTitle}}</h1>
     <div class="button-group">

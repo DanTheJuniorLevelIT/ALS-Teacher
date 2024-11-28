@@ -17,8 +17,12 @@ import Swal from 'sweetalert2';
 })
 export class ViewfileComponent implements OnInit {
 
+  assessTitle: any;
+
   fname: any;
   lname: any;
+  fullname: any;
+  lessonTitle: any;
   // checkForm!: FormGroup;
   subjectID: number | null = null;
   aid: any;
@@ -39,10 +43,13 @@ export class ViewfileComponent implements OnInit {
   isTeacher: boolean = true;
 
   ngOnInit(): void {
+    this.assessTitle = localStorage.getItem('assessTitle');
     const first = localStorage.getItem('fname');
     const last = localStorage.getItem('lname');
     this.fname = first;
     this.lname = last;
+    this.fullname = this.fname + ' ' + this.lname;
+    this.lessonTitle = localStorage.getItem('lessTitle');
     // Retrieve the subjectID from localStorage
     const storedSubjectID = localStorage.getItem('classid');
     const storedAssessmentID = localStorage.getItem('assid');

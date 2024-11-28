@@ -163,8 +163,9 @@ export class MatComponent implements OnInit{
     })
   }
 
-  setLessonID(id: any){
-    localStorage.setItem('idLesson', id);
+  setLessonID(lesson: any) {
+    localStorage.setItem('idLesson', lesson.lesson_id);
+    localStorage.setItem('lessonTitle', lesson.topic_title);
   }
 
   openModal2(lessonid: any) {

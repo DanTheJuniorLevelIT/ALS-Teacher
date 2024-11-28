@@ -21,6 +21,7 @@ export class QuestionComponent implements OnInit{
   lessonTitle: any;
   assessmentID: any;
   moduleID: any;
+  moduleTitle:any;
   det: any;
   questions: any;
 
@@ -53,10 +54,12 @@ export class QuestionComponent implements OnInit{
     const storedClassID = localStorage.getItem('classid');
     const storedAssessmentID = localStorage.getItem('assid');
     const storedModuleID = localStorage.getItem('moduleid');
+    const storedModuleTitle = localStorage.getItem('moduletitle');
     if (storedClassID) {
       this.moduleID = storedModuleID;
       this.ClassID = +storedClassID;  // Convert the string to a number
       this.assessmentID = storedAssessmentID;
+      this.moduleTitle = storedModuleTitle;
       this.loadQuestions();
       this.loadCompletion(); 
       console.log('Retrieved Subject ID from localStorage:', this.assessmentID);

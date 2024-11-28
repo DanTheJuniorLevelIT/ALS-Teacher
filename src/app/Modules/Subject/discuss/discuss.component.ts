@@ -40,24 +40,30 @@ export class DiscussComponent implements OnInit{
     const storedSubjectID = localStorage.getItem('classid');
     const storedModuleID = localStorage.getItem('moduleid');
     const storedModuleTitle = localStorage.getItem('moduletitle');
+    const storedLessonID = localStorage.getItem('idLesson');
+    const storedLessonTitle = localStorage.getItem('lessonTitle');
     if (storedSubjectID) {
       this.subjectID = +storedSubjectID;  // Convert the string to a number
       this.moduleID = storedModuleID;  // Convert the string to a number
       this.moduleTitle = storedModuleTitle;  // Convert the string to a number
+      this.lessonTitle = storedLessonTitle;
       this.apiService.getLessons(this.moduleID).subscribe((response: any) => {
         this.lessons = response.lessons;
         console.log('Lesson: ', this.lessons);
         this.loadDiscussion(localStorage.getItem);
         // After lessons are loaded, load discussions
         // Get lessonId from query params
-        this.route.queryParams.subscribe(params => {
-          const lessTitle = params['lessTitle'];
-          const lessonId = params['lessonId'];
-          this.lessonTitle = lessTitle;
-          if (lessonId) {
-              this.loadDiscussion(lessonId);
-          }
-        });
+        if (storedLessonID) {
+          this.loadDiscussion(storedLessonID);
+        }
+        // this.route.queryParams.subscribe(params => {
+        //   const lessTitle = params['lessTitle'];
+        //   const lessonId = params['lessonId'];
+        //   this.lessonTitle = lessTitle;
+        //   if (lessonId) {
+        //       this.loadDiscussion(lessonId);
+        //   }
+        // });
       });
       console.log('Retrieved Subject ID from localStorage:', this.subjectID);
     } else {
