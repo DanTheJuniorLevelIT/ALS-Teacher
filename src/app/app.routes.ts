@@ -41,9 +41,11 @@ import { subjectRoute } from './Modules/Subject/subject.routes';
 import { messageRoute } from './Modules/Message/message.routes';
 import { accountRoute } from './Modules/Account/account.routes';
 import { authGuard } from './auth.guard'; // Import the Auth Guard
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent},
+    {path: 'forgotpassword', component: ForgotpasswordComponent},
     {path: 'main', component: MainComponent, canActivate: [authGuard], // Protect main route
         children: [
             {

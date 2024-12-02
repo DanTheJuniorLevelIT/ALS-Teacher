@@ -321,25 +321,49 @@ body {
     background-color: #055a8c;
 }
 
+/* Custom media query for small screens */
 @media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        align-items: center;
+    .breadcrumb {
+        flex-wrap: wrap; /* Wrap breadcrumbs on small screens */
+    }
+    .breadcrumb-item a {
+        font-size: 14px; /* Smaller breadcrumb links */
     }
 
-    .sidebar {
-        width: 100%;
-        margin-bottom: 20px;
-        height: auto;
+    .card {
+        margin-bottom: 20px; /* Reduce spacing between cards */
     }
 
-    .main-content {
-        padding-left: 0;
-        max-width: 100%;
+    .card-header h5 {
+        font-size: 14px; /* Adjust card header font size */
     }
 
-    .modules {
-        width: 100%;
+    .card-body ul li {
+        font-size: 12px; /* Smaller font for list items */
+    }
+
+    .modal-content {
+        width: 95%; /* Make modal fit smaller screens */
+        margin: 10px auto;
+    }
+
+    .nav-btn,
+    .nav-btn2 {
+        width: 100%; /* Full-width buttons for better tapping */
+        font-size: 14px; /* Adjust button font size */
+    }
+
+    .sticky-toc {
+        text-align: left; /* Align table of contents to the left */
+        margin-top: 20px;
+    }
+
+    .toc-item h6 {
+        font-size: 14px; /* Adjust table of contents item font size */
+    }
+
+    .gap-4 {
+        gap: 2rem; /* Reduce gap for small screens */
     }
 }
 

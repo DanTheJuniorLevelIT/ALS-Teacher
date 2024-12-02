@@ -8,6 +8,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class ApiserviceService {
 
   private url = "http://localhost:8000/";
+  // private url = "http://10.0.118.175:8000/";
   token = localStorage.getItem('authToken')
 
   constructor(private http: HttpClient) {}
@@ -15,6 +16,10 @@ export class ApiserviceService {
   // Create a getter method for the URL
   getBaseUrl() {
     return this.url;
+  }
+
+  sendResetCode(data: any) {
+    return this.http.post(this.url + 'api/sendResetCode', data);
   }
 
   // Dan Work Services

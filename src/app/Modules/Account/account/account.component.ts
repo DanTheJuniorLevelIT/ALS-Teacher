@@ -12,6 +12,15 @@ import { CommonModule } from '@angular/common';
   styleUrl: './account.component.css'
 })
 export class AccountComponent implements OnInit{
+
+  showOldPassword = false;
+  showNewPassword = false;
+  showConfirmPassword = false;
+
+  // Character counters
+  newPasswordCharCount = 0;
+  confirmPasswordCharCount = 0;
+
   admin: any;
   studentpic: any;
   id: any;
@@ -56,6 +65,31 @@ export class AccountComponent implements OnInit{
     // }
   }
 
+  // Method to toggle password visibility
+  togglePasswordVisibility(field: string): void {
+    switch (field) {
+      case 'old':
+        this.showOldPassword = !this.showOldPassword;
+        break;
+      case 'new':
+        this.showNewPassword = !this.showNewPassword;
+        break;
+      case 'confirm':
+        this.showConfirmPassword = !this.showConfirmPassword;
+        break;
+    }
+  }
+
+  // Method to update character count
+  updateCharacterCount(field: string, event: Event): void {
+    const input = (event.target as HTMLInputElement).value;
+    if (field === 'new') {
+      this.newPasswordCharCount = input.length;
+    } else if (field === 'confirm') {
+      this.confirmPasswordCharCount = input.length;
+    }
+  }
+
   getAdminDetails() {
     const details = localStorage.getItem('adminDetails');
     return details ? JSON.parse(details) : null;
@@ -89,7 +123,10 @@ export class AccountComponent implements OnInit{
     formData.append('id', this.id);
 
     this.apiserve.uploadProfilePicture(formData, this.id).subscribe((result: any) => {
+      //Local
       const newImageUrl = `http://localhost:8000/storage/profile_pictures/${result.image_name}`;
+      //Server
+      // const newImageUrl = `http://10.0.118.175:8000/storage/profile_pictures/${result.image_name}`;
       localStorage.setItem('profile_picture', newImageUrl);
       console.log(result);
       this.isUploading = true;
@@ -153,7 +190,7 @@ export class AccountComponent implements OnInit{
               position: "center",
               icon: "error",
               title: "An error occurred",
-              text: "Please try again later",
+              text: "Please try again",
               showConfirmButton: true,
             });
           }
@@ -171,23 +208,4 @@ export class AccountComponent implements OnInit{
       });
     }
   }
-
-  // getLearnerInfo(id: string): void {
-  //   this.studentservice.getLearner(id).subscribe(
-  //     (data: any) => {
-  //       this.learner = data.learner;
-  //       // Check if the learner has a profile picture, else use icon.jpg
-  //       if (data.image) {
-  //         this.profilePic = `http://localhost:8000/assets/profile_pictures/${data.image}`;
-  //         console.log(data.image);
-  //       } else {
-  //         this.profilePic = 'assets/icon.jpg'; // Fallback to default icon
-  //       }
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching learner data', error);
-  //     }
-  //   );
-  // }
-
 }

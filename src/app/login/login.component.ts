@@ -14,6 +14,10 @@ import Swal from 'sweetalert2'
 })
 export class LoginComponent implements OnInit{
 
+  showPassword = false;
+  showNewPassword = false;
+  showConfirmPassword = false;
+
 
   loginForm = new FormGroup({
     email: new FormControl(null),
@@ -76,7 +80,7 @@ export class LoginComponent implements OnInit{
           console.error('Error logging in:', error);
           // alert('Invalid Email or Password');
           Swal.fire({
-            title: "Invalid Email or Password",
+            title: "The Provided Credentials are incorrect",
             // text: "Fill out the Email and Password",
             icon: "error"
           });
@@ -93,6 +97,10 @@ export class LoginComponent implements OnInit{
       });
       this.loginForm.reset();
     }
+  }
+
+  togglePasswordVisibility(){
+    this.showPassword = !this.showPassword;
   }
 
 }

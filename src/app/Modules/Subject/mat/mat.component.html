@@ -66,6 +66,7 @@
                             <div *ngIf="lesson.file">
                                 <li>
                                     <a *ngIf="lesson.file" [href]="'http://localhost:8000/storage/' + lesson.file" target="_blank">{{ lesson.file }}</a>
+                                    <!-- <a *ngIf="lesson.file" [href]="'http://10.0.118.175:8000/storage/' + lesson.file" target="_blank">{{ lesson.file }}</a> -->
                                     <i *ngIf="lesson.file" (click)="deleteFile(lesson.lesson_id)" class="fa fa-trash fa-1x ms-2" style="cursor: pointer;" aria-hidden="true"></i>
                                 </li>
                             </div>
@@ -75,6 +76,7 @@
                                 <ng-container *ngFor="let mediaFile of lesson.media_files.split(',')">
                                     <li>
                                         <a [href]="'http://localhost:8000/storage/' + mediaFile" target="_blank">{{mediaFile}}</a>
+                                        <!-- <a [href]="'http://10.0.118.175:8000/storage/' + mediaFile" target="_blank">{{mediaFile}}</a> -->
                                         <i (click)="deleteMediaFile(lesson.media_ids.split(',')[i] || lesson.media_ids)" class="fa fa-trash fa-1x ms-2" style="cursor: pointer;" aria-hidden="true"></i>
                                     </li>
                                     <br>
