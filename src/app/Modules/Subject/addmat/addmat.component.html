@@ -14,7 +14,8 @@
             <input type="file" name="file" id="file" class="input" (change)="onFileSelected($event)">
         </div>
         <div class="button-group2">
-            <button class="submit-btn" type="submit">Save</button>
+            <button class="submit-btn" type="submit" [disabled]="isSubmitting">Save</button>
+            <button class="submit-btn ms-3" style="background-color: gray;" [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', storedModuleID, 'mat']">Cancel</button>
         </div>
     </form>
 </div>

@@ -129,64 +129,6 @@ export class DiscussionComponent implements OnInit {
     });
   }
 
-  // Cache
-  // loadDiscussions(discussionID: number) {
-  //   const cachedDiscussions = localStorage.getItem(`discussion_replies_${discussionID}`);
-  //   const cacheTimestamp = localStorage.getItem(`discussion_replies_timestamp_${discussionID}`);
-  //   const now = new Date().getTime();
-  
-  //   // If cached data exists and is less than 20 seconds old, use it
-  //   if (cachedDiscussions && cacheTimestamp && now - parseInt(cacheTimestamp) < 20000) {
-  //     this.discussions = JSON.parse(cachedDiscussions);
-  //     return; // Avoid API call
-  //   }
-  
-  //   // Otherwise, fetch from API and update the cache
-  //   this.apiService.viewDiscussionReplies(discussionID).subscribe((data: any) => {
-  //     const groupedDiscussions: any[] = [];
-  
-  //     let currentStudentReply: { user: string; date: any; answer: any; role: string; } | null = null;
-  
-  //     data.forEach((reply: any) => {
-  //       if (reply.lrn) { // Student reply
-  //         if (currentStudentReply) {
-  //           groupedDiscussions.push(currentStudentReply); 
-  //           currentStudentReply = null;
-  //         }
-  //         currentStudentReply = {
-  //           user: `${reply.student_firstname} ${reply.student_lastname}`,
-  //           date: reply.created_at,
-  //           answer: reply.reply,
-  //           role: 'student'
-  //         };
-  //       } else { // Teacher reply
-  //         if (currentStudentReply) {
-  //           groupedDiscussions.push(currentStudentReply);
-  //           currentStudentReply = null;
-  //         }
-  //         groupedDiscussions.push({
-  //           user: `${reply.teacher_firstname} ${reply.teacher_lastname}`,
-  //           date: reply.created_at,
-  //           answer: reply.reply,
-  //           role: 'teacher'
-  //         });
-  //       }
-  //     });
-  
-  //     if (currentStudentReply) {
-  //       groupedDiscussions.push(currentStudentReply);
-  //     }
-  
-  //     // Cache the results
-  //     localStorage.setItem(`discussion_replies_${discussionID}`, JSON.stringify(groupedDiscussions));
-  //     localStorage.setItem(`discussion_replies_timestamp_${discussionID}`, now.toString());
-  
-  //     this.discussions = groupedDiscussions;
-  //   });
-  // }
-  
-  
-
   // Submit a new discussion reply
   submitAnswer(){
     const newAnswer = this.discussionForm.value.answer;

@@ -93,6 +93,12 @@ body {
     background-color: #2980b9;
 }
 
+.submit-btn:disabled {
+    background-color: #d6d6d6; /* Gray */
+    color: #a1a1a1; /* Lighter gray text */
+    cursor: not-allowed;
+}
+
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     .card-container {

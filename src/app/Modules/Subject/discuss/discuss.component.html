@@ -57,19 +57,12 @@
         <span class="close" (click)="closeModal()">&times;</span>
         <form [formGroup]="createDiscussion" (ngSubmit)="save()">
             <h2>Add Discussion</h2>
-            <!-- <div class="input-group">
-                <label class="label">Lesson</label>
-                <select formControlName="lesson_id" name="typeOfQuestion" id="typeOfQuestion" class="input">
-                    <option *ngFor="let lesson of lessons" [value]="lesson.lesson_id">{{lesson.topic_title}}</option>
-                </select>
-            </div> -->
             <div class="input-group">
                 <label class="label">Discussion Question</label>
-                <!-- <input formControlName="discussion_topic" autocomplete="off" name="topicTitle" id="topicTitle" class="input" type="text"> -->
                 <textarea formControlName="discussion_topic" class="input2" autocomplete="off" name="topicTitle" id="topicTitle" rows="8"></textarea>
             </div>
             <div class="button-group2">
-                <button class="submit-btn">ADD</button>
+                <button class="submit-btn" [disabled]="isSubmitting">ADD</button>
             </div>
         </form>
     </div>

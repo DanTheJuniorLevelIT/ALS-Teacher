@@ -30,59 +30,30 @@
         <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'mat']"  routerLinkActive="active">
             <button class="nav-btn">Learning Material</button>
         </a>
-        <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'assess']"  routerLinkActive="active">
-            <button class="nav-btn">Assessment</button>
-        </a> -->
-        <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']"  routerLinkActive="active">
-            <button class="nav-btn">Discussion</button>
-        </a> -->
     </div>
-    <!-- <div class="notification-icon" (click)="openModal()">
-        <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
-    </div> -->
 </div>
 <div class="modules">
     <div class="module">
         <div class="students-table">
             <h2>{{lessonTitle}}</h2>
             <h3 class="text-lg font-bold mb-4">{{assessTitle}} <strong>Total: {{totalPoints}}pts</strong></h3>
-            <!-- <button (click)="autoCheck()" class="nav-btn">Auto Check</button> -->
             <table class="students-table">
                 <thead>
                     <tr>
                         <th>Student Name</th>
                         <th>Completed</th>
-                        <!-- <th>Score</th> -->
                         <th>
                             <div class="score-header">
                                 Score
                                 <button (click)="autoCheck()" class="nav-btn auto-check-btn"><i class="fa fa-check" aria-hidden="true"></i>Auto Check</button>
-                                <!-- <button class="nav-btn auto-check-btn"><i class="fa fa-check" aria-hidden="true"></i>Auto Check</button> -->
                             </div>
                         </th>
                     </tr>
                 </thead>
-                <!-- <tbody>
-                    <tr *ngFor="let student of students; let i = index">
-                        <td>{{ student.name }}</td>
-                        <td>
-                            <input type="checkbox" [(ngModel)]="student.completed">
-                        </td>
-                        <td class="check-header">
-                            {{ student.score }}
-                            <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/assess/question/checking' ]">
-                                <button class="nav-btn auto-check-btn">
-                                    <i class="fa fa-eye" aria-hidden="true"></i>
-                                </button>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody> -->
                 <tbody>
                     <tr *ngFor="let student of students">
                       <td>{{ student.firstname }} {{ student.lastname }}</td>
                       <td>
-                        <!-- <input type="checkbox" [(ngModel)]="student.completed"> -->
                         <input type="checkbox" [checked]="student.completed" disabled>
                       </td>
                       <td>{{ student.score || 'No grade yet' }}
@@ -93,7 +64,6 @@
                         </a>
                         <a (click)="navigateToViewFile(student.lrn, student.firstname, student.lastname)">
                             <button *ngIf="student.file != null" class="nav-btn auto-check-btn">
-                            <!-- <button class="nav-btn auto-check-btn"> -->
                                 <i class="fa fa-file-image-o" aria-hidden="true"></i>
                             </button>
                         </a>

@@ -23,7 +23,6 @@ export class ViewfileComponent implements OnInit {
   lname: any;
   fullname: any;
   lessonTitle: any;
-  // checkForm!: FormGroup;
   subjectID: number | null = null;
   aid: any;
   studScore: any;
@@ -105,15 +104,6 @@ export class ViewfileComponent implements OnInit {
       link.click(); // Trigger download for other files
     }
   }
-  
-
-  // Download file
-  // downloadFile(fileUrl: string) {
-  //   const link = document.createElement('a');
-  //   link.href = this.apiserv.getBaseUrl() + 'storage/Files/' + fileUrl;
-  //   link.download = fileUrl.split('/').pop() || 'downloaded-file';
-  //   link.click();
-  // }
 
   //working
   manualCheck(score: number) {

@@ -8,9 +8,7 @@
 							<!-- <h2 class="pb-3 text-center">Take Web Design to the Next Level - Start Today!</h2> -->
 							<div class="card-body text-center">
                                 <div class="">
-                                  <!-- <img src="assets/profilepic.jpg"
-                                    class=" img-fluid" style="width: 170px; padding: 10px;" /> -->
-									                  <img [src]="profilePic" (error)="profilePic = 'assets/icon.jpg'"  style="width: 170px; height: 170px; object-fit:cover; border-radius:20px; padding: 10px;" >
+									<img [src]="profilePic" (error)="profilePic = 'assets/icon.jpg'"  style="width: 170px; height: 170px; object-fit:cover; border-radius:20px; padding: 10px;" >
                                 </div>
                                 
 
@@ -21,17 +19,14 @@
 								<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 									<form action="" method="post" (ngSubmit)="uploadProfilePicture()" enctype="multipart/form-data">
-									  <div class="modal-content">
+										<div class="modal-content">
 										<div class="modal-header">
-										  <h5 class="modal-title" id="exampleModalLabel">Upload Profie Picture</h5>
-										  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											<h5 class="modal-title" id="exampleModalLabel">Upload Profie Picture</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
 										<div class="modal-body">
 												<input type="file" class="form-control" id="formFile" (change)="onFileSelect($event)">
 													<img *ngIf="profilePic != null" [src]="profilePic" alt="" style="width: 200px; height: 200px; object-fit: cover; margin-top: 10px;">
-                        <div>
-
-                        </div>
 										</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -40,7 +35,7 @@
 										</div>
 									</form>
 									</div>
-								  </div>
+								</div>
 
 
 
@@ -74,7 +69,7 @@
 					<div class="card  text-white text-left h-100">
 						<div class="card-body bg-light text-dark p-4 p-xl-5">
 							<form [formGroup]="updateForm" (ngSubmit)="onSubmit()" method="post">
-							  	<!-- Old Password -->
+							<!-- Old Password -->
 								<div class="mb-3">
 									<label class="form-label" for="oldPassword">Old Password</label>
 									<div class="input-group">
@@ -137,14 +132,11 @@
 									</div>
 									<small class="text-muted">{{ confirmPasswordCharCount }} / 8 characters</small>
 								</div>  
-  
-						  
-							  <!-- Submit Button -->
-							  <button class="btn btn-primary btn-lg" type="submit">Update</button>
-							  <p class="mt-3 small fst-italic text-light">*Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+								<!-- Submit Button -->
+								<button class="btn btn-primary btn-lg" type="submit">Update</button>
+								<p class="mt-3 small fst-italic text-light">*Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 							</form>
-						  </div>
-						  
+							</div>
 					</div>
 				</div>
 			</div>

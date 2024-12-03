@@ -17,19 +17,6 @@ interface Subject {
   templateUrl: './subject.component.html',
   styleUrl: './subject.component.css'
 })
-// export class SubjectComponent {
-
-//   isModalOpen = false;
-
-//   openModal() {
-//     this.isModalOpen = true;
-//   }
-
-//   closeModal() {
-//     this.isModalOpen = false;
-//   }
-
-// }
 
 export class SubjectComponent implements OnInit{
   isModalOpen = false;
@@ -90,7 +77,6 @@ export class SubjectComponent implements OnInit{
     localStorage.setItem('classid', classid.toString());
 
     // Navigate to the modules page
-    // this.route.navigate(['/main/Subject/main/subject/modulesmain', classid, 'modules']);
     this.route.navigate(['/main/Subject/main/subject/modulesmain', classid]);
   }
 }

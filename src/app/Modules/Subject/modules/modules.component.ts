@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 export class ModulesComponent implements OnInit {
 
   isLoading: boolean = false; // This controls the loader visibility
+  isSubmitting: boolean = false; // Tracks submission state
   
   subjectID: number | null = null;
   storedSubjectID: any;
@@ -99,6 +100,7 @@ export class ModulesComponent implements OnInit {
 
   save() {
     if (this.createModule.valid) {
+      this.isSubmitting = true; // Disable the button
       this.apiService.createMods(this.createModule.value).subscribe(
         (response) => {
           Swal.fire({
@@ -110,14 +112,16 @@ export class ModulesComponent implements OnInit {
           this.closeModal(); // Close the modal after creation
           this.getModules(this.storedSubjectID); // Reload the module list
           this.createModule.reset();  // Reset the createModule form
+          this.isSubmitting = false; // Re-enable the button
         },
         (error) => {
           Swal.fire({
             title: "Error",
-            text: "Error Creating Module. Please fill all the input fields",
+            text: "The date cannot be earlier than today.",
             icon: "error"
           });
           console.error('Error creating module:', error);
+          this.isSubmitting = false; // Re-enable the button
         }
       );
     }

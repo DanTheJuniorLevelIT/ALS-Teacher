@@ -12,9 +12,9 @@
         <table class="message-table">
             <thead>
             <tr>
-                <th>Date</th>
+                <th>Name</th>
                 <th>Message</th>
-                <th>Sender</th>
+                <th>Date</th>
             </tr>
             </thead>
             <div class="loader-container" *ngIf="isLoading">
@@ -22,9 +22,9 @@
             </div>
             <tbody *ngIf="!isLoading">
                 <tr *ngFor="let msg of messages" (click)="viewMessage(msg)">
-                    <td>{{ msg.created_at | date:'medium' }}</td>
+                    <td>{{ (msg.lastname + ', ' + msg.firstname) }}</td> <!-- Use sender_name -->
                     <td>{{ msg.messages }}</td>
-                    <td>{{ msg.sender_name || (msg.lastname + ', ' + msg.firstname) }}</td> <!-- Use sender_name -->
+                    <td>{{ msg.created_at | date:'MMMM d, y, h:mm a' }}</td>
                 </tr>
             </tbody>
         </table>          
@@ -68,7 +68,7 @@
             </div>
 
             <div class="form-actions">
-                <button type="button" class="btn btn-primary" (click)="sendMessage()">Send</button>
+                <button type="button" class="btn btn-primary" (click)="sendMessage()" [disabled]="isSubmitting">Send</button>
                 <button type="button" class="btn btn-secondary" (click)="closeModal2()">Cancel</button>
             </div>
         </form>

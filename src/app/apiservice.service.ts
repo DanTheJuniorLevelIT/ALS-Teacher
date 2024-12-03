@@ -54,6 +54,16 @@ export class ApiserviceService {
     return this.http.get(this.url + 'api/subjects/showAll', { headers });
   }
 
+  getStudentsByClass(cid: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/subjects/getStudentsByClass/${cid}`, { headers });
+  }
+
+  getAssessmentsByClass(cid: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/subjects/getAssessmentsByClass/${cid}`, { headers });
+  }
+
   getSubModules(id: any){
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.get(`${this.url}api/modules/${id}`, { headers });
@@ -103,11 +113,6 @@ export class ApiserviceService {
     return this.http.post(`${this.url}api/subjects/discussion/reply`, data, { headers });
   }
 
-  updateDueDate(assessmentID: number, newDueDate: string) {
-    const headers = {'Authorization': 'Bearer ' + this.token};
-    return this.http.put(this.url + `api/assessment/update-due-date/${assessmentID}`, { due_date: newDueDate }, { headers });
-  }
-
   countDiscussion(lessId: any){
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.get(`${this.url}api/subjects/discussion/${lessId}`, { headers });
@@ -134,6 +139,11 @@ export class ApiserviceService {
   getAssessmentDetails(id: any){
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.get(`${this.url}api/subjects/showAssessment/${id}`, { headers });
+  }
+
+  updateAvailability(assessmentID: number, available: number) {
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.put(this.url + `api/assessment/updateAvailability/${assessmentID}`, { available }, { headers });
   }
 
   createQuestion(data: any){
@@ -184,6 +194,21 @@ export class ApiserviceService {
   getStudentAnswers (id: any, lrnid: any){
     const headers = { 'Authorization': 'Bearer ' + this.token };
     return this.http.get(`${this.url}api/subjects/checking/${id}/${lrnid}`, { headers });
+  }
+
+  getTotalPoints(aid: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/subjects/assessTotalPoints/${aid}`, { headers });
+  }
+
+  getSingleAssessment(id: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/subjects/assessments/${id}`, { headers });
+  }
+
+  updateAssessment(id: any, data: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+      return this.http.post(`${this.url}api/subjects/assessments/${id}`, data, { headers });
   }
 
   // END

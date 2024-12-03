@@ -101,6 +101,12 @@
 .reply-box button:hover {
     background-color: #0F3041;
 }
+
+.reply-box button:disabled {
+  background-color: #d6d6d6; /* Gray */
+  color: #a1a1a1; /* Lighter gray text */
+  cursor: not-allowed;
+}
   
   .notification-icon {
     cursor: pointer;
@@ -267,6 +273,12 @@
 
 .btn-primary:hover {
     background-color: #a81f27;
+}
+
+.btn-primary:disabled {
+  background-color: #d6d6d6; /* Gray */
+  color: #a1a1a1; /* Lighter gray text */
+  cursor: not-allowed;
 }
   
   /* Media query for responsiveness */

@@ -57,7 +57,7 @@ loadStudents(){
   this.apiserv.getStudents(this.subjectID, this.assessmentID).subscribe(
     (data: any) => {
       this.students = data.status;
-      this.totalPoints = data.total_points;
+      this.totalPoints = data.total_points; 
       // this.students = data.score;
       console.log("Students: ", data.status);
     },
@@ -66,21 +66,6 @@ loadStudents(){
     }
   );
 }
-
-
-//1st Approach
-// autoCheck() {
-//   this.apiserv.autoCheck(this.subjectID, this.assessmentID).subscribe(
-//     (data) => {
-//       // Update the students list with the completion and score data
-//       this.students = data;
-//       console.log('Auto Check Completed', data);
-//     },
-//     (error) => {
-//       console.error('Error performing auto-check', error);
-//     }
-//   );
-// }
 
 //2nd Approach
 autoCheck() {
@@ -122,7 +107,6 @@ autoCheck() {
     // Store the subjectID in localStorage
   
     // Navigate to the modules page
-    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
     this.router.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', this.moduleID, 'assess', 'question', storedAssessmentID, 'checking']);
   }
 
@@ -135,7 +119,6 @@ autoCheck() {
     // Store the subjectID in localStorage
   
     // Navigate to the modules page
-    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
     this.router.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', this.moduleID, 'assess', 'question', storedAssessmentID, 'file']);
   }
 

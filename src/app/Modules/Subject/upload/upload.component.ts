@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ApiserviceService } from '../../../apiservice.service';
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-upload',
@@ -18,6 +19,9 @@ import { HttpClient } from '@angular/common/http';
 
 
 export class UploadComponent implements OnInit{
+
+  isSubmitting: boolean = false; // Tracks submission state
+
   constructor(
     private apiserv: ApiserviceService, 
     private router: Router, 
@@ -86,19 +90,31 @@ export class UploadComponent implements OnInit{
     const storedSubjectID = localStorage.getItem('classid');
     const storedModuleID = localStorage.getItem('moduleid');
     this.lessonId = localStorage.getItem('Lesson Id');
+    this.isSubmitting = true; // Disable the button
     if (this.selectedFile) {
       this.apiserv.uploadFile(this.lessonId, this.selectedFile).subscribe(
         (response) => {
           console.log('File uploaded successfully:', response);
           this.router.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', storedModuleID, 'mat']);
+          this.isSubmitting = false;
         },
         (error) => {
           console.error('Error uploading file:', error);
-          alert('Error uploading file');
+          Swal.fire({
+            title: "Error",
+            text: "Error Error Uploading File: " + error,
+            icon: "error"
+          });
+          this.isSubmitting = false;
         }
       );
     } else {
-      alert('No file selected or lesson ID missing');
+      Swal.fire({
+        title: "Error",
+        text: "No file selected or lesson ID missing",
+        icon: "error"
+      });
+      this.isSubmitting = false;
     }
   }
 }

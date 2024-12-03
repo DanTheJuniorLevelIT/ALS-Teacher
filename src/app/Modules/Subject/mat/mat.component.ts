@@ -1,7 +1,7 @@
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ApiserviceService } from '../../../apiservice.service';
 import Swal from 'sweetalert2';
@@ -17,6 +17,8 @@ import Swal from 'sweetalert2';
 export class MatComponent implements OnInit{
 
   isLoading: boolean = false; // This controls the loader visibility
+  isEditModalOpen = false; // To control edit modal visibility
+  isSubmitting: boolean = false; // Tracks submission state
 
   subjectID: number | null = null;
   moduleID: any;
@@ -36,8 +38,19 @@ export class MatComponent implements OnInit{
     private router: Router,
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
-    private viewportScroller: ViewportScroller
-  ) {}
+    private viewportScroller: ViewportScroller,
+    private fb: FormBuilder
+  ) {
+    this.editAssessmentForm = this.fb.group({
+      assessmentID: [''], // Hidden field for the ID
+      title: ['', Validators.required],
+      instruction: ['', Validators.required],
+      description: ['', Validators.required],
+      due_date: ['', Validators.required],
+  });
+  }
+
+  editAssessmentForm: FormGroup; // Reactive form for editing
 
   createAssessment = new FormGroup({
     title: new FormControl(null),
@@ -138,11 +151,6 @@ export class MatComponent implements OnInit{
         this.assess = response;
         console.log(this.assess);
 
-        this.assess.forEach((assessment: any) => {
-          const dueDate = new Date(assessment.Due_date);
-          assessment.isOpen = dueDate > today ? true : false; // Close if due date has passed
-        });
-
         this.lessons.forEach((lesson: any) => {
           lesson.filteredAssessments = this.assess.filter(
             (a: any) => a.lesson_id === lesson.lesson_id
@@ -190,11 +198,7 @@ export class MatComponent implements OnInit{
 
   save() {
     if (this.createAssessment.valid) {
-      // const data = {
-      //   ...this.createAssessment.value
-      //   // subjectID: this.subjectID // Include subjectID if needed in your backend
-      // };
-
+      this.isSubmitting = true; // Disable the button
       this.apiService.createAssess(this.createAssessment.value).subscribe(
         response => {
           console.log('Assessment created:', response);
@@ -206,13 +210,15 @@ export class MatComponent implements OnInit{
           this.closeModal2(); // Close the modal
           // Optionally, navigate to another page
           // this.router.navigate(['/some-route']);
+          this.isSubmitting = false;
         },
         error => {
           console.error('Error creating assessment:', error);
           Swal.fire({
-            title: "Error creating assessment",
+            title: 'The due date cannot be earlier than today.',
             icon: "error"
           });
+          this.isSubmitting = false;
         }
       );
     } else {
@@ -221,6 +227,7 @@ export class MatComponent implements OnInit{
         title: "A Form is not valid",
         icon: "error"
       });
+      this.isSubmitting = false;
     }
   }
 
@@ -229,14 +236,15 @@ export class MatComponent implements OnInit{
     if (!assessment.isOpen) {
       // Set a new due date (e.g., one day from today)
       const newDueDate = this.calculateNewDueDate();
+      const newStatus = assessment.available === 0 ? 1 : 0;
   
       // Call the API to update the due date
-      this.apiService.updateDueDate(assessment.assessmentID, newDueDate).subscribe(
+      this.apiService.updateAvailability(assessment.assessmentID, newStatus).subscribe(
         (response: any) => {
           console.log(response.message);
           // Update the UI to reflect the change
           assessment.isOpen = true;
-          assessment.Due_date = newDueDate;
+          assessment.available = newStatus;
         },
         (error) => {
           console.error('Error updating due date:', error);
@@ -386,7 +394,51 @@ export class MatComponent implements OnInit{
       }
     });
   }
+
+  // Open edit modal and populate form with assessment details
+  editAssessment(id: any) {
+    this.apiService.getSingleAssessment(id).subscribe((assessment: any) => {
+        this.editAssessmentForm.patchValue({
+            assessmentID: assessment.assessmentid,
+            title: assessment.title,
+            instruction: assessment.instruction,
+            description: assessment.description,
+            due_date: assessment.due_date,
+        });
+        // localStorage.setItem('aid', assessment.assessmentid)
+        this.isEditModalOpen = true;
+    });
+  }
+
+  closeEditModal() {
+    this.isEditModalOpen = false;
+  }
   
+  // Save edited assessment
+  saveEditedAssessment() {
+    // console.log(localStorage.getItem('aid'));
+    if (this.editAssessmentForm.valid) {
+        const updatedAssessment = this.editAssessmentForm.value;
+        this.apiService.updateAssessment(updatedAssessment.assessmentID, updatedAssessment).subscribe(
+            (response: any) => {
+                console.log('Assessment updated successfully', response);
+                this.loadAssessments(); // Refresh the list
+                Swal.fire({
+                  title: "Updated Assessment",
+                  icon: "success"
+                });
+                this.isEditModalOpen = false; // Close modal
+            },
+            (error) => {
+                console.error('Error updating assessment:', error);
+                Swal.fire({
+                  title: "Error Updating Assessment",
+                  icon: "error"
+                });
+            }
+        );
+    }
+  }
 
   deleteFile(lesson_id: number) {
     // Show confirmation dialog using SweetAlert

@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 export class ModulesmainComponent implements OnInit{
   
   announcementForm!: FormGroup;
+  isSubmitting: boolean = false; // Tracks submission state
 
   subjectId: number | null = null;
   subjectDetail: any;
@@ -42,10 +43,6 @@ export class ModulesmainComponent implements OnInit{
   closeModal() {
     this.isModalOpen = false;
   }
-
-  // toggleModal() {
-  //   this.isModalOpen = !this.isModalOpen;
-  // }
 
    // Open the modal with pre-populated data if an announcement exists
   toggleModal() {
@@ -89,37 +86,8 @@ export class ModulesmainComponent implements OnInit{
     );
   }
 
-  // addAnnouncement(titleInput: HTMLInputElement, instructionInput: HTMLTextAreaElement) {
-  //   const announcementPayload = {
-  //     subjectID: this.classid,
-  //     title: titleInput.value,
-  //     instruction: instructionInput.value
-  //   };
-
-  //   console.log('Payload:', announcementPayload);
-
-  //   this.apiserv.createAnnouncement(announcementPayload).subscribe(result => {
-  //     this.viewAnnouncement();
-  //     // Reset the form fields
-  //     this.resetForm(titleInput, instructionInput);
-  //   });
-  // }
-
-  // Add or update announcement
-  // addAnnouncement(titleInput: HTMLInputElement, instructionInput: HTMLTextAreaElement) {
-  //   const announcementPayload = {
-  //     subjectID: this.classid,
-  //     title: this.newAnnouncementTitle,
-  //     instruction: this.newAnnouncementInstruction
-  //   };
-
-  //   this.apiserv.createAnnouncement(announcementPayload).subscribe(result => {
-  //     this.viewAnnouncement();
-  //     this.resetForm();
-  //   });
-  // }
-
   addAnnouncement(titleInput: HTMLInputElement, instructionInput: HTMLTextAreaElement) {
+    this.isSubmitting = true;
     // If both fields are empty, delete the announcement
     if (!this.newAnnouncementTitle.trim() && !this.newAnnouncementInstruction.trim()) {
       this.deleteAnnouncement();
@@ -136,6 +104,7 @@ export class ModulesmainComponent implements OnInit{
     this.apiserv.createAnnouncement(announcementPayload).subscribe(result => {
       this.viewAnnouncement();
       this.resetForm();
+      this.isSubmitting = false;
     });
   }
 
@@ -173,29 +142,6 @@ export class ModulesmainComponent implements OnInit{
       }
     })
   }
-
-  // viewAnnouncement() {
-  //   this.apiserv.getAnnouncement(this.classid).subscribe((response: any) => {
-  //     this.announcements = response.announce;
-  //     this.announcementid = response.announceid;
-  //     if (this.announcementid === this.classid) {
-  //       Swal.fire({
-  //         icon: "question",
-  //         title: "There is still an Announcement",
-  //         toast: true,
-  //         position: "top-end",
-  //         showConfirmButton: false,
-  //         timer: 2000,
-  //         timerProgressBar: true,
-  //       });
-  //     }
-  //   });
-  // }
-
-  // resetForm(titleInput: HTMLInputElement, instructionInput: HTMLTextAreaElement) {
-  //   titleInput.value = '';
-  //   instructionInput.value = '';
-  // }
 
   resetForm() {
     this.newAnnouncementTitle = '';

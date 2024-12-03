@@ -14,6 +14,8 @@ import Swal from 'sweetalert2'
 })
 export class QuestionComponent implements OnInit{
 
+  isSubmitting: boolean = false; // Tracks submission state
+
   qid: any;
   res: any;
 
@@ -33,6 +35,7 @@ export class QuestionComponent implements OnInit{
 
   completedCount: number = 0;
   totalStudents: number = 0;
+  totalPoints: any;
 
   isModalOpen = false;
   isEditing = false; // To track if we are in edit mode
@@ -61,22 +64,25 @@ export class QuestionComponent implements OnInit{
       this.assessmentID = storedAssessmentID;
       this.moduleTitle = storedModuleTitle;
       this.loadQuestions();
+      this.getTotalPoints();
       this.loadCompletion(); 
       console.log('Retrieved Subject ID from localStorage:', this.assessmentID);
     } else {
       console.error('No ClassID found in localStorage.');
     }
-
-    // this.apiService.getQuestion(this.assessmentID).subscribe((response: any)=>{
-    //   this.questions = response
-    //   console.log(this.questions);
-    // })
     
 
     this.apiService.getAssessmentDetails(this.assessmentID).subscribe((response: any)=>{
       this.det = response
       console.log(this.det);
     });
+  }
+
+  getTotalPoints(){
+    this.apiService.getTotalPoints(this.assessmentID).subscribe((response: any)=>{
+      this.totalPoints = response;
+      console.log(response);
+    })
   }
 
   // Function to add an empty option field
@@ -123,6 +129,7 @@ export class QuestionComponent implements OnInit{
 
   editQuestion(id: any) {
     this.isEditing = true;
+    this.isSubmitting = true; // Disable the button
     this.selectedQuestion = this.questions.find((q: any) => q.question_id === id);
   
     // Pre-fill the form fields with selected question data
@@ -177,6 +184,8 @@ addQuestion() {
     options: this.getOptions()
   };
 
+  this.isSubmitting = true; // Disable the button
+
   if (this.isEditing) {
     // Update existing question
     this.apiService.editQuestion(questionPayload).subscribe(
@@ -186,7 +195,9 @@ addQuestion() {
           icon: "success"
         });
         this.loadQuestions();
+        this.getTotalPoints();
         this.closeModal();
+        this.isSubmitting = false;
       },
       error => {
         console.error('Error updating question', error);
@@ -194,6 +205,7 @@ addQuestion() {
           title: "Error Updating Question",
           icon: "error"
         });
+        this.isSubmitting = false;
       }
     );
   } else {
@@ -203,6 +215,7 @@ addQuestion() {
         title: "Please enter at least two valid options.",
         icon: "warning"
       });
+      this.isSubmitting = false;
       return;
     }    
     // Add new question
@@ -222,7 +235,9 @@ addQuestion() {
         });
         // this.questions.push(newQuestion);
         this.loadQuestions();
+        this.getTotalPoints();
         this.closeModal();
+        this.isSubmitting = false;
       },
       error => {
         console.error('Error adding question', error);
@@ -230,6 +245,7 @@ addQuestion() {
           title: "Error adding question",
           icon: "error"
         });
+        this.isSubmitting = false;
       }
     );
   }
@@ -253,19 +269,11 @@ deleteQuestion(){
         this.res = response.status;
         console.log('Message: ', this.res);
         this.loadQuestions();
+        this.getTotalPoints();
         this.closeModal();
       })
     }
   });
-  // this.qid = this.selectedQuestion.question_id;
-  // console.log('Question ID: ',this.qid);
-
-  // this.apiService.deleteQuestion(this.qid).subscribe((response: any)=>{
-  //   this.res = response.status;
-  //   console.log('Message: ', this.res);
-  //   this.loadQuestions();
-  //   this.closeModal();
-  // })
 }
 
 resetForm() {

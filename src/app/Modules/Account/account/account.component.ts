@@ -48,21 +48,6 @@ export class AccountComponent implements OnInit{
     console.log(this.id);
     this.profilePic = localStorage.getItem('profile_picture');
     this.admin = this.getAdminDetails();
-    // this.getLearnerInfo(this.id);
-    // if (token) {
-    //   this.studentservice.getLearnerByToken(token).subscribe({
-    //     next: (data) => {
-    //       this.learner = data;
-    //       // Assuming the id is a property of the returned data
-          
-    //     },
-    //     error: (err) => {
-    //       console.error('Error fetching learner data', err);
-    //     }
-    //   });
-    // } else {
-    //   console.error('No Token Found. User is not authenticated');
-    // }
   }
 
   // Method to toggle password visibility

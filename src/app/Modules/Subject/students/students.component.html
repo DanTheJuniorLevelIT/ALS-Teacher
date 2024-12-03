@@ -1,86 +1,57 @@
-<!-- <div class="container">
-    <div class="sidebar">
-        <div class="course-details">
-            <img src="./assets/SCTS.jfif" alt="Profile Picture" class="profile-pic">
-            <h2>Scientific and critical thinking</h2>
-            <h6>8:00AM - 9:00AM</h6>
-        </div>
-        <ul>
-            <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">Modules</a></li>
-            <li><a [routerLink]="['/main/Subject/main/students']">Students</a></li>
-        </ul>
-    </div>
-    <div class="main-content">
-        <div class="header">
-            <h1>Students</h1>
-        </div>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let student of students; let i = index">
-                        <td>{{ student.name }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div> -->
-
-<div class="container">
-    <div class="sidebar">
-      <div class="course-details">
-        <img src="./assets/SCTS.jfif" alt="Profile Picture" class="profile-pic">
-        <h2>Scientific and critical thinking</h2>
-        <h6>8:00AM - 9:00AM</h6>
-      </div>
-      <ul>
-        <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/modules']">Modules</a></li>
-        <li><a href="#">Students</a></li>
-      </ul>
-    </div>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+          <a [routerLink]="['/main/Subject/main']">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+          <a [routerLink]="['/main/Subject/main/subject']">
+              Subjects
+          </a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Students</li>
+  </ol>
+</nav>
+  <div class="container">
     <div class="main-content">
       <div class="header">
-        <h1>Students</h1>
+        <h1>Students Enrolled</h1>
+        <span class="badge2">{{ total }} Students</span>
       </div>
+  
       <div class="table-container">
         <table>
           <thead>
             <tr>
               <th>Name</th>
-              <th *ngFor="let activity of activities">{{ activity.name }} <br>({{ activity.totalScore }} pts)</th>
-            </tr>
-            <tr>
-              <th></th>
-              <th *ngFor="let activity of activities"><i style="cursor: pointer;" class="fa fa-check"></i></th>
+              <th>Birthdate</th>
+              <th>Gender</th>
+              <th>Last Education</th>
+              <th>Program</th>
+              <th>Contact</th>
             </tr>
           </thead>
           <tbody>
-            <!-- <tr *ngFor="let student of students">
-              <td>{{ student.name }}</td>
-              <td *ngFor="let activity of activities">
-                <i class="fa" [ngClass]="student.completedActivities.includes(activity.id) ? 'fa-check text-success' : 'fa-times text-danger'"></i>
-              </td>
-            </tr> -->
-            <tr *ngFor="let student of students">
-                <td>{{ student.name }}</td>
-                <td *ngFor="let activity of activities">
-                  <i class="fa" 
-                     [ngClass]="student.completedActivities.includes(activity.id) ? 'fa-check text-success' : 'fa-times text-danger'">
-                  </i>
-                  <span *ngIf="student.completedActivities.includes(activity.id)" [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/assess/question/checking' ]">
-                    <br>{{ getScore(student, activity.id) }} pts
-                  </span>
+            <ng-container *ngIf="students.length; else noStudents">
+              <tr *ngFor="let student of students; let i = index" [class.alt-row]="i % 2 === 1">
+                <td>{{ student.firstname + ' ' + (student.middlename || '') + ' ' + student.lastname }}</td>
+                <td>{{ student.birthdate | date: 'MMMM d, yyyy' }}</td>
+                <td>{{ student.gender }}</td>
+                <td>{{ student.last_education }}</td>
+                <td>
+                  <span class="badge">{{ student.program }}</span>
                 </td>
+                <td>{{ student.contact_numbers || 'N/A' }}</td>
               </tr>
+            </ng-container>
           </tbody>
+          <ng-template #noStudents>
+            <tr>
+              <td colspan="7" style="text-align: center;">No students enrolled in this class.</td>
+            </tr>
+          </ng-template>
         </table>
       </div>
     </div>
   </div>
+  
   

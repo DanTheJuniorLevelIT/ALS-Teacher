@@ -77,24 +77,5 @@ export class MainComponent implements OnInit{
         }
       }
     });
-    // if (token) {
-    //   this.api.outAdmin(token).subscribe(
-    //     (response: any) => {
-    //       console.log(response);
-    //       localStorage.removeItem('authToken'); // Remove the token from localStorage
-    //       this.route.navigate(['/login']);      // Navigate to the login page
-    //     },
-    //     error => {
-    //       if (error.status === 401) {
-    //         console.error('Unauthenticated. Please login again.');
-    //         this.route.navigate(['/login']);  // Redirect to login if unauthenticated
-    //       } else {
-    //         console.error('Logout error:', error);
-    //       }
-    //     }
-    //   );
-    // } else {
-    //   console.error('No token found for logout');
-    // }
   }
 }

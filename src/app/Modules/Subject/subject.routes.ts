@@ -24,6 +24,8 @@ export const subjectRoute: Routes = [
             { path: 'subject/modulesmain/:id', component: ModulesmainComponent,
                 children: [
                     { path: 'modules', component: ModulesComponent },
+                    { path: 'students', component: StudentsComponent },
+                    { path: 'assessments', component: AssessmentComponent },
                     { path: 'modules/:moduleid/mat', component: MatComponent }, // Dynamic moduleid for mat
                     { path: 'modules/:moduleid/addmat', component: AddmatComponent },
                     { path: 'modules/:moduleid/updateLesson', component: UpdateLessonComponent },
@@ -37,7 +39,6 @@ export const subjectRoute: Routes = [
                     { path: 'modules/:moduleid/assess/question/:questionid/checking', component: CheckComponent },
                     { path: 'modules/:moduleid/assess/question/:questionid/file', component: ViewfileComponent },
                     { path: '', redirectTo: 'modules', pathMatch: 'full' }
-                    // { path: 'modules/discuss/:id/discussion', component: DiscussionComponent},
                 ]
             },
             { path: '', redirectTo: 'subject', pathMatch: 'full' }

@@ -1,16 +1,16 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        <a [routerLink]="['/main/Subject/main']">Home</a>
-      </li>
-      <li class="breadcrumb-item">
-        <a [routerLink]="['/main/Subject/main/subject']">
-            Subjects
-        </a>
-      </li>
-      <li class="breadcrumb-item active" aria-current="page">Modules</li>
+        <li class="breadcrumb-item">
+            <a [routerLink]="['/main/Subject/main']">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a [routerLink]="['/main/Subject/main/subject']">
+                Subjects
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Modules</li>
     </ol>
-  </nav>
+</nav>
         <div class="header">
             <h1>My Modules</h1>
             <div class="notification-icon" (click)="openModal()" *ngIf="!isLoading">
@@ -60,7 +60,7 @@
                     <input formControlName="date" autocomplete="date" name="date" id="date" class="input2" type="date">
                 </div>
             <div class="button-group">
-                <button class="submit-btn">ADD</button>
+                <button class="submit-btn" [disabled]="isSubmitting">ADD</button>
             </div>
         </form>
     </div>

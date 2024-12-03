@@ -25,6 +25,7 @@
     </ol>
 </nav>
 <div class="modules">
+  <h1 style="text-align: center;">{{moduleTitle}}</h1>
   <div class="discussion-container">
     <h2>{{lessonTitle}}</h2>
       <div class="question-section">
@@ -42,7 +43,6 @@
                   <div class="answer-user">{{ discussion.user }}</div>
                   <div class="answer-date">{{ discussion.date | date:'medium' }}</div>
                   <div class="answer-text"><p [innerHTML]="transformText(discussion.answer)"></p></div>
-                  <!-- <div class="answer-text">{{ discussion.answer }}</div> -->
               </div>
           </div>
       </div>

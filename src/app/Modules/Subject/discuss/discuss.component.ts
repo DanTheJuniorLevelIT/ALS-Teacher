@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 export class DiscussComponent implements OnInit{
 
   isLoading: boolean = false; // This controls the loader visibility
+  isSubmitting: boolean = false; // Tracks submission state
 
   subjectID: number | null = null;
   moduleID: any;
@@ -56,14 +57,6 @@ export class DiscussComponent implements OnInit{
         if (storedLessonID) {
           this.loadDiscussion(storedLessonID);
         }
-        // this.route.queryParams.subscribe(params => {
-        //   const lessTitle = params['lessTitle'];
-        //   const lessonId = params['lessonId'];
-        //   this.lessonTitle = lessTitle;
-        //   if (lessonId) {
-        //       this.loadDiscussion(lessonId);
-        //   }
-        // });
       });
       console.log('Retrieved Subject ID from localStorage:', this.subjectID);
     } else {
@@ -109,6 +102,7 @@ export class DiscussComponent implements OnInit{
   }
 
   save(){
+    this.isSubmitting = true;
     this.apiService.createDiscussion(this.createDiscussion.value).subscribe((response: any)=>{
       console.log("Discussion Created: ", response)
       Swal.fire({
@@ -117,7 +111,6 @@ export class DiscussComponent implements OnInit{
       });
       this.closeModal();
       this.createDiscussion.get('discussion_topic')?.reset();
-      // this.loadDiscussion(localStorage.getItem('lessonid'));
       this.route.queryParams.subscribe(params => {
         const lessonId = params['lessonId'];
         const lessTitle = params['lessTitle'];
@@ -126,6 +119,7 @@ export class DiscussComponent implements OnInit{
             this.loadDiscussion(lessonId);
         }
       });
+      this.isSubmitting = false;
     })
   }
 
@@ -138,7 +132,6 @@ export class DiscussComponent implements OnInit{
     localStorage.setItem('lessTitle', lesTitle);
 
     // Navigate to the modules page
-    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
     this.router.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', this.moduleID, 'discuss', did, 'discussion']);
   }
 

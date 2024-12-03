@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 export class MessageComponent implements OnInit{
 
   isLoading: boolean = false; // This controls the loader visibility
+  isSubmitting: boolean = false; // Tracks submission state
 
   private intervalId: any; // To store the interval reference
   isModalOpen = false;
@@ -26,20 +27,24 @@ export class MessageComponent implements OnInit{
   selectedRecipient: string = ''; 
   
   selectedMessage: any = null;
+  selectedMessageID: any;
   replyText: string = '';
 
   viewMessage(msg: any) {
     this.selectedMessage = msg;
+    this.selectedMessageID = msg.messageid;
     this.isModalOpen3 = true;
   }
 
   sendReply(lrn: any) 
   {
+    this.isSubmitting = true;
       if (this.replyText.trim()) {
           const replyPayload = {
               lrn: lrn,
               messages: this.replyText,
               adminID: localStorage.getItem('id'), // Assuming the sender is the logged-in admin
+              mid: this.selectedMessageID
           };
 
           this.apiserve.sendReply(replyPayload).subscribe(
@@ -56,14 +61,24 @@ export class MessageComponent implements OnInit{
                   this.isModalOpen3 = false;
                   this.replyText = ''; // Clear the reply box
                   this.loadMessage(localStorage.getItem('id')); // Reload messages to show the updated one
+                  this.isSubmitting = false;
               },
               error => {
                   console.error('Error sending reply:', error);
-                  alert('Failed to send reply.');
+                  Swal.fire({
+                    title: "Error",
+                    text: "Failed to send Reply",
+                    icon: "error"
+                  });
+                  this.isSubmitting = false;
               }
           );
       } else {
-          alert('Reply cannot be empty.');
+        Swal.fire({
+          title: "Error",
+          text: "Reply cannot be empty",
+          icon: "error"
+        });
       }
   }
 
@@ -161,7 +176,7 @@ export class MessageComponent implements OnInit{
       messages: messageText,
       adminID: localStorage.getItem('id'), // Assuming adminID is stored in localStorage
     };
-  
+    this.isSubmitting = true;
     this.apiserve.sendMessage(messagePayload).subscribe(
       response => {
         console.log('Message sent successfully:', response);
@@ -175,10 +190,16 @@ export class MessageComponent implements OnInit{
         });
         this.closeModal2();
         this.loadMessage(localStorage.getItem('id')); // Reload messages to update the list
+        this.isSubmitting = false;
       },
       error => {
         console.error('Error sending message:', error);
-        alert('Failed to send message.');
+        Swal.fire({
+          title: "Error",
+          text: "Failed to send Message",
+          icon: "error"
+        });
+        this.isSubmitting = false;
       }
     );
   }

@@ -20,9 +20,6 @@ export class HomeComponent implements OnInit{
   teacherid: any;
   messages: any;
 
-
-  // constructor(private apiserv: ApiserviceService){}
-
   isModalOpen = false;
   currentDate: Date;
 
@@ -49,12 +46,6 @@ export class HomeComponent implements OnInit{
   toggleNotifications(): void {
     this.notificationsOpen = !this.notificationsOpen;
   }
-
-  // ngOnInit(): void {
-  //   // setInterval(() => {
-  //   //   this.currentDate = new Date();
-  //   // }, 60000);
-  // }
 
   ngOnInit() {
     this.loadClasses();
@@ -110,7 +101,6 @@ export class HomeComponent implements OnInit{
     localStorage.setItem('classid', classid.toString());
 
     // Navigate to the modules page
-    // this.route.navigate(['/main/Subject/main/subject/modulesmain', classid, 'modules']);
     this.route.navigate(['/main/Subject/main/subject/modulesmain', classid]);
   }
 
