@@ -15,8 +15,11 @@ import Swal from 'sweetalert2';
 })
 export class CheckComponent implements OnInit {
 
+  assessTitle: any;
+
   fname: any;
   lname: any;
+  fullname: any;
   lessonTitle: any;
   subjectID: number | null = null;
   studScore: any;
@@ -36,13 +39,15 @@ export class CheckComponent implements OnInit {
   isTeacher: boolean = true;
 
   ngOnInit(): void {
+    this.assessTitle = localStorage.getItem('assessTitle');
     const first = localStorage.getItem('fname');
     const last = localStorage.getItem('lname');
     this.fname = first;
     this.lname = last;
+    this.fullname = this.fname + ' ' + this.lname;
     // Retrieve the subjectID from localStorage
     this.lessonTitle = localStorage.getItem('lessTitle');
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     const storedAssessmentID = localStorage.getItem('assid');
     const storedModuleID = localStorage.getItem('moduleid');
     const storedLearnerID = localStorage.getItem('lrn');

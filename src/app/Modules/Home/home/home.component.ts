@@ -18,9 +18,7 @@ export class HomeComponent implements OnInit{
   shl: any;
   authtoken: any;
   teacherid: any;
-
-
-  // constructor(private apiserv: ApiserviceService){}
+  messages: any;
 
   isModalOpen = false;
   currentDate: Date;
@@ -49,16 +47,11 @@ export class HomeComponent implements OnInit{
     this.notificationsOpen = !this.notificationsOpen;
   }
 
-  // ngOnInit(): void {
-  //   // setInterval(() => {
-  //   //   this.currentDate = new Date();
-  //   // }, 60000);
-  // }
-
   ngOnInit() {
     this.loadClasses();
     const id = localStorage.getItem('id');
     this.teacherid = id;
+    this.loadMessage(id);
     // this.apiserv.getSubjects().subscribe(
     this.apiserv.getTeacherSubjects(this.teacherid).subscribe(
       (response: any) => {
@@ -74,22 +67,41 @@ export class HomeComponent implements OnInit{
     );
   }
 
+  loadMessage(id: any) {
+    const adminDetails = this.getAdminDetails();
+    if (adminDetails) {
+      const adminFullName = adminDetails.firstname + ' ' + adminDetails.lastname;
+  
+      this.apiserv.getMessages(id).subscribe((msg: any) => {
+        // Filter out messages sent by the admin
+        this.messages = msg.filter((message: any) => message.sender_name !== adminFullName);
+        console.log(this.messages); // Debug filtered messages
+      });
+    } else {
+      console.error('Admin details not found in localStorage.');
+    }
+  }
+
+  getAdminDetails() {
+    const details = localStorage.getItem('adminDetails');
+    return details ? JSON.parse(details) : null;
+  }
+
   loadClasses() {
     this.isLoading = true; // Show the loader before the data is loaded
 
     // Simulate data fetching (you can replace this with an actual service call)
     setTimeout(() => {
       this.isLoading = false; // Hide the loader after data is fetched
-    }, 2000); // Simulated delay of 3 seconds
+    }, 2000); // Simulated delay of 2 seconds
   }
 
-  navigateToModules(subjectID: number) {
-    // Store the subjectID in localStorage
-    localStorage.setItem('subjectID', subjectID.toString());
+  navigateToModules(classid: number) {
+    // Store the classid in localStorage
+    localStorage.setItem('classid', classid.toString());
 
     // Navigate to the modules page
-    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
-    this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID]);
+    this.route.navigate(['/main/Subject/main/subject/modulesmain', classid]);
   }
 
 

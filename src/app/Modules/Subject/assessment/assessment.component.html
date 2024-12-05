@@ -1,146 +1,31 @@
-<!-- <div class="header">
-    <h1 style="text-align: center;">Assessment</h1>
-    <div class="button-group">
-        <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat']">
-            <button class="nav-btn">Learning Material</button>
-        </a>
-        <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/assess']">
-            <button class="nav-btn">Assessment</button>
-        </a>
-        <a [routerLink]="[ '/main/Subject/main/subject/modulesmain/modules/discuss']">
-            <button class="nav-btn">Discussion</button>
-        </a>
-    </div>
-    <div class="notification-icon" (click)="openModal()">
-        <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
-    </div>
-</div>
-<div class="modules">
-    <div class="module">
-        <div class="module-header">
-            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/mat/lesson']">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</a>
-            <p>Lesson 1</p>
-        </div>
-        <div class="file-link">
-            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/assess/question']">Activity 1: Let's See What You Already Know</a>
-            <p>10pts</p>
-        </div>
-    </div>
-    <div class="module">
-        <div class="module-header">
-            <a href="#">Sprains, Dislocations and Fractures</a>
-            <p>Lesson 2</p>
-        </div>
-        <div class="file-link">
-            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules/assess/question']">Activity 1: Let's See What You Already Know</a>
-            <p>10pts</p>
-        </div>
-    </div>
-</div>
-
-<div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-        <span class="close" (click)="closeModal()">&times;</span>
-        <h2>Add Assessment</h2>
-        <div class="input-group">
-            <label class="label">Title</label>
-            <input autocomplete="off" name="title" id="title" class="input" type="text">
-        </div>
-        <div class="input-group">
-            <label class="label">Instruction</label>
-            <input autocomplete="off" name="instruction" id="instruction" class="input" type="text">
-        </div>
-        <div class="input-group">
-            <label class="label">Description</label>
-            <textarea autocomplete="off" name="description" id="description" class="textarea"></textarea>
-        </div>
-        <div class="input-group">
-            <label class="label">Lesson</label>
-            <select name="typeOfQuestion" id="typeOfQuestion" class="input">
-                <option value="multiple-choice">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</option>
-                <option value="true-false">Sprains, Dislocations and Fractures</option>
-            </select>
-        </div>
-        <div class="input-group">
-            <label class="label">Due Date</label>
-            <input autocomplete="off" name="dueDate" id="dueDate" class="input" type="date">
-        </div>
-        <div class="button-group">
-            <button class="submit-btn">ADD</button>
-        </div>
-    </div>
-</div> -->
-
-<!-- <div class="header">
-    <h1 style="text-align: center;">{{moduleTitle}}</h1>
-    <div class="button-group">
-        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'mat']"  routerLinkActive="active">
-            <button class="nav-btn">Learning Material</button>
-        </a>
-        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'assess']"  routerLinkActive="active">
-            <button class="nav-btn">Assessment</button>
-        </a>
-        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']"  routerLinkActive="active">
-            <button class="nav-btn">Discussion</button>
-        </a>
-    </div>
-    <div class="notification-icon" (click)="openModal()">
-        <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
-    </div>
-</div> -->
-
-<div class="modules">
-    <div class="module">
-        <div class="module-header">
-            <h5>Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</h5>
-            <p>Lesson 1</p>
-        </div>
-        <div *ngFor="let ass of assess">
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a [routerLink]="['/main/Subject/main']">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a [routerLink]="['/main/Subject/main/subject']">
+                Subjects
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">All Assessments</li>
+    </ol>
+  </nav>
+  <div *ngFor="let module of assess">
+    <h3>{{ module.module_title }}</h3>
+    <div *ngFor="let lesson of module.lessons">
+        <h4>{{ lesson.lesson_title }}</h4>
+        <div *ngFor="let assessment of lesson.assessments">
             <div class="file-link">
-                <a (click)="navigateToQuestions(ass.assessmentID)"  routerLinkActive="active">{{ass.Title}}</a>
-                <p>{{ass.formatted_due_date}}</p>
+                <a (click)="navigateToQuestions(assessment.assessment_id, lesson.lesson_title)" routerLinkActive="active">
+                    {{ assessment.title }}
+                </a>
+                <p>{{ assessment.formatted_due_date }}</p>
             </div>
-            <!-- Instruction added here -->
             <div class="instruction">
-                <p>{{ass.Instruction}}</p>
+                <p>{{ assessment.instruction }}</p>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="modal" [ngClass]="{'show': isModalOpen}" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-        <span class="close" (click)="closeModal()">&times;</span>
-        <h2>Add Assessment</h2>
-        <form [formGroup]="createAssessment" (ngSubmit)="save()">
-            <div class="input-group">
-                <label class="label">Title</label>
-                <input formControlName="title" autocomplete="off" name="title" id="title" class="input" type="text">
-            </div>
-            <div class="input-group">
-                <label class="label">Instruction</label>
-                <!-- <input formControlName="instruction" autocomplete="off" name="instruction" id="instruction" class="input" type="text"> -->
-                <textarea formControlName="instruction" autocomplete="off" name="description" id="description" class="textarea"></textarea>
-            </div>
-            <div class="input-group">
-                <label class="label">Description</label>
-                <textarea formControlName="description" autocomplete="off" name="description" id="description" class="textarea"></textarea>
-            </div>
-            <div class="input-group">
-                <label class="label">Lesson</label>
-                <select formControlName="lesson_id" name="typeOfQuestion" id="typeOfQuestion" class="input">
-                    <option value="1">Nosebleeds, Swallowing Objects, Poisoning and Dog Bites</option>
-                    <option value="2">Sprains, Dislocations and Fractures</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <label class="label">Due Date</label>
-                <input formControlName="due_date" autocomplete="off" name="dueDate" id="dueDate" class="input" type="date">
-            </div>
-            <div class="button-group">
-                <button class="submit-btn">ADD</button>
-            </div>
-        </form>
     </div>
 </div>
 

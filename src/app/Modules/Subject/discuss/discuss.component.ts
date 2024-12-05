@@ -15,6 +15,7 @@ import Swal from 'sweetalert2';
 export class DiscussComponent implements OnInit{
 
   isLoading: boolean = false; // This controls the loader visibility
+  isSubmitting: boolean = false; // Tracks submission state
 
   subjectID: number | null = null;
   moduleID: any;
@@ -37,27 +38,25 @@ export class DiscussComponent implements OnInit{
   ngOnInit(): void {
     // Retrieve the subjectID from localStorage
     this.loadTopics();
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     const storedModuleID = localStorage.getItem('moduleid');
     const storedModuleTitle = localStorage.getItem('moduletitle');
+    const storedLessonID = localStorage.getItem('idLesson');
+    const storedLessonTitle = localStorage.getItem('lessonTitle');
     if (storedSubjectID) {
       this.subjectID = +storedSubjectID;  // Convert the string to a number
       this.moduleID = storedModuleID;  // Convert the string to a number
       this.moduleTitle = storedModuleTitle;  // Convert the string to a number
+      this.lessonTitle = storedLessonTitle;
       this.apiService.getLessons(this.moduleID).subscribe((response: any) => {
         this.lessons = response.lessons;
         console.log('Lesson: ', this.lessons);
         this.loadDiscussion(localStorage.getItem);
         // After lessons are loaded, load discussions
         // Get lessonId from query params
-        this.route.queryParams.subscribe(params => {
-          const lessTitle = params['lessTitle'];
-          const lessonId = params['lessonId'];
-          this.lessonTitle = lessTitle;
-          if (lessonId) {
-              this.loadDiscussion(lessonId);
-          }
-        });
+        if (storedLessonID) {
+          this.loadDiscussion(storedLessonID);
+        }
       });
       console.log('Retrieved Subject ID from localStorage:', this.subjectID);
     } else {
@@ -71,7 +70,7 @@ export class DiscussComponent implements OnInit{
     // Simulate data fetching (you can replace this with an actual service call)
     setTimeout(() => {
       this.isLoading = false; // Hide the loader after data is fetched
-    }, 1000); // Simulated delay of 3 seconds
+    }, 3000); // Simulated delay of 3 seconds
   }
 
   loadDiscussion(lessonid: any) {
@@ -103,6 +102,7 @@ export class DiscussComponent implements OnInit{
   }
 
   save(){
+    this.isSubmitting = true;
     this.apiService.createDiscussion(this.createDiscussion.value).subscribe((response: any)=>{
       console.log("Discussion Created: ", response)
       Swal.fire({
@@ -110,7 +110,7 @@ export class DiscussComponent implements OnInit{
         icon: "success"
       });
       this.closeModal();
-      // this.loadDiscussion(localStorage.getItem('lessonid'));
+      this.createDiscussion.get('discussion_topic')?.reset();
       this.route.queryParams.subscribe(params => {
         const lessonId = params['lessonId'];
         const lessTitle = params['lessTitle'];
@@ -119,11 +119,12 @@ export class DiscussComponent implements OnInit{
             this.loadDiscussion(lessonId);
         }
       });
+      this.isSubmitting = false;
     })
   }
 
   navigateToDiscussions(did: any, disctopic: any, date: any, lesTitle: any) {
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     // Store the subjectID in localStorage
     localStorage.setItem('discussionid', did);
     localStorage.setItem('disctopic', disctopic);
@@ -131,7 +132,6 @@ export class DiscussComponent implements OnInit{
     localStorage.setItem('lessTitle', lesTitle);
 
     // Navigate to the modules page
-    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
     this.router.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', this.moduleID, 'discuss', did, 'discussion']);
   }
 

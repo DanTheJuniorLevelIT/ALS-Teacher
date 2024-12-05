@@ -16,6 +16,7 @@ export class ProgressComponent {
 
   assessTitle: any;
   lessonTitle: any;
+  moduleTitle:any;
   students: any;
   totalPoints: any;
   isModalOpen = false;
@@ -35,14 +36,16 @@ constructor(private apiserv: ApiserviceService, private router: Router){}
 ngOnInit(): void {
   // Retrieve the subjectID from localStorage
   this.assessTitle = localStorage.getItem('assessTitle');
-  const storedSubjectID = localStorage.getItem('subjectID');
+  const storedSubjectID = localStorage.getItem('classid');
   const storedAssessmentID = localStorage.getItem('assid');
   const storedModuleID = localStorage.getItem('moduleid');
   this.lessonTitle = localStorage.getItem('lessTitle');
+  const storedModuleTitle = localStorage.getItem('moduletitle');
     if (storedSubjectID) {
       this.moduleID = storedModuleID;
       this.subjectID = +storedSubjectID;  // Convert the string to a number
       this.assessmentID = storedAssessmentID;
+      this.moduleTitle = storedModuleTitle;
       this.loadStudents(); 
     console.log('Retrieved Assessment ID from localStorage:', this.assessmentID);
   } else {
@@ -54,7 +57,7 @@ loadStudents(){
   this.apiserv.getStudents(this.subjectID, this.assessmentID).subscribe(
     (data: any) => {
       this.students = data.status;
-      this.totalPoints = data.total_points;
+      this.totalPoints = data.total_points; 
       // this.students = data.score;
       console.log("Students: ", data.status);
     },
@@ -63,21 +66,6 @@ loadStudents(){
     }
   );
 }
-
-
-//1st Approach
-// autoCheck() {
-//   this.apiserv.autoCheck(this.subjectID, this.assessmentID).subscribe(
-//     (data) => {
-//       // Update the students list with the completion and score data
-//       this.students = data;
-//       console.log('Auto Check Completed', data);
-//     },
-//     (error) => {
-//       console.error('Error performing auto-check', error);
-//     }
-//   );
-// }
 
 //2nd Approach
 autoCheck() {
@@ -111,7 +99,7 @@ autoCheck() {
   }
 
   navigateToChecking(lrnid: any, fname: any, lname: any) {
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     const storedAssessmentID = localStorage.getItem('assid');
     localStorage.setItem('lrn', lrnid);
     localStorage.setItem('fname', fname);
@@ -119,12 +107,11 @@ autoCheck() {
     // Store the subjectID in localStorage
   
     // Navigate to the modules page
-    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
     this.router.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', this.moduleID, 'assess', 'question', storedAssessmentID, 'checking']);
   }
 
   navigateToViewFile(lrnid: any, fname: any, lname: any) {
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     const storedAssessmentID = localStorage.getItem('assid');
     localStorage.setItem('lrn', lrnid);
     localStorage.setItem('fname', fname);
@@ -132,7 +119,6 @@ autoCheck() {
     // Store the subjectID in localStorage
   
     // Navigate to the modules page
-    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
     this.router.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', this.moduleID, 'assess', 'question', storedAssessmentID, 'file']);
   }
 

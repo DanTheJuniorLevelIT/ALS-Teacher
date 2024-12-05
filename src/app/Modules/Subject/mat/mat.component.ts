@@ -1,7 +1,7 @@
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ApiserviceService } from '../../../apiservice.service';
 import Swal from 'sweetalert2';
@@ -17,6 +17,8 @@ import Swal from 'sweetalert2';
 export class MatComponent implements OnInit{
 
   isLoading: boolean = false; // This controls the loader visibility
+  isEditModalOpen = false; // To control edit modal visibility
+  isSubmitting: boolean = false; // Tracks submission state
 
   subjectID: number | null = null;
   moduleID: any;
@@ -36,8 +38,19 @@ export class MatComponent implements OnInit{
     private router: Router,
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
-    private viewportScroller: ViewportScroller
-  ) {}
+    private viewportScroller: ViewportScroller,
+    private fb: FormBuilder
+  ) {
+    this.editAssessmentForm = this.fb.group({
+      assessmentID: [''], // Hidden field for the ID
+      title: ['', Validators.required],
+      instruction: ['', Validators.required],
+      description: ['', Validators.required],
+      due_date: ['', Validators.required],
+  });
+  }
+
+  editAssessmentForm: FormGroup; // Reactive form for editing
 
   createAssessment = new FormGroup({
     title: new FormControl(null),
@@ -54,7 +67,7 @@ export class MatComponent implements OnInit{
     // Retrieve the subjectID from localStorage
     this.loadAssessments();
     // this.countDiscussion(this.lessons.lesson_id);
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     const storedModuleID = localStorage.getItem('moduleid');
     const storedModuleTitle = localStorage.getItem('moduletitle');
     if (storedSubjectID) {
@@ -62,20 +75,7 @@ export class MatComponent implements OnInit{
       this.moduleID = storedModuleID;  // Convert the string to a number
       this.moduleTitle = storedModuleTitle;  // Convert the string to a number
       // this.getLessons(this.moduleID);
-      this.apiService.getLessons(this.moduleID).subscribe((response: any) => {
-        this.lessons = response.lessons;
-        // this.countDiscussion(response.lessonid);
-        console.log('Lesson: ', this.lessons);
-        console.log('Lessonid: ', response.lessonid);
-
-        // After getting lessons, map assessments to each lesson
-        this.lessons.forEach((lesson: any) => {
-          this.countDiscussion(lesson);
-          lesson.filteredAssessments = this.assess.filter(
-            (a: any) => a.lesson_id === lesson.lesson_id
-          );
-        });
-      });
+      this.showLessons(this.moduleID);
       console.log('Retrieved Subject ID from localStorage:', this.subjectID);
     } else {
       console.error('No subjectID found in localStorage.');
@@ -107,6 +107,23 @@ export class MatComponent implements OnInit{
       .join(''); // Join all paragraphs together
   }
 
+  showLessons(id: any){
+    this.apiService.getLessons(id).subscribe((response: any) => {
+      this.lessons = response.lessons;
+      // this.countDiscussion(response.lessonid);
+      console.log('Lesson: ', this.lessons);
+      console.log('Lessonid: ', response.lessonid);
+
+      // After getting lessons, map assessments to each lesson
+      this.lessons.forEach((lesson: any) => {
+        this.countDiscussion(lesson);
+        lesson.filteredAssessments = this.assess.filter(
+          (a: any) => a.lesson_id === lesson.lesson_id
+        );
+      });
+    });
+  }
+
   getLessons(id: number) {
     this.apiService.getLessons(id).subscribe(
       (response) => {
@@ -134,11 +151,6 @@ export class MatComponent implements OnInit{
         this.assess = response;
         console.log(this.assess);
 
-        this.assess.forEach((assessment: any) => {
-          const dueDate = new Date(assessment.Due_date);
-          assessment.isOpen = dueDate > today ? true : false; // Close if due date has passed
-        });
-
         this.lessons.forEach((lesson: any) => {
           lesson.filteredAssessments = this.assess.filter(
             (a: any) => a.lesson_id === lesson.lesson_id
@@ -159,8 +171,9 @@ export class MatComponent implements OnInit{
     })
   }
 
-  setLessonID(id: any){
-    localStorage.setItem('idLesson', id);
+  setLessonID(lesson: any) {
+    localStorage.setItem('idLesson', lesson.lesson_id);
+    localStorage.setItem('lessonTitle', lesson.topic_title);
   }
 
   openModal2(lessonid: any) {
@@ -185,11 +198,7 @@ export class MatComponent implements OnInit{
 
   save() {
     if (this.createAssessment.valid) {
-      // const data = {
-      //   ...this.createAssessment.value
-      //   // subjectID: this.subjectID // Include subjectID if needed in your backend
-      // };
-
+      this.isSubmitting = true; // Disable the button
       this.apiService.createAssess(this.createAssessment.value).subscribe(
         response => {
           console.log('Assessment created:', response);
@@ -201,13 +210,15 @@ export class MatComponent implements OnInit{
           this.closeModal2(); // Close the modal
           // Optionally, navigate to another page
           // this.router.navigate(['/some-route']);
+          this.isSubmitting = false;
         },
         error => {
           console.error('Error creating assessment:', error);
           Swal.fire({
-            title: "Error creating assessment",
+            title: 'The due date cannot be earlier than today.',
             icon: "error"
           });
+          this.isSubmitting = false;
         }
       );
     } else {
@@ -216,6 +227,7 @@ export class MatComponent implements OnInit{
         title: "A Form is not valid",
         icon: "error"
       });
+      this.isSubmitting = false;
     }
   }
 
@@ -224,14 +236,15 @@ export class MatComponent implements OnInit{
     if (!assessment.isOpen) {
       // Set a new due date (e.g., one day from today)
       const newDueDate = this.calculateNewDueDate();
+      const newStatus = assessment.available === 0 ? 1 : 0;
   
       // Call the API to update the due date
-      this.apiService.updateDueDate(assessment.assessmentID, newDueDate).subscribe(
+      this.apiService.updateAvailability(assessment.assessmentID, newStatus).subscribe(
         (response: any) => {
           console.log(response.message);
           // Update the UI to reflect the change
           assessment.isOpen = true;
-          assessment.Due_date = newDueDate;
+          assessment.available = newStatus;
         },
         (error) => {
           console.error('Error updating due date:', error);
@@ -251,7 +264,7 @@ export class MatComponent implements OnInit{
   
 
   navigateToQuestions(assID: number, lessTitle: any) {
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     // Store the subjectID in localStorage
     localStorage.setItem('assid', assID.toString());
     localStorage.setItem('lessTitle', lessTitle);
@@ -274,10 +287,10 @@ export class MatComponent implements OnInit{
     localStorage.setItem('Lesson Id', this.selectLessonID )
   }
   
-  deleteLesson(lesson_id: number) {
+  deleteLesson(lesson: any) {
     // Show confirmation dialog using SweetAlert
     Swal.fire({
-      title: "Are you sure you want to delete this lesson?",
+      title: `Are you sure you want to delete the lesson: "${lesson.topic_title}"?`,
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
@@ -288,12 +301,13 @@ export class MatComponent implements OnInit{
       // If user confirms deletion
       if (result.isConfirmed) {
         // Call the delete API
-        this.apiService.deleteLesson(lesson_id).subscribe(
+        this.apiService.deleteLesson(lesson.lesson_id).subscribe(
           (response) => {
             // Success response handling
             console.log('Lesson deleted:', response);
             // Remove the deleted lesson from the list
-            this.lessons = this.lessons.filter((lesson: any) => lesson.lesson_id !== lesson_id);
+            // this.lessons = this.lessons.filter((lesson: any) => lesson.lesson_id !== lesson.lesson_id);
+            this.showLessons(this.moduleID);
             this.cdr.detectChanges();
   
             // Show success alert
@@ -380,7 +394,51 @@ export class MatComponent implements OnInit{
       }
     });
   }
+
+  // Open edit modal and populate form with assessment details
+  editAssessment(id: any) {
+    this.apiService.getSingleAssessment(id).subscribe((assessment: any) => {
+        this.editAssessmentForm.patchValue({
+            assessmentID: assessment.assessmentid,
+            title: assessment.title,
+            instruction: assessment.instruction,
+            description: assessment.description,
+            due_date: assessment.due_date,
+        });
+        // localStorage.setItem('aid', assessment.assessmentid)
+        this.isEditModalOpen = true;
+    });
+  }
+
+  closeEditModal() {
+    this.isEditModalOpen = false;
+  }
   
+  // Save edited assessment
+  saveEditedAssessment() {
+    // console.log(localStorage.getItem('aid'));
+    if (this.editAssessmentForm.valid) {
+        const updatedAssessment = this.editAssessmentForm.value;
+        this.apiService.updateAssessment(updatedAssessment.assessmentID, updatedAssessment).subscribe(
+            (response: any) => {
+                console.log('Assessment updated successfully', response);
+                this.loadAssessments(); // Refresh the list
+                Swal.fire({
+                  title: "Updated Assessment",
+                  icon: "success"
+                });
+                this.isEditModalOpen = false; // Close modal
+            },
+            (error) => {
+                console.error('Error updating assessment:', error);
+                Swal.fire({
+                  title: "Error Updating Assessment",
+                  icon: "error"
+                });
+            }
+        );
+    }
+  }
 
   deleteFile(lesson_id: number) {
     // Show confirmation dialog using SweetAlert
@@ -402,10 +460,7 @@ export class MatComponent implements OnInit{
             console.log('File deleted:', response);
             
             // Find the lesson in the lessons array and set its file property to null
-            const lesson = this.lessons.find((lesson: any) => lesson.lesson_id === lesson_id);
-            if (lesson) {
-              lesson.file = null; // Remove the file content
-            }
+            this.showLessons(this.moduleID);
             this.cdr.detectChanges();  // Manually trigger change detection
   
             // Show success alert
@@ -424,6 +479,7 @@ export class MatComponent implements OnInit{
               icon: "success",
               title: "Deleted"
             });
+            this.getLessons(this.moduleID);
           },
           (error) => {
             // Error response handling
@@ -473,6 +529,7 @@ export class MatComponent implements OnInit{
               title: "Deleted"
             });
             this.getLessons(this.moduleID);
+            this.showLessons(this.moduleID);
             this.loadAssessments();
           },
           (error) => {

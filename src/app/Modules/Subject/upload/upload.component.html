@@ -10,7 +10,7 @@
                 <input type="file" class="file-input" (change)="onFileSelected($event)">
               </div>
               <div class="button-group">
-                <button class="submit-btn" type="button" (click)="onUpload()">Upload</button>
+                <button class="submit-btn" type="button" (click)="onUpload()" [disabled]="isSubmitting">Upload</button>
               </div>
         </div>
     </div>

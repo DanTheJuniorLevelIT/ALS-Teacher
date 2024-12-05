@@ -6,9 +6,27 @@
 </style>
 
 <a id="top"></a>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/main/Home/main/home']">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/main/Subject/main/subject']">
+            Subjects
+        </a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain', subjectID, 'modules']">
+          Modules
+        </a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Lessons</li>
+    </ol>
+</nav>
 <div class="header">
     <div class="button-group" style="margin-top: 10px;">
-        <button class="nav-btn"  [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'addmat']" style="display: flex; align-items: center;">
+        <button *ngIf="!isLoading" class="nav-btn"  [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'addmat']" style="display: flex; align-items: center;">
             <i class="fa fa-plus" aria-hidden="true" style="margin-right: 8px;"></i> Lessons
         </button>
     </div>
@@ -24,7 +42,10 @@
         <div class="card" *ngFor="let lesson of lessons; let i = index" [attr.id]="'lesson-' + i" style="margin-bottom: 40px;">
             <div class="card-header d-flex align-items-center" style="position: relative;">
                 <div>
-                    <h5>{{ lesson.topic_title }}</h5>
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 350px;">
+                        <h5>{{ lesson.topic_title }}</h5>
+                        <h6 style="font-weight: normal; color: gray;">{{ lesson.created_at | date:'MMMM d, y' }}</h6>
+                    </div>
                     <p [innerHTML]="transformText(lesson.lesson)"></p>
                 </div>
                 <div class="dropdown" style="position: absolute; top: 10px; right: 10px;">
@@ -35,7 +56,7 @@
                         <a (click)="updateLesson(lesson.lesson_id)" [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'updateLesson']" >Update</a>                  
                         <a (click)="uploadFile(lesson.lesson_id)" [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'upload']" >Upload</a>                  
                         <a (click)="openModal2(lesson.lesson_id)" >Add Assessment</a>                  
-                        <a (click)="deleteLesson(lesson.lesson_id)">Delete</a>
+                        <a (click)="deleteLesson(lesson)">Delete</a>
                     </div>
                 </div>
             </div>
@@ -48,6 +69,7 @@
                             <div *ngIf="lesson.file">
                                 <li>
                                     <a *ngIf="lesson.file" [href]="'http://localhost:8000/storage/' + lesson.file" target="_blank">{{ lesson.file }}</a>
+                                    <!-- <a *ngIf="lesson.file" [href]="'http://10.0.118.175:8000/storage/' + lesson.file" target="_blank">{{ lesson.file }}</a> -->
                                     <i *ngIf="lesson.file" (click)="deleteFile(lesson.lesson_id)" class="fa fa-trash fa-1x ms-2" style="cursor: pointer;" aria-hidden="true"></i>
                                 </li>
                             </div>
@@ -57,6 +79,7 @@
                                 <ng-container *ngFor="let mediaFile of lesson.media_files.split(',')">
                                     <li>
                                         <a [href]="'http://localhost:8000/storage/' + mediaFile" target="_blank">{{mediaFile}}</a>
+                                        <!-- <a [href]="'http://10.0.118.175:8000/storage/' + mediaFile" target="_blank">{{mediaFile}}</a> -->
                                         <i (click)="deleteMediaFile(lesson.media_ids.split(',')[i] || lesson.media_ids)" class="fa fa-trash fa-1x ms-2" style="cursor: pointer;" aria-hidden="true"></i>
                                     </li>
                                     <br>
@@ -73,27 +96,38 @@
                             <li *ngFor="let assessment of lesson.filteredAssessments">
                                 <a style="cursor: pointer; text-decoration: underline;" 
                                     (click)="navigateToQuestions(assessment.assessmentID, lesson.topic_title)"
-                                    [ngStyle]="{'color': assessment.isOpen ? 'blue' : 'gray'}">
-                                    {{ assessment.Title }}
+                                    [ngStyle]="{'color': assessment.available ? 'blue' : 'gray'}">
+                                    {{ assessment.Title }} ({{ assessment.available ? 'Open' : 'Closed' }})
                                 </a>
+                                <i (click)="editAssessment(assessment.assessmentID)" class="fa fa-pencil fa-1x ms-2" style="cursor: pointer;" aria-hidden="true"></i>
                                 <i (click)="deleteAssessment(assessment.assessmentID)" class="fa fa-trash fa-1x ms-2" style="cursor: pointer;" aria-hidden="true"></i>
+                                <h6 style="color: red;">
+                                    Due Date: {{ assessment.Due_date | date }}
+                                </h6>
                                 
                                 <div class="button-group">
-                                <!-- Show the button only when the assessment is closed -->
-                                <button *ngIf="!assessment.isOpen" class="nav-btn2" 
-                                            style="background-color: gray;"
+                                    <!-- Show the button only when the assessment is closed -->
+                                    <button *ngIf="assessment.available === 0" class="nav-btn2" 
+                                            style="background-color: blue;"
                                             (click)="toggleAssessmentStatus(assessment)">
-                                    <i class="fa fa-check" aria-hidden="true" style="margin-right: 8px;"></i>
-                                    Open
-                                </button>
+                                        <i class="fa fa-check" aria-hidden="true" style="margin-right: 8px;"></i>
+                                        Open Assessment
+                                    </button>
+                                    <!-- Button to close the assessment -->
+                                    <button *ngIf="assessment.available === 1" class="nav-btn2" 
+                                            style="background-color: red;"
+                                            (click)="toggleAssessmentStatus(assessment)">
+                                        <i class="fa fa-times" aria-hidden="true" style="margin-right: 8px;"></i>
+                                        Close Assessment
+                                    </button>
                                 </div>
-                            </li>                              
+                            </li>
                         </ul>
-                    </div>
+                    </div>                    
                 </div>
             </div>
             <div class="card-footer" >
-                <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']" [queryParams]="{ lessonId: lesson.lesson_id, lessTitle: lesson.topic_title }" (click)="setLessonID(lesson.lesson_id)" routerLinkActive="active">
+                <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']" (click)="setLessonID(lesson)" routerLinkActive="active">
                     Discussions | {{lesson.cDiscussion || 0}} Topic/s
                 </a>
             </div>
@@ -139,19 +173,43 @@
                 <label class="label">Description</label>
                 <textarea formControlName="description" autocomplete="off" name="description" id="description" class="textarea"></textarea>
             </div>
-            <!-- <div class="input-group">
-                <label class="label">Lesson</label>
-                <select formControlName="lesson_id" name="typeOfQuestion" id="typeOfQuestion" class="input">
-                    <option *ngFor="let lesson of lessons" [value]="lesson.lesson_id">{{lesson.topic_title}}</option>
-                </select>
-            </div> -->
             <div class="input-group">
                 <label class="label">Due Date</label>
                 <input formControlName="due_date" autocomplete="off" name="dueDate" id="dueDate" class="input" type="date">
             </div>
             <div class="button-group">
-                <button class="submit-btn">ADD</button>
+                <button class="submit-btn" [disabled]="isSubmitting">ADD</button>
             </div>
         </form>
     </div>
 </div>
+
+<!-- Edit Assessment Modal -->
+<div class="modal2" [ngClass]="{'show2': isEditModalOpen}" (click)="closeEditModal()">
+    <div class="modal-content2" (click)="$event.stopPropagation()">
+        <span class="close2" (click)="closeEditModal()">&times;</span>
+        <h2>Edit Assessment</h2>
+        <form [formGroup]="editAssessmentForm" (ngSubmit)="saveEditedAssessment()">
+            <div class="input-group">
+                <label class="label">Title</label>
+                <input formControlName="title" autocomplete="off" name="title" id="edit-title" class="input" type="text">
+            </div>
+            <div class="input-group">
+                <label class="label">Instruction</label>
+                <textarea formControlName="instruction" autocomplete="off" name="instruction" id="edit-instruction" class="textarea"></textarea>
+            </div>
+            <div class="input-group">
+                <label class="label">Description</label>
+                <textarea formControlName="description" autocomplete="off" name="description" id="edit-description" class="textarea"></textarea>
+            </div>
+            <div class="input-group">
+                <label class="label">Due Date</label>
+                <input formControlName="due_date" autocomplete="off" name="dueDate" id="edit-dueDate" class="input" type="date">
+            </div>
+            <div class="button-group">
+                <button class="submit-btn">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+

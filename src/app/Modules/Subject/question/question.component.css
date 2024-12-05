@@ -289,6 +289,12 @@ a.active .nav-btn {
     background-color: #055a8c;
 }
 
+.submit-btn:disabled {
+    background-color: #d6d6d6; /* Gray */
+    color: #a1a1a1; /* Lighter gray text */
+    cursor: not-allowed;
+}
+
 .input-wrapper {
     display: flex;
     gap: 1rem;

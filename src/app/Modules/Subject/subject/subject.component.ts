@@ -17,19 +17,6 @@ interface Subject {
   templateUrl: './subject.component.html',
   styleUrl: './subject.component.css'
 })
-// export class SubjectComponent {
-
-//   isModalOpen = false;
-
-//   openModal() {
-//     this.isModalOpen = true;
-//   }
-
-//   closeModal() {
-//     this.isModalOpen = false;
-//   }
-
-// }
 
 export class SubjectComponent implements OnInit{
   isModalOpen = false;
@@ -85,12 +72,11 @@ export class SubjectComponent implements OnInit{
     this.isModalOpen = false;
   }
 
-  navigateToModules(subjectID: number) {
-    // Store the subjectID in localStorage
-    localStorage.setItem('subjectID', subjectID.toString());
+  navigateToModules(classid: number) {
+    // Store the classid in localStorage
+    localStorage.setItem('classid', classid.toString());
 
     // Navigate to the modules page
-    // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);
-    this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID]);
+    this.route.navigate(['/main/Subject/main/subject/modulesmain', classid]);
   }
 }

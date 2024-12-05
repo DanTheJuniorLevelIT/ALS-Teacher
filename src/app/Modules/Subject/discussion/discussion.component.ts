@@ -12,6 +12,8 @@ templateUrl: './discussion.component.html',
   styleUrl: './discussion.component.css'
 })
 export class DiscussionComponent implements OnInit {
+
+  isLoading: boolean = false; // This controls the loader visibility
   
   private intervalId: any; // To store the interval reference
   subjectID: number | null = null;
@@ -32,7 +34,7 @@ export class DiscussionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     const storedModuleID = localStorage.getItem('moduleid');
     const storedModuleTitle = localStorage.getItem('moduletitle');
     const storedDiscussionID = localStorage.getItem('discussionid');
@@ -45,12 +47,12 @@ export class DiscussionComponent implements OnInit {
       this.discTopic = localStorage.getItem('disctopic');
       this.date = localStorage.getItem('date');
 
-      this.loadDiscussions(this.discussuinID);
+      this.spinner();
 
       // Set an interval to refresh discussions every 10 seconds
       this.intervalId = setInterval(() => {
         this.loadDiscussions(this.discussuinID);
-      }, 5000); // 5000ms = 5 seconds
+      }, 20000); // = 20 seconds
     }
   }
 
@@ -59,6 +61,15 @@ export class DiscussionComponent implements OnInit {
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
+  }
+
+  spinner() {
+    this.isLoading = true; // Show the loader before the data is loaded
+
+    // Simulate data fetching (you can replace this with an actual service call)
+    setTimeout(() => {
+      this.isLoading = false; // Hide the loader after data is fetched
+    }, 20000); // Simulated delay of 20 seconds
   }
 
   transformText(text: string): string {
@@ -72,7 +83,9 @@ export class DiscussionComponent implements OnInit {
       .join(''); // Join all paragraphs together
   }
 
+  // OLD
   loadDiscussions(discussionID: number) {
+    console.log(discussionID);
     this.apiService.viewDiscussionReplies(discussionID).subscribe((data: any) => {
       const groupedDiscussions: any[] = [];
   
@@ -104,6 +117,8 @@ export class DiscussionComponent implements OnInit {
           });
         }
       });
+
+      console.log(data);
   
       // If there is a student reply left without a teacher reply, add it
       if (currentStudentReply) {
@@ -113,7 +128,6 @@ export class DiscussionComponent implements OnInit {
       this.discussions = groupedDiscussions;
     });
   }
-  
 
   // Submit a new discussion reply
   submitAnswer(){
@@ -133,5 +147,26 @@ export class DiscussionComponent implements OnInit {
       this.discussionForm.reset();
     });
   }
+
+  // submitAnswer() {
+  //   const newAnswer = this.discussionForm.value.answer;
+  //   const storedTeacherID = localStorage.getItem('id');
+  
+  //   const payload = {
+  //     discussionid: this.discussuinID,
+  //     lrn: null,
+  //     adminID: storedTeacherID,
+  //     reply: newAnswer
+  //   };
+  
+  //   this.apiService.sendDiscussionReplies(payload).subscribe((response: any) => {
+  //     // Clear cache for this discussion
+  //     localStorage.removeItem(`discussion_replies_${this.discussuinID}`);
+  //     localStorage.removeItem(`discussion_replies_timestamp_${this.discussuinID}`);
+  
+  //     this.loadDiscussions(this.discussuinID); // Reload replies
+  //     this.discussionForm.reset();
+  //   });
+  // }
 }
 

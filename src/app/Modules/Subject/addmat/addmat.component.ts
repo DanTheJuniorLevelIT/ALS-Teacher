@@ -16,7 +16,9 @@ import Swal from 'sweetalert2';
   styleUrl: './addmat.component.css'
 })
 export class AddmatComponent implements OnInit {
+  isSubmitting: boolean = false; // Tracks submission state
   storedModuleID: any;
+  subjectID: any;
   selectedFile: File | null = null; // Holds the selected file
 
   createLesson = new FormGroup({
@@ -31,6 +33,7 @@ export class AddmatComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.subjectID = localStorage.getItem('classid');
     this.storedModuleID = localStorage.getItem('moduleid');
   }
 
@@ -42,7 +45,7 @@ export class AddmatComponent implements OnInit {
   }
 
   save() {
-    const storedSubjectID = localStorage.getItem('subjectID');
+    const storedSubjectID = localStorage.getItem('classid');
     const storedModuleID = localStorage.getItem('moduleid');
     const formData = new FormData();
     console.log('Module ID:', this.createLesson.value.modules_id); 
@@ -54,6 +57,8 @@ export class AddmatComponent implements OnInit {
       formData.append('file', this.selectedFile); // Append the file to form data
     }
 
+    this.isSubmitting = true; // Disable the button
+
     this.apiService.createTopic(formData).subscribe(
       (response) => {
         Swal.fire({
@@ -63,6 +68,7 @@ export class AddmatComponent implements OnInit {
         });
         console.log('Lesson created successfully:', response);
         this.route.navigate(['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', storedModuleID, 'mat']); // Redirect on success
+        this.isSubmitting = false;
       },
       (error) => {
         Swal.fire({
@@ -71,6 +77,7 @@ export class AddmatComponent implements OnInit {
           icon: "error"
         });
         console.error('Error creating lesson:', error);
+        this.isSubmitting = false;
       }
     );
   }

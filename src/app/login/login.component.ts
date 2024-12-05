@@ -14,6 +14,10 @@ import Swal from 'sweetalert2'
 })
 export class LoginComponent implements OnInit{
 
+  showPassword = false;
+  showNewPassword = false;
+  showConfirmPassword = false;
+
 
   loginForm = new FormGroup({
     email: new FormControl(null),
@@ -35,11 +39,14 @@ export class LoginComponent implements OnInit{
           // Extract from the response
           const adminid = response.adminid;
           const token = response.token;
+          const dp = response.profile_picture;
           console.log('Token:', token);
   
           // Store the token in local storage (or a service if needed)
           localStorage.setItem('authToken', token);
           localStorage.setItem('id', adminid);
+          localStorage.setItem('adminDetails', JSON.stringify(response.details));
+          localStorage.setItem('profile_picture', dp);
   
           // Navigate to the desired page
           if(token != null || token != undefined){
@@ -73,7 +80,7 @@ export class LoginComponent implements OnInit{
           console.error('Error logging in:', error);
           // alert('Invalid Email or Password');
           Swal.fire({
-            title: "Invalid Email or Password",
+            title: "The Provided Credentials are incorrect",
             // text: "Fill out the Email and Password",
             icon: "error"
           });
@@ -90,6 +97,10 @@ export class LoginComponent implements OnInit{
       });
       this.loginForm.reset();
     }
+  }
+
+  togglePasswordVisibility(){
+    this.showPassword = !this.showPassword;
   }
 
 }

@@ -48,6 +48,12 @@
     background-color: #4ba6fc;
 }
 
+.submit-btn:disabled {
+    background-color: #d6d6d6; /* Gray */
+    color: #a1a1a1; /* Lighter gray text */
+    cursor: not-allowed;
+}
+
 .textarea-input {
     width: 100%; /* Full width */
     height: 300px; /* Adjust this height as needed */

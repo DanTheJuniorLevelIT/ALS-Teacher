@@ -14,12 +14,14 @@ import Swal from 'sweetalert2';
 })
 export class AssessmentComponent implements OnInit{
 
-  subjectID: number | null = null;
+  classID: number | null = null;
   authtoken: any;
   moduleID: any;
   moduleTitle: any;
   
-
+  lessons:any;
+  lesson: any;
+  LessonDetails: any;
   assess: any;
 
   isModalOpen = false;
@@ -35,66 +37,30 @@ export class AssessmentComponent implements OnInit{
   constructor(private apiService: ApiserviceService, private router: Router) {}
 
   ngOnInit(): void {
-    // Retrieve the subjectID from localStorage
-    const storedSubjectID = localStorage.getItem('subjectID');
+    // Retrieve the classID from localStorage
+    const storedClasstID = localStorage.getItem('classid');
     const token = localStorage.getItem('authToken');
     this.authtoken = token;
     const storedModuleID = localStorage.getItem('moduleid');
     const storedModuleTitle = localStorage.getItem('moduletitle');
-    if (storedSubjectID) {
-      this.subjectID = +storedSubjectID;  // Convert the string to a number
+    if (storedClasstID) {
+      this.classID = +storedClasstID;  // Convert the string to a number
       this.moduleID = storedModuleID;
       this.moduleTitle = storedModuleTitle;  // Convert the string to a number  // Convert the string to a number
-      this.loadAssessments();
-      console.log('Retrieved Subject ID from localStorage:', this.subjectID);
+      this.loadAssessments(this.classID);
+      console.log('Retrieved Subject ID from localStorage:', this.classID);
     } else {
-      console.error('No subjectID found in localStorage.');
+      console.error('No classID found in localStorage.');
     }
 
     
   }
 
-  loadAssessments(){
-    this.apiService.getAssessment().subscribe(
-      (response: any) => {
-        this.assess = response;
-        console.log(this.assess);
-      },
-      (error) => {
-        console.error('Error fetching users:', error);
-      }
-    );
-  }
-
-  save() {
-    if (this.createAssessment.valid) {
-      this.apiService.createAssess(this.createAssessment.value).subscribe(
-        response => {
-          console.log('Assessment created:', response);
-          Swal.fire({
-            title: "Added New Assessment",
-            icon: "success"
-          });
-          this.loadAssessments();
-          this.closeModal(); // Close the modal
-          // Optionally, navigate to another page
-          // this.router.navigate(['/some-route']);
-        },
-        error => {
-          console.error('Error creating assessment:', error);
-          Swal.fire({
-            title: "Error creating assessment",
-            icon: "error"
-          });
-        }
-      );
-    } else {
-      console.error('Form is not valid');
-      Swal.fire({
-        title: "A Form is not valid",
-        icon: "error"
-      });
-    }
+  loadAssessments(cid: any){
+    this.apiService.getAssessmentsByClass(cid).subscribe((response: any)=>{
+      this.assess = response;
+      console.log(this.assess)
+    })
   }
 
   openModal() {
@@ -105,10 +71,11 @@ export class AssessmentComponent implements OnInit{
     this.isModalOpen = false;
   }
 
-  navigateToQuestions(assID: number) {
-    const storedSubjectID = localStorage.getItem('subjectID');
+  navigateToQuestions(assID: number, lessTitle: any) {
+    const storedSubjectID = localStorage.getItem('classid');
     // Store the subjectID in localStorage
     localStorage.setItem('assid', assID.toString());
+    localStorage.setItem('lessTitle', lessTitle);
 
     // Navigate to the modules page
     // this.route.navigate(['/main/Subject/main/subject/modulesmain', subjectID, 'modules']);

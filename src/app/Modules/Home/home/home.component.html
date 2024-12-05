@@ -3,15 +3,25 @@
 <div class="wrapper second-design">
     <div class="content">
         <div class="classes-column">
-            <div class="header">
-                <div class="title-and-date">
+            <div class="loader-container" *ngIf="isLoading">
+                <div class="spinner"></div>
+            </div>
+            <div *ngIf="!isLoading" class="header">
+                <div *ngIf="sub == 0" class="title-and-date">
+                    <h1>No Classes for Today</h1>
+                    <p class="current-date">{{ currentDate | date: 'MMMM d, y | h:mm a' }}</p>
+                </div>
+            </div>
+
+            <div *ngIf="!isLoading" class="header">
+                <div *ngIf="sub != 0" class="title-and-date">
                     <h1>Classes of the Day | {{shl.school}}</h1>
                     <p class="current-date">{{ currentDate | date: 'MMMM d, y | h:mm a' }}</p>
                 </div>
             </div>
-            <div class="loader-container" *ngIf="isLoading">
+            <!-- <div class="loader-container" *ngIf="isLoading">
                 <div class="spinner"></div>
-            </div>
+            </div> -->
             <!-- Loader will be inside this div, only affecting this section -->
             <div *ngIf="!isLoading" class="cards-container">
                 <div class="card" style="width: 12rem;" *ngFor="let sub of sub">
@@ -33,13 +43,11 @@
             <div class="notification-section">
                 <h2>Recent Notifications</h2>
                 <ul *ngIf="notifications.length">
-                    <a [routerLink]="['/main/Message/main/message']">
-                        <p *ngFor="let notification of notifications">
-                            {{ notification.message }}
-                        </p>
-                    </a>
+                    <li *ngFor="let notification of notifications">
+                        {{ notification.message }}
+                    </li>
                 </ul>
-                <p *ngIf="!notifications.length">No new notifications</p>
+                <p *ngIf="!messages.length">No new notifications</p>
             </div>
         </div>
     </div>
@@ -48,29 +56,41 @@
 <!-- First Design for Smaller Screens -->
 <div class="wrapper first-design">
     <div class="header">
-        <div class="title-and-date">
-            <h1>Classes of the Day</h1>
-            <p class="current-date">{{ currentDate | date: 'MMMM d, y | h:mm a' }}</p>
+        <div class="loader-container" *ngIf="isLoading">
+            <div class="spinner"></div>
+        </div>
+        <div *ngIf="!isLoading" class="header">
+            <div *ngIf="sub == 0" class="title-and-date">
+                <h1>No Classes for Today</h1>
+                <p class="current-date">{{ currentDate | date: 'MMMM d, y | h:mm a' }}</p>
+            </div>
+        </div>
+
+        <div *ngIf="!isLoading" class="header">
+            <div *ngIf="sub != 0" class="title-and-date">
+                <h1>Classes of the Day | {{shl.school}}</h1>
+                <p class="current-date">{{ currentDate | date: 'MMMM d, y | h:mm a' }}</p>
+            </div>
         </div>
         <div class="notification-icon" (click)="openModal()">
             <i class="fa fa-bell-o fa-2x" aria-hidden="true"></i>
         </div>
     </div>
     <div class="cards-container">
-        <div class="card" style="width: 22rem;" *ngFor="let sub of sub">
-            <a [routerLink]="['/main/Subject/main/subject/modulesmain/modules', sub.subjectID]">
-                <div class="image">
-                    <img src='/assets/{{sub.image}}' class="card-img-top border border-bottom" alt="...">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{sub.subject_name}}</h5>
-                    <div class="card-details">            
-                        <p class="card-text">{{sub.Schedule}}</p>
-                        <p class="card-text">{{sub.subjectID}}</p>
-                        <!-- <p class="card-text">Elzaina Nabor</p> -->
+        <div *ngIf="!isLoading" class="cards-container">
+            <div class="card" style="width: 22rem;" *ngFor="let sub of sub">
+                <a (click)="navigateToModules(sub.classid)">
+                    <div class="image">
+                        <img src='/assets/{{sub.image}}' class="card-img-top border border-bottom" alt="...">
                     </div>
-                </div>
-            </a>
+                    <div class="card-body"> 
+                        <h5 class="card-title">{{sub.subject_name}}</h5>
+                        <div class="card-details">            
+                            <p class="card-text">{{sub.schedule}}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </div>
@@ -81,12 +101,12 @@
         <span class="close" (click)="closeModal()">&times;</span>
         <div class="notification-section">
             <h2>Recent Notifications</h2>
-            <ul *ngIf="notifications.length">
-                <li *ngFor="let notification of notifications">
-                    {{ notification.message }}
+            <ul *ngIf="messages.length">
+                <li *ngFor="let notification of messages" [routerLink]="['/main/Message/main/message']" style="cursor: pointer;">
+                    {{ notification.messages }} -{{notification.firstname}} {{notification.lastname}}
                 </li>
             </ul>
-            <p *ngIf="!notifications.length">No new notifications</p>
+            <p *ngIf="!messages.length">No new notifications</p>
         </div>
     </div>
 </div>

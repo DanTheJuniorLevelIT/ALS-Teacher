@@ -9,6 +9,8 @@
     </div>
     <div class="right-section">
         <ul class="inline-list">
+            <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectDetail.classid, 'students']">Students</a> | </li>
+            <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectDetail.classid, 'assessments']">Assessments</a> | </li>
             <li><a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectDetail.classid]">Modules</a> | </li>
             <li>
                 <!-- Small square for announcement modal trigger -->
@@ -52,7 +54,7 @@
                 [(ngModel)]="newAnnouncementInstruction"
             ></textarea>
             <br />
-            <button (click)="addAnnouncement(titleInput, instructionInput)">Save</button>
+            <button (click)="addAnnouncement(titleInput, instructionInput)" [disabled]="isSubmitting">Save</button>
             <button class="ms-2" (click)="closeModal()">Close</button>
         </div>
     </div>

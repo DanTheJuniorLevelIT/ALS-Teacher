@@ -1,4 +1,31 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/main/Home/main/home']">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/main/Subject/main/subject']">Subjects</a>
+      </li>
+      <li class="breadcrumb-item" >
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain', subjectID, 'modules']">
+          Modules
+        </a>
+      </li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain', subjectID, 'modules', moduleID, 'mat']">
+          Lessons
+        </a>
+      </li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain', subjectID, 'modules', moduleID, 'discuss']">
+          Discussion
+        </a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Forum</li>
+    </ol>
+</nav>
 <div class="modules">
+  <h1 style="text-align: center;">{{moduleTitle}}</h1>
   <div class="discussion-container">
     <h2>{{lessonTitle}}</h2>
       <div class="question-section">
@@ -6,19 +33,21 @@
               <div class="question-date">{{date}}</div>
               <div class="question-text">{{ discTopic }}</div>
           </div>
-          <div class="answer-list">
+        <div class="loader-container" *ngIf="isLoading">
+            <div class="spinner"></div>
+        </div>
+          <div class="answer-list" *ngIf="!isLoading">
               <div *ngFor="let discussion of discussions" 
                    [ngClass]="{'student-answer': discussion.role === 'student', 'teacher-answer': discussion.role === 'teacher'}" 
                    class="answer">
                   <div class="answer-user">{{ discussion.user }}</div>
                   <div class="answer-date">{{ discussion.date | date:'medium' }}</div>
                   <div class="answer-text"><p [innerHTML]="transformText(discussion.answer)"></p></div>
-                  <!-- <div class="answer-text">{{ discussion.answer }}</div> -->
               </div>
           </div>
       </div>
       
-      <div class="answer-form">
+      <div class="answer-form" *ngIf="!isLoading">
           <form [formGroup]="discussionForm" (ngSubmit)="submitAnswer()">
               <textarea formControlName="answer" placeholder="Insert text here..."></textarea>
               <button type="submit">Reply</button>

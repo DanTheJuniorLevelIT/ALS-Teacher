@@ -1,22 +1,37 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/main/Home/main/home']">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/main/Subject/main/subject']">Subjects</a>
+      </li>
+      <li class="breadcrumb-item" >
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain', ClassID, 'modules']">
+          Modules
+        </a>
+      </li>
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain', ClassID, 'modules', moduleID, 'mat']">
+          Lessons
+        </a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Assessment</li>
+    </ol>
+</nav>
 <div class="header">
     <h1 style="text-align: center;">{{lessonTitle}}</h1>
     <div class="button-group">
-        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'mat']"  routerLinkActive="active">
+        <a [routerLink]="['/main/Subject/main/subject/modulesmain/', ClassID, 'modules', moduleID, 'mat']"  routerLinkActive="active">
             <button class="nav-btn">Learning Material</button>
         </a>
-        <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'mat']"  routerLinkActive="active">
-            <button class="nav-btn">Assessment</button>
-        </a> -->
-        <!-- <a [routerLink]="['/main/Subject/main/subject/modulesmain/', subjectID, 'modules', moduleID, 'discuss']"  routerLinkActive="active">
-            <button class="nav-btn">Discussion</button>
-        </a> -->
     </div>
 </div>
 <div class="modules">
     <div class="module">
         <div class="p-6 bg-background text-foreground">
             <div class="header-container">
-                <h2 class="text-xl font-bold mb-4">{{ det.title }}</h2>
+                <h2 class="text-xl font-bold mb-4">{{ det.title }} | {{totalPoints}} points</h2>
                 <div class="student-info" (click)="navigateToProgress(det.title)">
                     <a>
                         <span class="eye-icon"><i class="fa fa-check-square-o"></i></span>
@@ -33,10 +48,9 @@
                 <h6>Identification</h6>
                 <ol class="list-decimal list-inside space-y-4">
                     <li *ngFor="let question of identify">
-                        <!-- <strong style="cursor: pointer;" (click)="editQuestion(question.question_id)">{{ question.question }}</strong> -->
                         <strong class="hoverable-question" style="cursor: pointer;" (click)="editQuestion(question.question_id)">
                             <span style="color: red;">{{ question.key_answer }}: </span> <!-- Add key answer before question -->
-                            {{ question.question }}
+                            {{ question.question }} <span *ngIf = 'question.points != 1'>({{question.points}} points)</span> 
                         </strong>
                     </li>
                 </ol>
@@ -47,10 +61,9 @@
                 <h6>True-False</h6>
                 <ol class="list-decimal list-inside space-y-4">
                     <li *ngFor="let question of tf">
-                        <!-- <strong style="cursor: pointer;" (click)="editQuestion(question.question_id)">{{ question.question }}</strong> -->
                         <strong class="hoverable-question" style="cursor: pointer;" (click)="editQuestion(question.question_id)">
                             <span style="color: red;">{{ question.key_answer }}: </span> <!-- Add key answer before question -->
-                            {{ question.question }}
+                            {{ question.question }} <span *ngIf = 'question.points != 1'>({{question.points}} points)</span> 
                         </strong>
                     </li>
                 </ol>
@@ -61,10 +74,9 @@
                 <h6>Multiple Choice</h6>
                 <ol class="list-decimal list-inside space-y-4">
                     <li *ngFor="let question of mc">
-                        <!-- <strong style="cursor: pointer;" (click)="editQuestion(question.question_id)">{{ question.question }}</strong> -->
                         <strong class="hoverable-question" style="cursor: pointer;" (click)="editQuestion(question.question_id)">
                             <span style="color: red;">{{ question.key_answer }}: </span> <!-- Add key answer before question -->
-                            {{ question.question }}
+                            {{ question.question }} <span *ngIf = 'question.points != 1'>({{question.points}} points)</span> 
                         </strong>
                     </li>
                 </ol>
@@ -75,7 +87,7 @@
                 <h6>Essay</h6>
                 <ol class="list-decimal list-inside space-y-4">
                     <li *ngFor="let question of essay">
-                        <strong class="hoverable-question" style="cursor: pointer;" (click)="editQuestion(question.question_id)">{{ question.question }}</strong>
+                        <strong class="hoverable-question" style="cursor: pointer;" (click)="editQuestion(question.question_id)">{{ question.question }} <span *ngIf = 'question.points != 1'>({{question.points}} points)</span> </strong>
                     </li>
                 </ol>
             </div>
@@ -173,61 +185,10 @@
         </div>
 
         <div class="button-group">
-            <button class="submit-btn me-2" (click)="addQuestion()">{{ isEditing ? 'Update' : 'Add' }}</button>
+            <button class="submit-btn me-2" (click)="addQuestion()" [disabled]="isSubmitting">{{ isEditing ? 'Update' : 'Add' }}</button>
             <div *ngIf="isEditing">
                 <button class="submit-btn me-2" (click)="deleteQuestion()">Delete</button>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                     <!-- <div>
-                        Check if the question is multiple choice, if so display the options
-                         <div *ngIf="question.type === 'multiple-choice'" class="input-wrapper">
-                            <div *ngFor="let option of question.options; let i = index">
-                                <label>
-                                    <input type="radio" name="q{{question.question_id}}" [value]="i + 1">
-                                    {{ getLetter(i) }}. {{ option }}
-                                </label>
-                            </div>
-                        </div>
-
-                        True/False question type
-                        <div *ngIf="question.type === 'true-false'" class="input-wrapper">
-                            <label><input type="radio" name="q{{question.question_id}}" value="true"> True</label>
-                            <label><input type="radio" name="q{{question.question_id}}" value="false"> False</label>
-                        </div>
-
-                        Identification and other types
-                        <div *ngIf="question.type !== 'multiple-choice' && question.type !== 'true-false'" class="input-wrapper">
-                            <input type="text" placeholder="Your answer here" name="q{{question.question_id}}">
-                        </div>
-                    </div> -->

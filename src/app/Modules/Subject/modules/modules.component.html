@@ -1,6 +1,19 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a [routerLink]="['/main/Subject/main']">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a [routerLink]="['/main/Subject/main/subject']">
+                Subjects
+            </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Modules</li>
+    </ol>
+</nav>
         <div class="header">
             <h1>My Modules</h1>
-            <div class="notification-icon" (click)="openModal()">
+            <div class="notification-icon" (click)="openModal()" *ngIf="!isLoading">
                 <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
             </div>
         </div>
@@ -9,15 +22,13 @@
         </div>
         <div *ngIf="!isLoading" class="modules">
             <div class="module" *ngFor="let mod of modules">
-                <!-- Module Title and Date -->
+            <!-- Module Title and Date -->
+            <a style="font-weight: bold; text-decoration: none; color: #333; font-size: 1rem;" (click)="setModuleID(mod.modules_id, mod.title, mod.description)" [routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']">
                 <div class="module-header">
-                    <a *ngIf="isModuleOpen(mod.date)" (click)="setModuleID(mod.modules_id, mod.title, mod.description)"
-                       [routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']">
+                    <div *ngIf="isModuleOpen(mod.date)">
                         {{ mod.title }}
-                    </a>
-                    <span *ngIf="!isModuleOpen(mod.date)" (click)="setModuleID(mod.modules_id, mod.title, mod.description)"
-                          [routerLink]="['/main/Subject/main/subject/modulesmain', storedSubjectID, 'modules', mod.modules_id, 'mat']"
-                          class="closed-module" style="color: gray; cursor: pointer;">
+                    </div>
+                    <span *ngIf="!isModuleOpen(mod.date)" class="closed-module" style="color: gray; cursor: pointer;">
                         {{ mod.title }} (Closed)
                     </span>
                     <span class="module-date">{{ mod.date | date }}</span>
@@ -27,6 +38,7 @@
                 <div class="module-description">
                     <p>{{ mod.description }}</p>
                 </div>
+            </a>
             </div>
         </div>
         
@@ -48,7 +60,7 @@
                     <input formControlName="date" autocomplete="date" name="date" id="date" class="input2" type="date">
                 </div>
             <div class="button-group">
-                <button class="submit-btn">ADD</button>
+                <button class="submit-btn" [disabled]="isSubmitting">ADD</button>
             </div>
         </form>
     </div>

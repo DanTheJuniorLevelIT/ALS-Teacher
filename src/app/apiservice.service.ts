@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class ApiserviceService {
 
   private url = "http://localhost:8000/";
+  // private url = "http://10.0.118.175:8000/";
   token = localStorage.getItem('authToken')
 
   constructor(private http: HttpClient) {}
@@ -17,8 +18,11 @@ export class ApiserviceService {
     return this.url;
   }
 
+  sendResetCode(data: any) {
+    return this.http.post(this.url + 'api/sendResetCode', data);
+  }
+
   // Dan Work Services
-  // Example: loginAdmin does not need an authorization token
   verifyAdmin(login: any){
     return this.http.post(this.url + 'api/loginAdmin', login);
   }
@@ -30,7 +34,6 @@ export class ApiserviceService {
   }
 
   // Home and Subjects Services
-  // Example for getSubjects with authorization
   getSubjects(){
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.get(this.url + 'api/subjects', { headers });
@@ -49,6 +52,16 @@ export class ApiserviceService {
   getAllSubjects(){
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.get(this.url + 'api/subjects/showAll', { headers });
+  }
+
+  getStudentsByClass(cid: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/subjects/getStudentsByClass/${cid}`, { headers });
+  }
+
+  getAssessmentsByClass(cid: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/subjects/getAssessmentsByClass/${cid}`, { headers });
   }
 
   getSubModules(id: any){
@@ -100,11 +113,6 @@ export class ApiserviceService {
     return this.http.post(`${this.url}api/subjects/discussion/reply`, data, { headers });
   }
 
-  updateDueDate(assessmentID: number, newDueDate: string) {
-    const headers = {'Authorization': 'Bearer ' + this.token};
-    return this.http.put(this.url + `api/assessment/update-due-date/${assessmentID}`, { due_date: newDueDate }, { headers });
-  }
-
   countDiscussion(lessId: any){
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.get(`${this.url}api/subjects/discussion/${lessId}`, { headers });
@@ -133,6 +141,11 @@ export class ApiserviceService {
     return this.http.get(`${this.url}api/subjects/showAssessment/${id}`, { headers });
   }
 
+  updateAvailability(assessmentID: number, available: number) {
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.put(this.url + `api/assessment/updateAvailability/${assessmentID}`, { available }, { headers });
+  }
+
   createQuestion(data: any){
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.post(this.url + 'api/subjects/createQuestion', data, { headers });
@@ -153,21 +166,15 @@ export class ApiserviceService {
     return this.http.delete(`${this.url}api/subjects/deleteQuestion/${id}`, { headers });
   }
 
-  getCompletionStats(id: any){
+  getCompletionStats(id: any, cid: any){
     const headers = {'Authorization': 'Bearer ' + this.token};
-    return this.http.get(`${this.url}api/subjects/getCompleted/${id}`, { headers });
+    return this.http.get(`${this.url}api/subjects/getCompleted/${id}/${cid}`, { headers });
   }
 
   getStudents(id: any, assid: any){
     const headers = { 'Authorization': 'Bearer ' + this.token };
     return this.http.get(`${this.url}api/subjects/students/${id}/${assid}`, { headers });
   }
-
-  //1st approach
-  // autoCheck(id: any, assid: any) {
-  //   const headers = { 'Authorization': 'Bearer ' + this.token };
-  //   return this.http.get(`${this.url}api/subjects/autocheck/${id}/${assid}`, { headers });
-  // }
 
   autoCheck(id: any, assid: any) {
     const headers = { 'Authorization': 'Bearer ' + this.token };
@@ -189,8 +196,22 @@ export class ApiserviceService {
     return this.http.get(`${this.url}api/subjects/checking/${id}/${lrnid}`, { headers });
   }
 
-  // END
+  getTotalPoints(aid: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/subjects/assessTotalPoints/${aid}`, { headers });
+  }
 
+  getSingleAssessment(id: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+    return this.http.get(`${this.url}api/subjects/assessments/${id}`, { headers });
+  }
+
+  updateAssessment(id: any, data: any){
+    const headers = {'Authorization': 'Bearer ' + this.token};
+      return this.http.post(`${this.url}api/subjects/assessments/${id}`, data, { headers });
+  }
+
+  // END
 
   // User
   createUser(data: any){
@@ -201,6 +222,7 @@ export class ApiserviceService {
   // END
 
   //Elzaina Work Services
+
   createMods(data: any) {
     const headers = {'Authorization': 'Bearer ' + this.token};
     return this.http.post(this.url + 'api/modules/create', data, { headers });
@@ -258,23 +280,53 @@ export class ApiserviceService {
     return this.http.delete(`${this.url}api/modules/deleteMediaFile/${mediaid}`, { headers });
   }
 
-
-
-
-
-
-
-
-
-
   //Mark Lemuel Work Services
 
+  //Messages
+  getMessages(id: any){
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.get(`${this.url}api/messages/${id}`, { headers });
+  }
 
+  student(id: any){
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.get(`${this.url}api/students/${id}`, { headers });
+  }
 
+  sendReply(data: any){
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.post(`${this.url}api/messages/reply`, data, { headers });
+  }
 
+  sendMessage(data: any){
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.post(`${this.url}api/messages/compose`, data, { headers });
+  }
 
-
-
+  //END
   
+  //Account
+
+  uploadProfilePicture(formData:any, id:any) {
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.post(`${this.url}api/uploadProfilePicture/${id}`, formData, { headers });
+  }
+
+  private profilePicSource = new BehaviorSubject<string>('assets/icon.jpg'); //Default Picture
+  currentProfilePic = this.profilePicSource.asObservable();
+
+  updateProfilePic(newPicUrl: string): void {
+    this.profilePicSource.next(newPicUrl);
+  }
+
+  updateAdminPassword(pdata: any, lrn: any) {
+    const headers = { 'Authorization': 'Bearer ' + this.token };
+    return this.http.post(`${this.url}api/updateAdminPassword/${lrn}`, pdata, { headers });
+  }
+
+  // Reset profile picture to default icon when logging out
+  resetProfilePic() {
+    this.profilePicSource.next('assets/icon.jpg');
+  }
 }
 
